@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+
+@theme {
+
+    /* Colores de F1SinGuion */
+
+    --color-brand-red: #E10600;
+    --color-brand-white: #F2F2F2;
+    --color-brand-silver: #BFC3C6;
+    --color-brand-black: #0B0B0B;
+    --color-brand-dark-red: #8B0000;
+    --color-brand-glow: #FF4C00;
+    --color-brand-yellow: #FFC400;
+
+    /* Colores de los equipos de F1 */
+
+    --color-ferrari: #B7001A;
+    --color-mclaren: #CC6600;
+    --color-redbull: #133363;
+    --color-mercedes: #20B3A6;
+    --color-astonmartin: #1A7A5E;
+    --color-alpine: #ff53d7;
+    --color-williams: #4DA6FF;
+    --color-rb: #4D79CC;
+    --color-haas: #8C8F91;
+    --color-audi: #6f0000;
+    --color-cadillac: #A68E2E;
+}
+
+
+:root {
+    /* colores de F1SinGuion */
+    --color-brand-red: #E10600;
+    --color-brand-white: #F2F2F2;
+    --color-brand-silver: #BFC3C6;
+    --color-brand-black: #0B0B0B;
+    --color-brand-dark-red: #8B0000;
+    --color-brand-glow: #FF4C00;
+    --color-brand-yellow: #FFC400;
+
+    /* Colores de los equipos de F1 */
+    --color-ferrari: #B7001A;
+    --color-mclaren: #CC6600;
+    --color-redbull: #133363;
+    --color-mercedes: #20B3A6;
+    --color-astonmartin: #1A7A5E;
+    --color-alpine: #ff53d7;
+    --color-williams: #4DA6FF;
+    --color-rb: #4D79CC;
+    --color-haas: #8C8F91;
+    --color-audi: #6f0000;
+    --color-cadillac: #A68E2E;
+}

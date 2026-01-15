@@ -1,0 +1,133 @@
+---
+import "../styles/global.css";
+---
+
+<div
+  class="min-h-screen w-full bg-brand-black text-brand-white flex flex-col relative overflow-hidden font-sans"
+>
+  <!-- Efecto de fondo (Glow) -->
+  <div
+    class="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-brand-dark-red blur-[150px] opacity-30 pointer-events-none rounded-full"
+  >
+  </div>
+
+  <!-- Header Transparente -->
+  <header
+    class="w-full p-8 flex items-center absolute top-0 left-0 z-20 bg-transparent"
+  >
+    <div class="flex items-center gap-2">
+      <img src="/logo.png" alt="F1 Live Logo" class="h-12 w-auto" />
+    </div>
+  </header>
+
+  <!-- Contenido Central -->
+  <main class="flex-1 flex flex-col items-center justify-center z-10 relative">
+    <div class="text-center mb-16 animate-in fade-in zoom-in duration-700">
+      <div
+        class="text-8xl mb-6 drop-shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:scale-110 transition-transform duration-500 cursor-default"
+      >
+        
+      </div>
+
+      <h1
+        class="text-5xl md:text-7xl font-black uppercase italic tracking-wide leading-tight"
+      >
+        Gran Premio <br />
+        <span
+          class="text-transparent bg-clip-text bg-gradient-to-r from-brand-white via-brand-silver to-brand-white"
+        >
+          de Australia
+        </span>
+      </h1>
+    </div>
+
+    <!-- Botón con lógica de script -->
+    <button
+      id="start-btn"
+      class="group relative px-10 py-4 bg-brand-red text-brand-white font-bold text-xl uppercase tracking-widest
+                   border-none overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_var(--color-brand-glow)] cursor-pointer rounded-full"
+    >
+      <span class="relative z-10 group-hover:text-white transition-colors"
+        >Iniciar Fin de Semana</span
+      >
+      <div
+        class="absolute inset-0 bg-brand-glow opacity-0 group-hover:opacity-100 transition-opacity duration-300 mix-blend-overlay"
+      >
+      </div>
+    </button>
+
+    <!-- Semáforo F1 -->
+    <div class="mt-16 flex flex-col items-center gap-4">
+      <div class="bg-brand-black p-4 rounded-2xl flex gap-3 border border-gray-800 shadow-2xl relative">
+        <!-- 5 Luces -->
+        <div class="f1-light w-10 h-10 md:w-12 md:h-12 rounded-full bg-gray-900 border border-gray-700 transition-all duration-150"></div>
+        <div class="f1-light w-10 h-10 md:w-12 md:h-12 rounded-full bg-gray-900 border border-gray-700 transition-all duration-150"></div>
+        <div class="f1-light w-10 h-10 md:w-12 md:h-12 rounded-full bg-gray-900 border border-gray-700 transition-all duration-150"></div>
+        <div class="f1-light w-10 h-10 md:w-12 md:h-12 rounded-full bg-gray-900 border border-gray-700 transition-all duration-150"></div>
+        <div class="f1-light w-10 h-10 md:w-12 md:h-12 rounded-full bg-gray-900 border border-gray-700 transition-all duration-150"></div>
+      </div>
+
+      <button 
+        id="toggle-lights"
+        class="text-xs text-gray-500 hover:text-brand-red transition-colors uppercase tracking-widest font-bold cursor-pointer"
+      >
+        A lo que vinimooos!
+      </button>
+    </div>
+  </main>
+
+  </div>
+</div>
+
+<script>
+  // Lógica del cliente (se ejecuta en el navegador)
+  const btn = document.getElementById("start-btn");
+  const lights = document.querySelectorAll(".f1-light");
+
+  // 1. Verificar si ya se inició previamente
+  if (localStorage.getItem("weekendStarted") === "true") {
+    window.location.href = "/live";
+  }
+
+  // 2. Manejar el click
+  btn?.addEventListener("click", async () => {
+    // Evitar doble click
+    if (btn.hasAttribute("disabled")) return;
+    btn.setAttribute("disabled", "true");
+
+    // Asegurar que las luces empiecen apagadas (por si se usó el test)
+    lights.forEach(light => {
+      light.classList.add("bg-gray-900");
+      light.classList.remove("bg-brand-red", "shadow-[0_0_30px_var(--color-brand-red)]");
+    });
+
+    // Secuencia de encendido
+    for (let i = 0; i < 5; i++) {
+      // La primera es inmediata (i=0), las siguientes esperan 1s
+      if (i > 0) await new Promise(r => setTimeout(r, 1000));
+      
+      lights[i].classList.remove("bg-gray-900");
+      lights[i].classList.add("bg-brand-red", "shadow-[0_0_30px_var(--color-brand-red)]");
+    }
+
+    // Esperar 3 segundos con todas las luces encendidas
+    await new Promise(r => setTimeout(r, 3000));
+
+    localStorage.setItem("weekendStarted", "true");
+    window.location.href = "/live";
+  });
+
+  // 3. Lógica del semáforo
+  const toggleLightsBtn = document.getElementById("toggle-lights");
+  let lightsOn = false;
+
+  toggleLightsBtn?.addEventListener("click", () => {
+    lightsOn = !lightsOn;
+    lights.forEach(light => {
+      // Alternar entre apagado (gray-900) y encendido (brand-red + glow)
+      light.classList.toggle("bg-gray-900", !lightsOn);
+      light.classList.toggle("bg-brand-red", lightsOn);
+      light.classList.toggle("shadow-[0_0_30px_var(--color-brand-red)]", lightsOn);
+    });
+  });
+</script>
