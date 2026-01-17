@@ -1,6 +1,89 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import fs from 'node:fs/promises';
+import path from 'node:path';
+
+// Carga de datos
+const filePath = path.join(process.cwd(), 'public', 'calendario_f1_2026.json');
+let circuitos = [];
+
+try {
+  const fileContent = await fs.readFile(filePath, 'utf-8');
+  circuitos = JSON.parse(fileContent);
+} catch (error) {
+  console.error("Error al cargar el calendario:", error);
+}
+
+let rondaCounter = 0;
 ---
 
-<Layout title="F1 Live - Circuitos">
-</Layout>  
+<Layout title="Circuitos F1 2026">
+  <main class="container mx-auto px-4 py-12">
+    <header class="mb-12 text-center">
+      <h1 class="text-4xl md:text-6xl font-black text-white uppercase tracking-tighter mb-2 italic">
+        Calendario <span class="text-red-600">2026</span>
+      </h1>
+    </header>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {circuitos.map((circuito) => {
+        const esTest = circuito.nombre.includes('Testing');
+        if (!esTest) rondaCounter++;
+        
+        // Fecha formateada corta (ej: 28 FEB)
+        const fechaObj = new Date(circuito.fecha);
+        const dia = fechaObj.getDate();
+        const mes = fechaObj.toLocaleDateString('es-ES', { month: 'short' }).toUpperCase().replace('.', '');
+
+        return (
+          <article class="group relative bg-neutral-900/40 rounded-xl border border-neutral-800 hover:border-red-600/50 transition-all duration-500 overflow-hidden hover:bg-neutral-900/80">
+            
+            {/* Fondo con gradiente sutil */}
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-neutral-950/80 pointer-events-none"></div>
+            
+            <div class="p-6 flex flex-col h-full relative z-10">
+              {/* Cabecera Minimalista */}
+              <div class="flex justify-between items-start mb-4">
+                <div class="flex flex-col">
+                  <span class={`text-[10px] font-bold uppercase tracking-widest mb-1 ${esTest ? 'text-neutral-500' : 'text-red-500'}`}>
+                    {esTest ? 'Pretemporada' : `Ronda ${rondaCounter}`}
+                  </span>
+                  <h2 class="text-xl font-bold text-white leading-tight group-hover:text-red-500 transition-colors">
+                    {circuito.nombre.replace(' Grand Prix', '')}
+                  </h2>
+                  <div class="flex items-center gap-2 mt-2 opacity-60 group-hover:opacity-100 transition-opacity">
+                     <img src={circuito.bandera} alt={circuito.pais} class="w-4 h-auto rounded-[2px]" />
+                     <span class="text-xs text-neutral-300 font-medium uppercase tracking-wide">{circuito.pais}</span>
+                  </div>
+                </div>
+                
+                {/* Fecha Estilizada */}
+                <div class="text-right flex flex-col items-end">
+                    <span class="text-2xl font-black text-neutral-700 group-hover:text-white transition-colors duration-300 leading-none">
+                        {dia}
+                    </span>
+                    <span class="text-[10px] font-bold text-neutral-600 uppercase tracking-wider group-hover:text-red-500 transition-colors">
+                        {mes}
+                    </span>
+                </div>
+              </div>
+
+              {/* Trazado del Circuito (Centro de atención) */}
+              <div class="mt-auto flex justify-center items-center py-6 relative">
+                <Image 
+                  src={`${circuito.imagen_circuito}`} 
+                  width={600}
+                  height={400}
+                  alt={`Trazado ${circuito.nombre}`} 
+                  class="w-full h-32 object-contain opacity-40 grayscale group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500 ease-out filter drop-shadow-[0_0_15px_rgba(255,255,255,0.05)]"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  </main>
+</Layout>
