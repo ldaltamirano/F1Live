@@ -1,0 +1,71 @@
+---
+const navItems = [
+  { name: "Inicio", href: "/" },
+  { name: "Live", href: "/@live" },
+  { name: "Circuitos", href: "/@circuitos" },
+  { name: "Pilotos", href: "/@pilotos" },
+  { name: "Resultados", href: "/@resultados" },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<nav class="w-full bg-brand-black border-b border-gray-800 sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20">
+      <!-- Logo -->
+      <div class="flex-shrink-0 flex items-center gap-2">
+        <a href="/" class="flex items-center gap-2 group">
+            <img src="/logo.png" alt="F1 Live" class="h-8 w-auto opacity-90 group-hover:opacity-100 transition-opacity" />
+      </div>
+
+      <!-- Desktop Menu -->
+      <div class="hidden md:block">
+        <div class="ml-10 flex items-baseline space-x-8">
+          {navItems.map((item) => (
+            <a
+              href={item.href}
+              class:list={[
+                "px-3 py-2 rounded-md text-sm font-bold uppercase tracking-widest transition-all duration-300 hover:text-brand-red",
+                currentPath === item.href 
+                  ? "text-brand-red border-b-2 border-brand-red" 
+                  : "text-brand-silver"
+              ]}
+            >
+              {item.name}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <div class="-mr-2 flex md:hidden">
+        <button type="button" id="mobile-menu-btn" class="inline-flex items-center justify-center p-2 rounded-md text-brand-silver hover:text-white hover:bg-gray-800 focus:outline-none">
+          <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Menu (Hidden by default) -->
+  <div class="hidden md:hidden bg-brand-black border-t border-gray-800" id="mobile-menu">
+    <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+      {navItems.map((item) => (
+        <a href={item.href} class="text-brand-silver hover:text-brand-red hover:bg-gray-900 block px-3 py-2 rounded-md text-base font-bold uppercase tracking-widest">
+          {item.name}
+        </a>
+      ))}
+    </div>
+  </div>
+</nav>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+
+  btn?.addEventListener('click', () => {
+    menu?.classList.toggle('hidden');
+  });
+</script>

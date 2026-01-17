@@ -1,0 +1,124 @@
+<div class="circuit-box">
+  <div id="status-tag" class="status">LIVE TRACK</div>
+  <canvas id="trackCanvas"></canvas>
+  <img id="fallback-img" src="" style="display: none; max-width: 100%;" />
+</div>
+
+<script>
+  interface F1Location {
+    x: number;
+    y: number;
+  }
+
+  interface Meeting {
+    circuit_key: number;
+    circuit_image: string;
+    circuit_short_name: string;
+    circuit_type: string;
+    country_code: string;
+    country_flag: string;
+    country_key: number;
+    country_name: string;
+    date_end: string;
+    date_start: string;
+    gmt_offset: string;
+    location: string;
+    meeting_key: number;
+    meeting_name: string;
+    meeting_official_name: string;
+    year: number;
+  }
+
+  async function loadCircuit() {
+    const canvas = document.getElementById('trackCanvas') as HTMLCanvasElement;
+    const ctx = canvas?.getContext('2d');
+    const statusTag = document.getElementById('status-tag');
+    const fallbackImg = document.getElementById('fallback-img') as HTMLImageElement;
+
+    if (!canvas || !ctx || !statusTag || !fallbackImg) return;
+
+    canvas.width = 800;
+    canvas.height = 600;
+
+    try {
+      // 1. Obtener info del Meeting
+      const mRes = await fetch('https://api.openf1.org/v1/meetings?meeting_key=latest');
+      const meetings: Meeting[] = await mRes.json();
+      const meeting = meetings[0];
+
+      // 2. Intentar obtener puntos de localización
+      const locRes = await fetch(`https://api.openf1.org/v1/location?session_key=latest&driver_number=1&limit=1000`);
+      const points: F1Location[] = await locRes.json();
+
+      if (points && points.length > 0) {
+        // --- CASO A: DIBUJAR CON PUNTOS ---
+        drawFromPoints(points, ctx);
+      } else {
+        // --- CASO B: USAR IMAGEN O NOMBRE DEL MEETING ---
+        canvas.style.display = 'none';
+        statusTag.innerText = "OFFLINE" + (meeting ? " - " + meeting.circuit_short_name : "");
+        statusTag.style.background = "#555";
+        
+        // Si la API llegara a traer una propiedad 'image_url' (en futuras versiones)
+        if (meeting && meeting.circuit_image) {
+          fallbackImg.src = meeting.circuit_image;
+          fallbackImg.style.display = 'block';
+        }
+      }
+    } catch (e) {
+      console.error("Error:", e);
+    }
+  }
+
+  function drawFromPoints(points: F1Location[], ctx: CanvasRenderingContext2D) {
+    const { width, height } = ctx.canvas;
+    const xs = points.map((p) => p.x);
+    const ys = points.map((p) => p.y);
+    const minX = Math.min(...xs);
+    const maxX = Math.max(...xs);
+    const minY = Math.min(...ys);
+    const maxY = Math.max(...ys);
+
+    const padding = 40;
+    const scale = Math.min((width-padding)/(maxX-minX), (height-padding)/(maxY-minY));
+
+    ctx.strokeStyle = "white";
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    points.forEach((p, i) => {
+      const x = (p.x - minX) * scale + padding/2;
+      const y = height - ((p.y - minY) * scale + padding/2);
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    });
+    ctx.closePath();
+    ctx.stroke();
+  }
+
+  loadCircuit();
+</script>
+
+<style>
+  .circuit-box {
+    position: relative;
+    width: 800px;
+    height: 600px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .status {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: #e10600;
+    color: white;
+    padding: 5px 15px;
+    font-family: sans-serif;
+    font-weight: bold;
+    border-radius: 5px;
+  }
+  canvas { width: 100%; height: auto; }
+</style>

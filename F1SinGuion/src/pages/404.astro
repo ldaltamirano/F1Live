@@ -1,0 +1,24 @@
+---
+import Button from "../components/Button.astro";
+import "../styles/global.css";
+
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>404 - Box Box!</title>
+  </head>
+  <body>
+<div class="min-h-screen w-full bg-brand-black text-brand-white font-sans flex flex-col items-center justify-center text-center p-4">
+  <h1 class="text-9xl font-black text-brand-red mb-2">404</h1>
+  <h2 class="text-3xl font-bold uppercase italic mb-6">Box, Box!</h2>
+  <p class="text-brand-silver text-xl mb-8 max-w-md">
+    Te has salido de la pista. Esta página no existe o está en los pits.
+  </p>
+
+<Button text="Volver a Inicio" href="/" />
+</div>
+  </body>
+</html>

@@ -1,0 +1,314 @@
+{
+  "campeonato": "FIA Formula 1 World Championship 2026",
+  "total_escuderias": 11,
+  "escuderias": [
+    {
+      "nombre": "McLaren Formula 1 Team",
+      "color": "mclaren",
+      "motor": "Mercedes",
+      "director": "Andrea Stella",
+      "pilotos": [
+        {
+          "nombre": "Lando Norris",
+          "nacionalidad": "Reino Unido",
+          "pais_imagen": "/images/flags/uk.png",
+          "imagen": "/images/drivers/norris.png",
+          "numero": 4,
+          "info_profesional": { "titulos": 1, "rol": "Campeón 2025", "debut": 2019 },
+          "info_personal": { "nacimiento": "1999-11-13", "hobbies": ["Golf", "Streaming", "Diseño"] },
+          "datos_random": { "dato": "Tiene su propio equipo de eSports llamado Quadrant.", "miedo": "Le tiene fobia a las pirañas." }
+        },
+        {
+          "nombre": "Oscar Piastri",
+          "nacionalidad": "Australia",
+          "pais_imagen": "/images/flags/australia.png",
+          "imagen": "/images/drivers/piastri.png",
+          "numero": 81,
+          "info_profesional": { "victorias": 4, "estilo": "Analítico y calmado" },
+          "info_personal": { "nacimiento": "2001-04-06", "residencia": "Reino Unido" },
+          "datos_random": { "curiosidad": "Ganó F3, F2 y fue rookie del año en F1 consecutivamente.", "comida": "Adora el Chicken Parma." }
+        }
+      ]
+    },
+    {
+      "nombre": "Oracle Red Bull Racing",
+      "color": "redbull",
+      "motor": "Red Bull Ford",
+      "director": "Laurent Mekies",
+      "pilotos": [
+        {
+          "nombre": "Max Verstappen",
+          "nacionalidad": "Países Bajos",
+          "pais_imagen": "/images/flags/netherlands.png",
+          "imagen": "/images/drivers/verstappen.png",
+          "numero": 1,
+          "info_profesional": { "titulos": 4, "contrato_hasta": 2028 },
+          "info_personal": { "nacimiento": "1997-09-30", "idiomas": ["Neerlandés", "Alemán", "Inglés"] },
+          "datos_random": { "dato": "Prefiere el simulador de carreras que salir de fiesta.", "mascota": "Tiene dos gatos llamados Jimmy y Sassy." }
+        },
+        {
+          "nombre": "Isack Hadjar",
+          "nacionalidad": "Francia",
+          "pais_imagen": "/images/flags/france.png",
+          "imagen": "/images/drivers/hadjar.png",
+          "numero": 25,
+          "info_profesional": { "debut": 2025, "academia": "Red Bull Junior Team" },
+          "info_personal": { "nacimiento": "2004-09-28", "hobbies": ["Ciclismo", "Videojuegos"] },
+          "datos_random": { "apodo": "El pequeño profesor.", "dato": "Helmut Marko lo comparó con un 'pequeño Prost'." }
+        }
+      ]
+    },
+    {
+      "nombre": "Scuderia Ferrari",
+      "color": "ferrari",
+      "motor": "Ferrari",
+      "director": "Frédéric Vasseur",
+      "pilotos": [
+        {
+          "nombre": "Lewis Hamilton",
+          "nacionalidad": "Reino Unido",
+          "pais_imagen": "/images/flags/uk.png",
+          "imagen": "/images/drivers/hamilton.png",
+          "numero": 44,
+          "info_profesional": { "titulos": 7, "equipo_anterior": "Mercedes" },
+          "info_personal": { "nacimiento": "1985-01-07", "dieta": "Plant-based" },
+          "datos_random": { "musica": "Toca la guitarra y el piano.", "moda": "Diseña colecciones para Tommy Hilfiger." }
+        },
+        {
+          "nombre": "Charles Leclerc",
+          "nacionalidad": "Mónaco",
+          "pais_imagen": "/images/flags/monaco.png",
+          "imagen": "/images/drivers/leclerc.png",
+          "numero": 16,
+          "info_profesional": { "poles": 30, "apodo": "Il Predestinato" },
+          "info_personal": { "nacimiento": "1997-10-16", "hobbies": ["Componer música"] },
+          "datos_random": { "negocio": "Lanzó su propia marca de helados (LEC).", "dato": "Habla italiano perfectamente." }
+        }
+      ]
+    },
+    {
+      "nombre": "Mercedes-AMG Petronas",
+      "color": "mercedes",
+      "motor": "Mercedes",
+      "director": "Toto Wolff",
+      "pilotos": [
+        {
+          "nombre": "George Russell",
+          "nacionalidad": "Reino Unido",
+          "pais_imagen": "/images/flags/uk.png",
+          "imagen": "/images/drivers/russell.png",
+          "numero": 63,
+          "info_profesional": { "rol": "Líder de equipo", "debut": 2019 },
+          "info_personal": { "nacimiento": "1998-02-15", "estatura": "1.85m" },
+          "datos_random": { "powerpoint": "Consiguió su asiento en Williams usando una presentación de diapositivas." }
+        },
+        {
+          "nombre": "Kimi Antonelli",
+          "nacionalidad": "Italia",
+          "pais_imagen": "/images/flags/italy.png",
+          "imagen": "/images/drivers/antonelli.png",
+          "numero": 12,
+          "info_profesional": { "debut": 2025, "procedencia": "F2" },
+          "info_personal": { "nacimiento": "2006-08-25" },
+          "datos_random": { "curiosidad": "Se saltó la Fórmula 3 directamente a la F2 por su talento." }
+        }
+      ]
+    },
+    {
+      "nombre": "Aston Martin Aramco",
+      "color": "astonmartin",
+      "motor": "Honda",
+      "director": "Adrian Newey",
+      "pilotos": [
+        {
+          "nombre": "Fernando Alonso",
+          "nacionalidad": "España",
+          "pais_imagen": "/images/flags/spain.png",
+          "imagen": "/images/drivers/alonso.png",
+          "numero": 14,
+          "info_profesional": { "titulos": 2, "rol": "Veterano de la parrilla" },
+          "info_personal": { "nacimiento": "1981-07-29" },
+          "datos_random": { "magia": "Es aficionado a hacer trucos de cartas.", "dato": "Tiene un museo propio en Asturias." }
+        },
+        {
+          "nombre": "Lance Stroll",
+          "nacionalidad": "Canadá",
+          "pais_imagen": "/images/flags/canada.png",
+          "imagen": "/images/drivers/stroll.png",
+          "numero": 18,
+          "info_profesional": { "podios": 3, "debut": 2017 },
+          "info_personal": { "nacimiento": "1998-10-29" },
+          "datos_random": { "hielo": "Es un gran jugador de hockey sobre hielo." }
+        }
+      ]
+    },
+    {
+      "nombre": "Cadillac Formula 1 Team",
+      "color": "cadillac",
+      "motor": "Ferrari (cliente) / Cadillac",
+      "director": "Graeme Lowdon",
+      "pilotos": [
+        {
+          "nombre": "Sergio Pérez",
+          "nacionalidad": "México",
+          "pais_imagen": "/images/flags/mexico.png",
+          "imagen": "/images/drivers/perez.png",
+          "numero": 11,
+          "info_profesional": { "apodo": "Ministro de Defensa", "victorias": 6 },
+          "info_personal": { "nacimiento": "1990-01-26" },
+          "datos_random": { "comida": "Le encantan los tacos al pastor.", "supersticion": "Lleva una imagen del Papa en su coche." }
+        },
+        {
+          "nombre": "Valtteri Bottas",
+          "nacionalidad": "Finlandia",
+          "pais_imagen": "/images/flags/finland.png",
+          "imagen": "/images/drivers/bottas.png",
+          "numero": 77,
+          "info_profesional": { "victorias": 10, "ex_equipos": ["Mercedes", "Sauber"] },
+          "info_personal": { "hobbies": ["Ciclismo", "Saunas"] },
+          "datos_random": { "dato": "Publicó un calendario benéfico con fotos de su trasero ('Bottass')." }
+        }
+      ]
+    },
+    {
+      "nombre": "Audi F1 Team",
+      "color": "audi",
+      "motor": "Audi",
+      "director": "Mattia Binotto",
+      "pilotos": [
+        {
+          "nombre": "Nico Hülkenberg",
+          "nacionalidad": "Alemania",
+          "pais_imagen": "/images/flags/germany.png",
+          "imagen": "/images/drivers/hulkenberg.png",
+          "numero": 27,
+          "info_profesional": { "le_mans": "Ganador 2015", "debut": 2010 },
+          "info_personal": { "nacimiento": "1987-08-19" },
+          "datos_random": { "apodo": "The Hulk.", "curiosidad": "Es el piloto con más carreras sin podio." }
+        },
+        {
+          "nombre": "Gabriel Bortoleto",
+          "nacionalidad": "Brasil",
+          "pais_imagen": "/images/flags/brazil.png",
+          "imagen": "/images/drivers/bortoleto.png",
+          "numero": 5,
+          "info_profesional": { "campeon_f2": 2024, "manager": "Fernando Alonso" },
+          "info_personal": { "nacimiento": "2004-10-14" },
+          "datos_random": { "dato": "Primer brasileño a tiempo completo desde 2017." }
+        }
+      ]
+    },
+    {
+      "nombre": "Williams Racing",
+      "color": "williams",
+      "motor": "Mercedes",
+      "director": "James Vowles",
+      "pilotos": [
+        {
+          "nombre": "Carlos Sainz",
+          "nacionalidad": "España",
+          "pais_imagen": "/images/flags/spain.png",
+          "imagen": "/images/drivers/sainz.png",
+          "numero": 55,
+          "info_profesional": { "victorias": 4, "ex_ferrari": true },
+          "info_personal": { "nacimiento": "1994-09-01" },
+          "datos_random": { "apodo": "Smooth Operator.", "curiosidad": "Es fanático del Real Madrid." }
+        },
+        {
+          "nombre": "Alex Albon",
+          "nacionalidad": "Tailandia",
+          "pais_imagen": "/images/flags/thailand.png",
+          "imagen": "/images/drivers/albon.png",
+          "numero": 23,
+          "info_profesional": { "podios": 2, "nacionalidad_licencia": "Tailandesa" },
+          "info_personal": { "nacimiento": "1996-03-23" },
+          "datos_random": { "animales": "Tiene un zoológico de mascotas en casa, incluyendo muchos gatos." }
+        }
+      ]
+    },
+    {
+      "nombre": "Alpine F1 Team",
+      "color": "alpine",
+      "motor": "Mercedes (Transición)",
+      "director": "Steve Nielsen",
+      "pilotos": [
+        {
+          "nombre": "Pierre Gasly",
+          "nacionalidad": "Francia",
+          "pais_imagen": "/images/flags/france.png",
+          "imagen": "/images/drivers/gasly.png",
+          "numero": 10,
+          "info_profesional": { "victorias": 1, "debut": 2017 },
+          "info_personal": { "nacimiento": "1996-02-07" },
+          "datos_random": { "fútbol": "Es co-propietario del club FC Versailles." }
+        },
+        {
+          "nombre": "Franco Colapinto",
+          "nacionalidad": "Argentina",
+          "pais_imagen": "/images/flags/argentina.png",
+          "imagen": "/images/drivers/colapinto.png",
+          "numero": 43,
+          "info_profesional": { "debut": 2024, "impacto": "Fenómeno viral" },
+          "info_personal": { "nacimiento": "2003-05-27" },
+          "datos_random": { "bebida": "Es un embajador cultural del Mate en el paddock." }
+        }
+      ]
+    },
+    {
+      "nombre": "Haas F1 Team",
+      "color": "haas",
+      "motor": "Ferrari",
+      "director": "Ayao Komatsu",
+      "pilotos": [
+        {
+          "nombre": "Esteban Ocon",
+          "nacionalidad": "Francia",
+          "pais_imagen": "/images/flags/france.png",
+          "imagen": "/images/drivers/ocon.png",
+          "numero": 31,
+          "info_profesional": { "victorias": 1, "ex_alpine": true },
+          "info_personal": { "nacimiento": "1996-09-17" },
+          "datos_random": { "dato": "Sus padres vendieron su casa para pagar sus inicios en el karting." }
+        },
+        {
+          "nombre": "Oliver Bearman",
+          "nacionalidad": "Reino Unido",
+          "pais_imagen": "/images/flags/uk.png",
+          "imagen": "/images/drivers/bearman.png",
+          "numero": 87,
+          "info_profesional": { "debut_ferrari": 2024, "academia": "Ferrari" },
+          "info_personal": { "nacimiento": "2005-05-08" },
+          "datos_random": { "apodo": "Ollie.", "dato": "Puntuó en su debut en F1 con Ferrari como reserva." }
+        }
+      ]
+    },
+    {
+      "nombre": "Visa Cash App Racing Bulls (RB)",
+      "color": "rb",
+      "motor": "Red Bull Ford",
+      "director": "Peter Bayer",
+      "pilotos": [
+        {
+          "nombre": "Liam Lawson",
+          "nacionalidad": "Nueva Zelanda",
+          "pais_imagen": "/images/flags/new-zealand.png",
+          "imagen": "/images/drivers/lawson.png",
+          "numero": 30,
+          "info_profesional": { "debut": 2023, "reemplazo_ricciardo": true },
+          "info_personal": { "nacimiento": "2002-02-11" },
+          "datos_random": { "sim": "Es extremadamente rápido en iRacing." }
+        },
+        {
+          "nombre": "Arvid Lindblad",
+          "nacionalidad": "Reino Unido",
+          "pais_imagen": "/images/flags/uk.png",
+          "imagen": "/images/drivers/lindblad.png",
+          "numero": 17,
+          "info_profesional": { "debut": 2026, "rookie": true },
+          "info_personal": { "nacimiento": "2007-08-08" },
+          "datos_random": { "dato": "Es el primer piloto nacido en 2007 en llegar a la F1." }
+        }
+      ]
+    }
+  ]
+}
