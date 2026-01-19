@@ -1,0 +1,74 @@
+---
+interface Props {
+  gp: any;
+  roundDisplay: string;
+}
+
+const { gp, roundDisplay } = Astro.props;
+
+// Lógica para calcular el rango de fechas (Inicio - Fin)
+const startDate = new Date(gp.fecha);
+let endDate = new Date(gp.fecha);
+
+if (gp.sesiones && gp.sesiones.length > 0) {
+    const raceSession = gp.sesiones.find((s: any) => s.tipo === 'Race');
+    if (raceSession) {
+        endDate = new Date(raceSession.inicio);
+    } else {
+        endDate = new Date(gp.sesiones[gp.sesiones.length - 1].inicio);
+    }
+}
+
+const startDay = startDate.getDate();
+const endDay = endDate.getDate();
+const startMonth = startDate.toLocaleString('default', { month: 'long' });
+const endMonth = endDate.toLocaleString('default', { month: 'long' });
+
+let dayDisplay = `${startDay}`;
+let monthDisplay = startMonth;
+
+if (endDate.getTime() > startDate.getTime()) {
+     if (startMonth === endMonth) {
+         if (startDay !== endDay) dayDisplay = `${startDay}-${endDay}`;
+     } else {
+         dayDisplay = `${startDay}-${endDay}`;
+         const startMonthShort = startDate.toLocaleString('default', { month: 'short' });
+         const endMonthShort = endDate.toLocaleString('default', { month: 'short' });
+         monthDisplay = `${startMonthShort}/${endMonthShort}`;
+     }
+}
+---
+
+<div class="relative w-full h-[40vh] min-h-[500px] overflow-hidden">
+  {/* Imagen de fondo con overlay */}
+  <div class="absolute inset-0">
+    <img src={gp.background} alt={`Fondo ${gp.nombre}`} class="w-full h-full object-cover opacity-40 mask-image-gradient" />
+    <div class="absolute inset-0 bg-gradient-to-b from-[#15151e]/30 via-[#15151e]/60 to-[#15151e]"></div>
+  </div>
+
+  <div class="absolute inset-0 flex flex-col justify-between p-4 sm:px-6 lg:px-8 max-w-7xl mx-auto z-10">
+    {/* Botón Volver */}
+    <div class="pt-6">
+      <slot name="back-button" />
+    </div>
+
+    {/* Título y Datos Principales */}
+    <div class="pb-24 flex flex-col lg:flex-row justify-between items-end gap-8">
+      <div>
+        <div class="flex items-center gap-3 mb-2">
+          <img transition:name={`flag-${gp.id}`} src={gp.bandera} alt={`Bandera ${gp.pais}`} class="w-10 h-auto rounded shadow-sm" />
+          <span class="text-[#e10600] font-black tracking-widest uppercase text-sm">{roundDisplay}</span>
+        </div>
+        <h1 transition:name={`title-${gp.id}`} class="text-4xl md:text-6xl font-black italic uppercase tracking-tighter text-white leading-none drop-shadow-lg">
+          {gp.nombre}
+        </h1>
+        <p class="text-2xl text-gray-300 mt-2 font-light tracking-wide">{gp.pais}</p>
+      </div>
+      <div class="flex flex-col items-end text-right">
+          <div class="text-5xl font-black text-white whitespace-nowrap drop-shadow-md">{dayDisplay}</div>
+          <div class="text-xl font-bold text-[#e10600] uppercase tracking-widest drop-shadow-md">{monthDisplay}</div>
+          <div class="text-gray-400 font-mono mt-1">{new Date(gp.fecha).getFullYear()}</div>
+      </div>
+    </div>
+  </div>
+</div>

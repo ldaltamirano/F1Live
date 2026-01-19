@@ -1,0 +1,16 @@
+---
+interface Props {
+  gp: any;
+}
+const { gp } = Astro.props;
+---
+
+<div class="bg-[#1e1e24] rounded-3xl p-8 border border-white/5 relative overflow-hidden group hover:border-[#e10600]/30 transition-colors">
+  <div class="absolute inset-0 bg-gradient-to-br from-[#e10600]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+  <img 
+    transition:name={`map-${gp.id}`}
+    src={gp.imagen_circuito} 
+    alt={`Trazado de ${gp.nombre}`} 
+    class="w-full h-auto max-h-[450px] object-contain filter invert drop-shadow-[0_0_20px_rgba(255,255,255,0.05)] transform group-hover:scale-105 transition-transform duration-700"
+  />
+</div>

@@ -1,0 +1,556 @@
+{
+    "temporada": "2026",
+    "total_pilotos": 22,
+    "parrilla": [
+        {
+            "id": "max-verstappen-1",
+            "info_biografica": {
+                "nombre": "Max",
+                "apellido": "Verstappen",
+                "codigo": "VER",
+                "numero": 1,
+                "nacionalidad": "Neerlandesa"
+            },
+            "redes_sociales": {
+                "instagram": "https://www.instagram.com/maxverstappen1",
+                "twitter": "https://twitter.com/Max33Verstappen"
+            },
+            "estadisticas_historicas": {
+                "campeonatos": 4,
+                "victorias": 61,
+                "podios": 110,
+                "poles": 40
+            },
+            "rendimiento_2026": {
+                "posicion": 1,
+                "puntos": 25,
+                "victorias_temp": 1
+            }
+        },
+        {
+            "id": "isack-hadjar-6",
+            "info_biografica": {
+                "nombre": "Isack",
+                "apellido": "Hadjar",
+                "codigo": "HAD",
+                "numero": 6,
+                "nacionalidad": "Francesa"
+            },
+            "redes_sociales": {
+                "instagram": "https://www.instagram.com/isackhadjar",
+                "twitter": "https://twitter.com/isackhadjar"
+            },
+            "estadisticas_historicas": {
+                "campeonatos": 0,
+                "victorias": 0,
+                "podios": 0,
+                "poles": 0
+            },
+            "rendimiento_2026": {
+                "posicion": 12,
+                "puntos": 0,
+                "victorias_temp": 0
+            }
+        },
+        {
+            "id": "lewis-hamilton-44",
+            "info_biografica": {
+                "nombre": "Lewis",
+                "apellido": "Hamilton",
+                "codigo": "HAM",
+                "numero": 44,
+                "nacionalidad": "Británica"
+            },
+            "redes_sociales": {
+                "instagram": "https://www.instagram.com/lewishamilton",
+                "twitter": "https://twitter.com/LewisHamilton"
+            },
+            "estadisticas_historicas": {
+                "campeonatos": 7,
+                "victorias": 105,
+                "podios": 201,
+                "poles": 104
+            },
+            "rendimiento_2026": {
+                "posicion": 3,
+                "puntos": 15,
+                "victorias_temp": 0
+            }
+        },
+        {
+            "id": "charles-leclerc-16",
+            "info_biografica": {
+                "nombre": "Charles",
+                "apellido": "Leclerc",
+                "codigo": "LEC",
+                "numero": 16,
+                "nacionalidad": "Monegasca"
+            },
+            "redes_sociales": {
+                "instagram": "https://www.instagram.com/charles_leclerc",
+                "twitter": "https://twitter.com/Charles_Leclerc"
+            },
+            "estadisticas_historicas": {
+                "campeonatos": 0,
+                "victorias": 7,
+                "podios": 36,
+                "poles": 26
+            },
+            "rendimiento_2026": {
+                "posicion": 2,
+                "puntos": 18,
+                "victorias_temp": 0
+            }
+        },
+        {
+            "id": "lando-norris-4",
+            "info_biografica": {
+                "nombre": "Lando",
+                "apellido": "Norris",
+                "codigo": "NOR",
+                "numero": 4,
+                "nacionalidad": "Británica"
+            },
+            "redes_sociales": {
+                "instagram": "https://www.instagram.com/landonorris",
+                "twitter": "https://twitter.com/LandoNorris"
+            },
+            "estadisticas_historicas": {
+                "campeonatos": 0,
+                "victorias": 3,
+                "podios": 25,
+                "poles": 3
+            },
+            "rendimiento_2026": {
+                "posicion": 5,
+                "puntos": 10,
+                "victorias_temp": 0
+            }
+        },
+        {
+            "id": "oscar-piastri-81",
+            "info_biografica": {
+                "nombre": "Oscar",
+                "apellido": "Piastri",
+                "codigo": "PIA",
+                "numero": 81,
+                "nacionalidad": "Australiana"
+            },
+            "redes_sociales": {
+                "instagram": "https://www.instagram.com/oscarpiastri",
+                "twitter": "https://twitter.com/oscarpiastri"
+            },
+            "estadisticas_historicas": {
+                "campeonatos": 0,
+                "victorias": 2,
+                "podios": 9,
+                "poles": 0
+            },
+            "rendimiento_2026": {
+                "posicion": 4,
+                "puntos": 12,
+                "victorias_temp": 0
+            }
+        },
+        {
+            "id": "george-russell-63",
+            "info_biografica": {
+                "nombre": "George",
+                "apellido": "Russell",
+                "codigo": "RUS",
+                "numero": 63,
+                "nacionalidad": "Británica"
+            },
+            "redes_sociales": {
+                "instagram": "https://www.instagram.com/georgerussell63",
+                "twitter": "https://twitter.com/GeorgeRussell63"
+            },
+            "estadisticas_historicas": {
+                "campeonatos": 0,
+                "victorias": 2,
+                "podios": 14,
+                "poles": 3
+            },
+            "rendimiento_2026": {
+                "posicion": 7,
+                "puntos": 6,
+                "victorias_temp": 0
+            }
+        },
+        {
+            "id": "kimi-antonelli-12",
+            "info_biografica": {
+                "nombre": "Kimi",
+                "apellido": "Antonelli",
+                "codigo": "ANT",
+                "numero": 12,
+                "nacionalidad": "Italiana"
+            },
+            "redes_sociales": {
+                "instagram": "https://www.instagram.com/kimi.antonelli",
+                "twitter": "https://twitter.com/kimi_antonelli"
+            },
+            "estadisticas_historicas": {
+                "campeonatos": 0,
+                "victorias": 0,
+                "podios": 0,
+                "poles": 0
+            },
+            "rendimiento_2026": {
+                "posicion": 10,
+                "puntos": 1,
+                "victorias_temp": 0
+            }
+        },
+        {
+            "id": "fernando-alonso-14",
+            "info_biografica": {
+                "nombre": "Fernando",
+                "apellido": "Alonso",
+                "codigo": "ALO",
+                "numero": 14,
+                "nacionalidad": "Española"
+            },
+            "redes_sociales": {
+                "instagram": "https://www.instagram.com/fernandoalo_oficial",
+                "twitter": "https://twitter.com/alo_oficial"
+            },
+            "estadisticas_historicas": {
+                "campeonatos": 2,
+                "victorias": 32,
+                "podios": 106,
+                "poles": 22
+            },
+            "rendimiento_2026": {
+                "posicion": 6,
+                "puntos": 8,
+                "victorias_temp": 0
+            }
+        },
+        {
+            "id": "lance-stroll-18",
+            "info_biografica": {
+                "nombre": "Lance",
+                "apellido": "Stroll",
+                "codigo": "STR",
+                "numero": 18,
+                "nacionalidad": "Canadiense"
+            },
+            "redes_sociales": {
+                "instagram": "https://www.instagram.com/lance_stroll",
+                "twitter": "https://twitter.com/lance_stroll"
+            },
+            "estadisticas_historicas": {
+                "campeonatos": 0,
+                "victorias": 0,
+                "podios": 3,
+                "poles": 1
+            },
+            "rendimiento_2026": {
+                "posicion": 13,
+                "puntos": 0,
+                "victorias_temp": 0
+            }
+        },
+        {
+            "id": "pierre-gasly-10",
+            "info_biografica": {
+                "nombre": "Pierre",
+                "apellido": "Gasly",
+                "codigo": "GAS",
+                "numero": 10,
+                "nacionalidad": "Francesa"
+            },
+            "redes_sociales": {
+                "instagram": "https://www.instagram.com/pierregasly",
+                "twitter": "https://twitter.com/PierreGASLY"
+            },
+            "estadisticas_historicas": {
+                "campeonatos": 0,
+                "victorias": 1,
+                "podios": 4,
+                "poles": 0
+            },
+            "rendimiento_2026": {
+                "posicion": 9,
+                "puntos": 2,
+                "victorias_temp": 0
+            }
+        },
+        {
+            "id": "franco-colapinto-43",
+            "info_biografica": {
+                "nombre": "Franco",
+                "apellido": "Colapinto",
+                "codigo": "COL",
+                "numero": 43,
+                "nacionalidad": "Argentina"
+            },
+            "redes_sociales": {
+                "instagram": "https://www.instagram.com/francolapinto",
+                "twitter": "https://twitter.com/FranColapinto"
+            },
+            "estadisticas_historicas": {
+                "campeonatos": 0,
+                "victorias": 0,
+                "podios": 1,
+                "poles": 0
+            },
+            "rendimiento_2026": {
+                "posicion": 8,
+                "puntos": 4,
+                "victorias_temp": 0
+            }
+        },
+        {
+            "id": "alex-albon-23",
+            "info_biografica": {
+                "nombre": "Alexander",
+                "apellido": "Albon",
+                "codigo": "ALB",
+                "numero": 23,
+                "nacionalidad": "Tailandesa"
+            },
+            "redes_sociales": {
+                "instagram": "https://www.instagram.com/alex_albon",
+                "twitter": "https://twitter.com/alex_albon"
+            },
+            "estadisticas_historicas": {
+                "campeonatos": 0,
+                "victorias": 0,
+                "podios": 2,
+                "poles": 0
+            },
+            "rendimiento_2026": {
+                "posicion": 11,
+                "puntos": 0,
+                "victorias_temp": 0
+            }
+        },
+        {
+            "id": "carlos-sainz-55",
+            "info_biografica": {
+                "nombre": "Carlos",
+                "apellido": "Sainz",
+                "codigo": "SAI",
+                "numero": 55,
+                "nacionalidad": "Española"
+            },
+            "redes_sociales": {
+                "instagram": "https://www.instagram.com/carlossainz55",
+                "twitter": "https://twitter.com/Carlossainz55"
+            },
+            "estadisticas_historicas": {
+                "campeonatos": 0,
+                "victorias": 3,
+                "podios": 23,
+                "poles": 5
+            },
+            "rendimiento_2026": {
+                "posicion": 14,
+                "puntos": 0,
+                "victorias_temp": 0
+            }
+        },
+        {
+            "id": "liam-lawson-30",
+            "info_biografica": {
+                "nombre": "Liam",
+                "apellido": "Lawson",
+                "codigo": "LAW",
+                "numero": 30,
+                "nacionalidad": "Neozelandesa"
+            },
+            "redes_sociales": {
+                "instagram": "https://www.instagram.com/liamlawson30",
+                "twitter": "https://twitter.com/LiamLawson30"
+            },
+            "estadisticas_historicas": {
+                "campeonatos": 0,
+                "victorias": 0,
+                "podios": 0,
+                "poles": 0
+            },
+            "rendimiento_2026": {
+                "posicion": 15,
+                "puntos": 0,
+                "victorias_temp": 0
+            }
+        },
+        {
+            "id": "arvid-lindblad-41",
+            "info_biografica": {
+                "nombre": "Arvid",
+                "apellido": "Lindblad",
+                "codigo": "LIN",
+                "numero": 41,
+                "nacionalidad": "Británica"
+            },
+            "redes_sociales": {
+                "instagram": "https://www.instagram.com/arvid_lindblad",
+                "twitter": "https://twitter.com/arvidlindblad"
+            },
+            "estadisticas_historicas": {
+                "campeonatos": 0,
+                "victorias": 0,
+                "podios": 0,
+                "poles": 0
+            },
+            "rendimiento_2026": {
+                "posicion": 16,
+                "puntos": 0,
+                "victorias_temp": 0
+            }
+        },
+        {
+            "id": "esteban-ocon-31",
+            "info_biografica": {
+                "nombre": "Esteban",
+                "apellido": "Ocon",
+                "codigo": "OCO",
+                "numero": 31,
+                "nacionalidad": "Francesa"
+            },
+            "redes_sociales": {
+                "instagram": "https://www.instagram.com/estebanocon",
+                "twitter": "https://twitter.com/OconEsteban"
+            },
+            "estadisticas_historicas": {
+                "campeonatos": 0,
+                "victorias": 1,
+                "podios": 3,
+                "poles": 0
+            },
+            "rendimiento_2026": {
+                "posicion": 17,
+                "puntos": 0,
+                "victorias_temp": 0
+            }
+        },
+        {
+            "id": "oliver-bearman-87",
+            "info_biografica": {
+                "nombre": "Oliver",
+                "apellido": "Bearman",
+                "codigo": "BEA",
+                "numero": 87,
+                "nacionalidad": "Británica"
+            },
+            "redes_sociales": {
+                "instagram": "https://www.instagram.com/olliebearman",
+                "twitter": "https://twitter.com/OllieBearman"
+            },
+            "estadisticas_historicas": {
+                "campeonatos": 0,
+                "victorias": 0,
+                "podios": 0,
+                "poles": 0
+            },
+            "rendimiento_2026": {
+                "posicion": 18,
+                "puntos": 0,
+                "victorias_temp": 0
+            }
+        },
+        {
+            "id": "nico-hulkenberg-27",
+            "info_biografica": {
+                "nombre": "Nico",
+                "apellido": "Hulkenberg",
+                "codigo": "HUL",
+                "numero": 27,
+                "nacionalidad": "Alemana"
+            },
+            "redes_sociales": {
+                "instagram": "https://www.instagram.com/hulkhulkenberg",
+                "twitter": "https://twitter.com/HulkHulkenberg"
+            },
+            "estadisticas_historicas": {
+                "campeonatos": 0,
+                "victorias": 0,
+                "podios": 1,
+                "poles": 1
+            },
+            "rendimiento_2026": {
+                "posicion": 19,
+                "puntos": 0,
+                "victorias_temp": 0
+            }
+        },
+        {
+            "id": "gabriel-bortoleto-5",
+            "info_biografica": {
+                "nombre": "Gabriel",
+                "apellido": "Bortoleto",
+                "codigo": "BOR",
+                "numero": 5,
+                "nacionalidad": "Brasileña"
+            },
+            "redes_sociales": {
+                "instagram": "https://www.instagram.com/gabrielbortoleto_",
+                "twitter": "https://twitter.com/gabi_bortoleto"
+            },
+            "estadisticas_historicas": {
+                "campeonatos": 0,
+                "victorias": 0,
+                "podios": 0,
+                "poles": 0
+            },
+            "rendimiento_2026": {
+                "posicion": 20,
+                "puntos": 0,
+                "victorias_temp": 0
+            }
+        },
+        {
+            "id": "sergio-perez-11",
+            "info_biografica": {
+                "nombre": "Sergio",
+                "apellido": "Pérez",
+                "codigo": "PER",
+                "numero": 11,
+                "nacionalidad": "Mexicana"
+            },
+            "redes_sociales": {
+                "instagram": "https://www.instagram.com/schecoperez",
+                "twitter": "https://twitter.com/SChecoPerez"
+            },
+            "estadisticas_historicas": {
+                "campeonatos": 0,
+                "victorias": 6,
+                "podios": 39,
+                "poles": 3
+            },
+            "rendimiento_2026": {
+                "posicion": 21,
+                "puntos": 0,
+                "victorias_temp": 0
+            }
+        },
+        {
+            "id": "valtteri-bottas-77",
+            "info_biografica": {
+                "nombre": "Valtteri",
+                "apellido": "Bottas",
+                "codigo": "BOT",
+                "numero": 77,
+                "nacionalidad": "Finlandesa"
+            },
+            "redes_sociales": {
+                "instagram": "https://www.instagram.com/valtteribottas",
+                "twitter": "https://twitter.com/ValtteriBottas"
+            },
+            "estadisticas_historicas": {
+                "campeonatos": 0,
+                "victorias": 10,
+                "podios": 67,
+                "poles": 20
+            },
+            "rendimiento_2026": {
+                "posicion": 22,
+                "puntos": 0,
+                "victorias_temp": 0
+            }
+        }
+    ]
+}

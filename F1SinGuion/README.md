@@ -69,3 +69,59 @@ Plan de trabajo para mejorar la experiencia en la sección de circuitos y detall
 
 ### 📱 Fase 5: Integración Cross-Data
 - [ ] **"El Rey del Circuito"**: Cruzar datos con `teams.json` para mostrar qué piloto actual tiene más victorias en cada trazado.
+
+## 🏎️ Roadmap: Sección Pilotos
+
+Plan de trabajo para la sección de pilotos y perfiles individuales, aprovechando la riqueza de `teams.json`.
+
+### 👤 Fase 1: Listado y Tarjetas (Grid)
+- [ ] **Grid de Pilotos**: Crear página `/pilotos` con un grid responsive.
+- [ ] **Tarjetas Estilizadas**: Diseño de tarjetas usando los colores de la escudería (`teams.json`) y fotos sin fondo.
+- [ ] **Filtros Básicos**: Filtrar por Escudería o Nacionalidad.
+
+### 📄 Fase 2: Perfil Detallado (Bio)
+- [ ] **Página Dinámica**: Crear `/pilotos/[id]` (slug basado en el nombre).
+- [ ] **Hero Section**: Foto en grande, número gigante y colores del equipo de fondo.
+- [ ] **Datos Personales y Profesionales**: Mostrar edad (calculada), debut, títulos y estadísticas clave.
+- [ ] **Sección "Fun Facts"**: Mostrar los `datos_random` (miedos, hobbies, curiosidades) con iconos o tarjetas divertidas.
+
+### 🆚 Fase 3: Comparativas y Relaciones
+- [ ] **Head-to-Head**: Comparativa visual con su compañero de equipo en la página de detalle.
+- [ ] **Trayectoria**: Línea de tiempo simple con equipos anteriores (usando `info_profesional.ex_equipos` o `equipo_anterior`).
+
+## 🏆 Roadmap: Sección Resultados y Standings
+
+Plan para visualizar las clasificaciones del campeonato y los resultados de cada sesión.
+
+### 📊 Fase 1: Tablas de Clasificación (Standings)
+- [ ] **Campeonato de Pilotos**: Tabla con posición, piloto, equipo, puntos y victorias.
+- [ ] **Campeonato de Constructores**: Tabla sumatoria por escuderías con sus colores.
+- [ ] **Gráfico de Evolución**: Visualización de líneas (Chart.js o similar) del progreso de puntos tras cada ronda.
+
+### 🏁 Fase 2: Resultados por Gran Premio
+- [ ] **Resumen Post-Carrera**: Página de resultados accesible desde el calendario (`/circuitos/[id]/resultados`).
+- [ ] **Tablas por Sesión**: Mostrar tiempos de Prácticas, Clasificación (Q1, Q2, Q3) y Carrera.
+- [ ] **Highlights**: Vuelta rápida, Driver of the Day y abandonos (DNF).
+
+### 📈 Fase 3: Análisis y Estadísticas
+- [ ] **Head-to-Head**: Comparativa de puntos entre compañeros de equipo.
+- [ ] **Ritmo de Carrera**: (Avanzado) Gráfico de tiempos por vuelta si la API lo permite.
+
+## 🔴 Roadmap: Sección Live
+
+Plan para la experiencia de seguimiento en vivo de las sesiones durante el fin de semana de carrera.
+
+### ⏱️ Fase 1: Dashboard en Tiempo Real
+- [ ] **Live Timing Básico**: Tabla con tiempos por vuelta, sectores y diferencias en tiempo real (usando API OpenF1 o similar).
+- [ ] **Estado de Sesión**: Indicadores claros de bandera (Verde, Amarilla, Roja, SC, VSC).
+- [ ] **Weather Widget**: Datos del clima en directo (temperatura pista/aire, humedad, lluvia).
+
+### 🎙️ Fase 2: Narración y Contexto
+- [ ] **Feed de Comentarios**: Minuto a minuto textual de lo que ocurre en pista.
+- [ ] **Radio Messages**: Transcripción o reproducción de mensajes de radio destacados.
+- [ ] **Incidencias**: Alertas visuales para investigaciones, penalizaciones y paradas en boxes.
+
+### 🏎️ Fase 3: Telemetría Avanzada
+- [ ] **Tracker en Mapa**: Posición aproximada de los pilotos en el mapa del circuito (interpolación).
+- [ ] **Comparativa de Telemetría**: Gráficos de velocidad/aceleración entre dos pilotos seleccionados.
+- [ ] **Tyre History**: Visualización de la estrategia de neumáticos en uso y vueltas acumuladas.

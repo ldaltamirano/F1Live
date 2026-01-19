@@ -1,0 +1,182 @@
+{
+  "temporada": "2026",
+  "total_escuderias": 11,
+  "equipos": [
+    {
+      "id": "red-bull-racing",
+      "nombre": "Oracle Red Bull Racing",
+      "base": "Milton Keynes, Reino Unido",
+      "director": "Christian Horner",
+      "motor": "Red Bull Ford",
+      "monoplaza": "RB22",
+      "colores": { "primario": "#3671C6", "secundario": "#FCD700" },
+      "redes_sociales": {
+        "instagram": "https://www.instagram.com/redbullracing",
+        "twitter": "https://twitter.com/redbullracing",
+        "web": "https://www.redbullracing.com"
+      },
+      "palmares": { "titulos_constructores": 6, "victorias": 121 },
+      "pilotos_2026": ["max-verstappen-1", "isack-hadjar-6"]
+    },
+    {
+      "id": "ferrari",
+      "nombre": "Scuderia Ferrari HP",
+      "base": "Maranello, Italia",
+      "director": "Frédéric Vasseur",
+      "motor": "Ferrari",
+      "monoplaza": "SF-26",
+      "colores": { "primario": "#E80020", "secundario": "#FFFFFF" },
+      "redes_sociales": {
+        "instagram": "https://www.instagram.com/scuderiaferrari",
+        "twitter": "https://twitter.com/ScuderiaFerrari",
+        "web": "https://www.ferrari.com/en-EN/formula1"
+      },
+      "palmares": { "titulos_constructores": 16, "victorias": 248 },
+      "pilotos_2026": ["lewis-hamilton-44", "charles-leclerc-16"]
+    },
+    {
+      "id": "mclaren",
+      "nombre": "McLaren Mastercard F1 Team",
+      "base": "Woking, Reino Unido",
+      "director": "Andrea Stella",
+      "motor": "Mercedes",
+      "monoplaza": "MCL39",
+      "colores": { "primario": "#FF8700", "secundario": "#000000" },
+      "redes_sociales": {
+        "instagram": "https://www.instagram.com/mclaren",
+        "twitter": "https://twitter.com/McLarenF1",
+        "web": "https://www.mclaren.com/racing/"
+      },
+      "palmares": { "titulos_constructores": 8, "victorias": 188 },
+      "pilotos_2026": ["lando-norris-4", "oscar-piastri-81"]
+    },
+    {
+      "id": "mercedes",
+      "nombre": "Mercedes-AMG Petronas F1 Team",
+      "base": "Brackley, Reino Unido",
+      "director": "Toto Wolff",
+      "motor": "Mercedes",
+      "monoplaza": "W17",
+      "colores": { "primario": "#27F4D2", "secundario": "#000000" },
+      "redes_sociales": {
+        "instagram": "https://www.instagram.com/mercedesamgf1",
+        "twitter": "https://twitter.com/MercedesAMGF1",
+        "web": "https://www.mercedesamgf1.com"
+      },
+      "palmares": { "titulos_constructores": 8, "victorias": 128 },
+      "pilotos_2026": ["george-russell-63", "kimi-antonelli-12"]
+    },
+    {
+      "id": "aston-martin",
+      "nombre": "Aston Martin Aramco F1 Team",
+      "base": "Silverstone, Reino Unido",
+      "director": "Mike Krack",
+      "motor": "Honda",
+      "monoplaza": "AMR26",
+      "colores": { "primario": "#229971", "secundario": "#CEDC00" },
+      "redes_sociales": {
+        "instagram": "https://www.instagram.com/astonmartinf1",
+        "twitter": "https://twitter.com/AstonMartinF1",
+        "web": "https://www.astonmartinf1.com"
+      },
+      "palmares": { "titulos_constructores": 0, "victorias": 0 },
+      "pilotos_2026": ["fernando-alonso-14", "lance-stroll-18"]
+    },
+    {
+      "id": "alpine",
+      "nombre": "BWT Alpine F1 Team",
+      "base": "Enstone, Reino Unido",
+      "director": "Oliver Oakes",
+      "motor": "Mercedes",
+      "monoplaza": "A526",
+      "colores": { "primario": "#0093CC", "secundario": "#DF64A1" },
+      "redes_sociales": {
+        "instagram": "https://www.instagram.com/alpinef1team",
+        "twitter": "https://twitter.com/AlpineF1Team",
+        "web": "https://www.alpinecars.com"
+      },
+      "palmares": { "titulos_constructores": 2, "victorias": 37 },
+      "pilotos_2026": ["pierre-gasly-10", "franco-colapinto-43"]
+    },
+    {
+      "id": "williams",
+      "nombre": "Atlassian Williams F1 Team",
+      "base": "Grove, Reino Unido",
+      "director": "James Vowles",
+      "motor": "Mercedes",
+      "monoplaza": "FW48",
+      "colores": { "primario": "#64C4FF", "secundario": "#005AFF" },
+      "redes_sociales": {
+        "instagram": "https://www.instagram.com/williamsracing",
+        "twitter": "https://twitter.com/WilliamsRacing",
+        "web": "https://www.williamsf1.com"
+      },
+      "palmares": { "titulos_constructores": 9, "victorias": 114 },
+      "pilotos_2026": ["alex-albon-23", "carlos-sainz-55"]
+    },
+    {
+      "id": "racing-bulls",
+      "nombre": "Visa Cash App Racing Bulls",
+      "base": "Faenza, Italia",
+      "director": "Laurent Mekies",
+      "motor": "Red Bull Ford",
+      "monoplaza": "VCARB 02",
+      "colores": { "primario": "#6692FF", "secundario": "#FFFFFF" },
+      "redes_sociales": {
+        "instagram": "https://www.instagram.com/visacashapprb",
+        "twitter": "https://twitter.com/visacashapprb",
+        "web": "https://www.visacashapprb.com"
+      },
+      "palmares": { "titulos_constructores": 0, "victorias": 2 },
+      "pilotos_2026": ["liam-lawson-30", "arvid-lindblad-41"]
+    },
+    {
+      "id": "haas",
+      "nombre": "MoneyGram Haas F1 Team",
+      "base": "Kannapolis, EE. UU.",
+      "director": "Ayao Komatsu",
+      "motor": "Ferrari",
+      "monoplaza": "VF-26",
+      "colores": { "primario": "#B6BABD", "secundario": "#E6002B" },
+      "redes_sociales": {
+        "instagram": "https://www.instagram.com/haasf1team",
+        "twitter": "https://twitter.com/HaasF1Team",
+        "web": "https://www.haasf1team.com"
+      },
+      "palmares": { "titulos_constructores": 0, "victorias": 0 },
+      "pilotos_2026": ["esteban-ocon-31", "oliver-bearman-87"]
+    },
+    {
+      "id": "audi",
+      "nombre": "Audi Revolut F1 Team",
+      "base": "Hinwil, Suiza / Neuburg, Alemania",
+      "director": "Mattia Binotto",
+      "motor": "Audi",
+      "monoplaza": "RS-Q1",
+      "colores": { "primario": "#000000", "secundario": "#F50537" },
+      "redes_sociales": {
+        "instagram": "https://www.instagram.com/audisport",
+        "twitter": "https://twitter.com/audisport",
+        "web": "https://www.audi.com"
+      },
+      "palmares": { "titulos_constructores": 0, "victorias": 0 },
+      "pilotos_2026": ["nico-hulkenberg-27", "gabriel-bortoleto-5"]
+    },
+    {
+      "id": "cadillac",
+      "nombre": "Cadillac Formula 1 Team",
+      "base": "Charlotte, EE. UU.",
+      "director": "Mario Andretti",
+      "motor": "Ferrari",
+      "monoplaza": "Caddy-01",
+      "colores": { "primario": "#FFFFFF", "secundario": "#000000" },
+      "redes_sociales": {
+        "instagram": "https://www.instagram.com/cadillacvseries",
+        "twitter": "https://twitter.com/cadillac",
+        "web": "https://www.cadillac.com"
+      },
+      "palmares": { "titulos_constructores": 0, "victorias": 0 },
+      "pilotos_2026": ["sergio-perez-11", "valtteri-bottas-77"]
+    }
+  ]
+}
