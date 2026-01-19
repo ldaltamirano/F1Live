@@ -1,0 +1,241 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+
+interface Session {
+  id: number;
+  nombre: string;
+  tipo: string;
+  inicio: string;
+}
+
+interface Circuit {
+  id: number;
+  nombre: string;
+  pais: string;
+  bandera: string;
+  background: string;
+  imagen_circuito: string;
+  info_tecnica: string;
+  resena_historica: string;
+  neumaticos_sugeridos: string[];
+  fecha: string;
+  sesiones: Session[];
+}
+
+export async function getStaticPaths() {
+  const filePath = path.join(process.cwd(), 'public', 'calendario_f1_2026.json');
+  let circuitos: Circuit[] = [];
+  try {
+    const fileContent = await fs.readFile(filePath, 'utf-8');
+    circuitos = JSON.parse(fileContent);
+  } catch (error) {
+    console.error("Error al cargar el calendario:", error);
+    return [];
+  }
+
+  let roundCounter = 0;
+  
+  return circuitos.map((gp) => {
+    let roundDisplay = "Pre-Season";
+    if (!gp.nombre.includes('Testing')) {
+        roundCounter++;
+        roundDisplay = `Round ${roundCounter}`;
+    }
+
+    return {
+        params: { id: gp.id.toString() },
+        props: { gp, roundDisplay },
+    };
+  });
+}
+
+interface Props {
+  gp: Circuit;
+  roundDisplay: string;
+}
+
+const { gp, roundDisplay } = Astro.props;
+
+// Lógica para calcular el rango de fechas (Inicio - Fin)
+const startDate = new Date(gp.fecha);
+let endDate = new Date(gp.fecha);
+
+if (gp.sesiones && gp.sesiones.length > 0) {
+    const raceSession = gp.sesiones.find(s => s.tipo === 'Race');
+    if (raceSession) {
+        endDate = new Date(raceSession.inicio);
+    } else {
+        endDate = new Date(gp.sesiones[gp.sesiones.length - 1].inicio);
+    }
+}
+
+const startDay = startDate.getDate();
+const endDay = endDate.getDate();
+const startMonth = startDate.toLocaleString('default', { month: 'long' });
+const endMonth = endDate.toLocaleString('default', { month: 'long' });
+
+let dayDisplay = `${startDay}`;
+let monthDisplay = startMonth;
+
+if (endDate.getTime() > startDate.getTime()) {
+     if (startMonth === endMonth) {
+         if (startDay !== endDay) dayDisplay = `${startDay}-${endDay}`;
+     } else {
+         dayDisplay = `${startDay}-${endDay}`;
+         const startMonthShort = startDate.toLocaleString('default', { month: 'short' });
+         const endMonthShort = endDate.toLocaleString('default', { month: 'short' });
+         monthDisplay = `${startMonthShort}/${endMonthShort}`;
+     }
+}
+
+// Función para formatear fechas de sesiones (Día y Hora)
+const formatSessionTime = (isoString: string) => {
+  const date = new Date(isoString);
+  return {
+    day: date.toLocaleDateString('default', { weekday: 'long' }),
+    time: date.toLocaleTimeString('default', { hour: '2-digit', minute: '2-digit' })
+  };
+};
+---
+
+<Layout title={`${gp.nombre} - F1 2026`}>
+  <div class="bg-[#15151e] min-h-screen text-white">
+    
+    {/* Hero Section con Imagen de Fondo */}
+    <div class="relative w-full h-[40vh] min-h-[500px] overflow-hidden">
+      {/* Imagen de fondo con overlay */}
+      <div class="absolute inset-0">
+        <img src={gp.background} alt={`Fondo ${gp.nombre}`} class="w-full h-full object-cover opacity-40 mask-image-gradient" />
+        <div class="absolute inset-0 bg-gradient-to-b from-[#15151e]/30 via-[#15151e]/60 to-[#15151e]"></div>
+      </div>
+
+      <div class="absolute inset-0 flex flex-col justify-between p-4 sm:px-6 lg:px-8 max-w-7xl mx-auto z-10">
+        {/* Botón Volver */}
+        <div class="pt-6">
+          <a href="/circuitos" class="inline-flex items-center text-white/80 hover:text-[#e10600] transition-colors group font-medium bg-black/30 backdrop-blur-sm px-4 py-2 rounded-full border border-white/10 hover:border-[#e10600]">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 transform group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Back to Schedule
+          </a>
+        </div>
+
+        {/* Título y Datos Principales */}
+        <div class="pb-24 flex flex-col lg:flex-row justify-between items-end gap-8">
+          <div>
+            <div class="flex items-center gap-3 mb-2">
+              <img transition:name={`flag-${gp.id}`} src={gp.bandera} alt={`Bandera ${gp.pais}`} class="w-10 h-auto rounded shadow-sm" />
+              <span class="text-[#e10600] font-black tracking-widest uppercase text-sm">{roundDisplay}</span>
+            </div>
+            <h1 transition:name={`title-${gp.id}`} class="text-4xl md:text-6xl font-black italic uppercase tracking-tighter text-white leading-none drop-shadow-lg">
+              {gp.nombre}
+            </h1>
+            <p class="text-2xl text-gray-300 mt-2 font-light tracking-wide">{gp.pais}</p>
+          </div>
+          <div class="flex flex-col items-end text-right">
+              <div class="text-5xl font-black text-white whitespace-nowrap drop-shadow-md">{dayDisplay}</div>
+              <div class="text-xl font-bold text-[#e10600] uppercase tracking-widest drop-shadow-md">{monthDisplay}</div>
+              <div class="text-gray-400 font-mono mt-1">{new Date(gp.fecha).getFullYear()}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 -mt-20 relative z-20">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        
+        {/* Columna Principal: Mapa e Info */}
+        <div class="lg:col-span-2 space-y-12">
+          
+          {/* Mapa con efecto de brillo */}
+          <div class="bg-[#1e1e24] rounded-3xl p-8 border border-white/5 relative overflow-hidden group hover:border-[#e10600]/30 transition-colors">
+            <div class="absolute inset-0 bg-gradient-to-br from-[#e10600]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <img 
+              transition:name={`map-${gp.id}`}
+              src={gp.imagen_circuito} 
+              alt={`Trazado de ${gp.nombre}`} 
+              class="w-full h-auto max-h-[450px] object-contain filter invert drop-shadow-[0_0_20px_rgba(255,255,255,0.05)] transform group-hover:scale-105 transition-transform duration-700"
+            />
+          </div>
+
+          {/* Detalles Técnicos e Históricos */}
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-[#1e1e24] p-8 rounded-2xl border-l-4 border-[#e10600]">
+              <h3 class="text-lg font-bold uppercase mb-4 text-white flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#e10600]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                Technical Info
+              </h3>
+              <p class="text-gray-400 leading-relaxed text-sm">{gp.info_tecnica}</p>
+            </div>
+            <div class="bg-[#1e1e24] p-8 rounded-2xl border-l-4 border-gray-600">
+              <h3 class="text-lg font-bold uppercase mb-4 text-white flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                History
+              </h3>
+              <p class="text-gray-400 leading-relaxed text-sm">{gp.resena_historica}</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Sidebar: Horarios y Neumáticos */}
+        <div class="space-y-8">
+          
+          {/* Horarios */}
+          <div class="bg-[#1e1e24] rounded-2xl overflow-hidden border border-white/5 shadow-xl">
+            <div class="bg-gradient-to-r from-[#e10600] to-red-900 px-6 py-4 flex justify-between items-center">
+              <h3 class="font-black italic uppercase text-white tracking-wider">Session Times</h3>
+              <span class="text-[10px] bg-black/20 px-2 py-1 rounded text-white/80">Local Time</span>
+            </div>
+            <div class="divide-y divide-white/5">
+              {gp.sesiones && gp.sesiones.length > 0 ? gp.sesiones.map(sesion => {
+                const { day, time } = formatSessionTime(sesion.inicio);
+                const isRace = sesion.tipo === 'Race';
+                return (
+                  <div class={`p-5 flex justify-between items-center transition-colors ${isRace ? 'bg-white/5 hover:bg-white/10' : 'hover:bg-white/5'}`}>
+                    <div>
+                      <div class={`font-bold text-sm ${isRace ? 'text-[#e10600]' : 'text-white'}`}>{sesion.nombre}</div>
+                      <div class="text-xs text-gray-500 uppercase tracking-wide font-medium">{day}</div>
+                    </div>
+                    <div class="text-right">
+                      <div class="font-mono text-white font-bold text-lg">{time}</div>
+                    </div>
+                  </div>
+                );
+              }) : (
+                <div class="p-8 text-center text-gray-500 italic">
+                  TBC
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Neumáticos (Diseño realista: goma negra con borde de color) */}
+          {gp.neumaticos_sugeridos && (
+            <div class="bg-[#1e1e24] rounded-2xl p-6 border border-white/5">
+              <h3 class="text-xs font-bold uppercase text-gray-500 mb-6 tracking-widest text-center">Tyre Compounds</h3>
+              <div class="flex justify-center gap-6">
+                {gp.neumaticos_sugeridos.slice(0, 3).map((n, i) => (
+                  <div class="flex flex-col items-center gap-3 group">
+                    <div class={`w-14 h-14 rounded-full flex items-center justify-center text-sm font-black border-[6px] shadow-lg transform group-hover:scale-110 transition-transform duration-300 ${
+                      i === 0 ? 'bg-[#1e1e24] text-white border-white' : // Hard (White wall)
+                      i === 1 ? 'bg-[#1e1e24] text-white border-[#ffd700]' : // Medium (Yellow wall)
+                      'bg-[#1e1e24] text-white border-[#e10600]' // Soft (Red wall)
+                    }`}>
+                      {n}
+                    </div>
+                    <span class="text-[10px] uppercase font-bold text-gray-500 group-hover:text-white transition-colors">
+                      {i === 0 ? 'Hard' : i === 1 ? 'Medium' : 'Soft'}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

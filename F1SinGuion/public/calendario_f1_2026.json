@@ -1,442 +1,492 @@
 [
   {
     "id": 1304,
-    "nombre": "Pre-Season Testing",
-    "pais": "Bahrain",
+    "nombre": "Tests de Pretemporada",
+    "pais": "Baréin",
     "bandera": "/Circuitos/Gran Premio de Bahrain/bandera.png",
+    "background": "/Circuitos/Gran Premio de Bahrain/background.jpg",
     "imagen_circuito": "/Circuitos/Gran Premio de Bahrain/mapa.svg",
     "info_tecnica": "Sakhir, 5.412 km. Combinación de rectas largas y curvas técnicas de baja velocidad.",
     "resena_historica": "Sede principal de pruebas invernales por su estabilidad climática y asfalto representativo.",
     "neumaticos_sugeridos": ["C1", "C2", "C3", "C4", "C5"],
     "fecha": "2026-02-11T07:00:00+00:00",
     "sesiones": [
-      { "id": 9900006, "nombre": "Day 1", "tipo": "Practice", "inicio": "2026-02-11T07:00:00+00:00" },
-      { "id": 9900007, "nombre": "Day 2", "tipo": "Practice", "inicio": "2026-02-12T07:00:00+00:00" },
-      { "id": 9900008, "nombre": "Day 3", "tipo": "Practice", "inicio": "2026-02-13T07:00:00+00:00" }
+      { "id": 9900006, "nombre": "Día 1", "tipo": "Practice", "inicio": "2026-02-11T07:00:00+00:00" },
+      { "id": 9900007, "nombre": "Día 2", "tipo": "Practice", "inicio": "2026-02-12T07:00:00+00:00" },
+      { "id": 9900008, "nombre": "Día 3", "tipo": "Practice", "inicio": "2026-02-13T07:00:00+00:00" }
     ]
   },
   {
     "id": 1305,
-    "nombre": "Pre-Season Testing",
-    "pais": "Bahrain",
+    "nombre": "Tests de Pretemporada",
+    "pais": "Baréin",
     "bandera": "/Circuitos/Gran Premio de Bahrain/bandera.png",
+    "background": "/Circuitos/Gran Premio de Bahrain/background.jpg",
     "imagen_circuito": "/Circuitos/Gran Premio de Bahrain/mapa.svg",
     "info_tecnica": "Segunda tanda de pruebas oficiales antes del inicio de la temporada 2026.",
     "resena_historica": "Crucial para ajustar los nuevos monoplazas bajo el reglamento técnico de 2026.",
     "neumaticos_sugeridos": ["C1", "C2", "C3", "C4", "C5"],
     "fecha": "2026-02-18T07:00:00+00:00",
     "sesiones": [
-      { "id": 9900009, "nombre": "Day 1", "tipo": "Practice", "inicio": "2026-02-18T07:00:00+00:00" },
-      { "id": 9900010, "nombre": "Day 2", "tipo": "Practice", "inicio": "2026-02-19T07:00:00+00:00" },
-      { "id": 9900011, "nombre": "Day 3", "tipo": "Practice", "inicio": "2026-02-20T07:00:00+00:00" }
+      { "id": 9900009, "nombre": "Día 1", "tipo": "Practice", "inicio": "2026-02-18T07:00:00+00:00" },
+      { "id": 9900010, "nombre": "Día 2", "tipo": "Practice", "inicio": "2026-02-19T07:00:00+00:00" },
+      { "id": 9900011, "nombre": "Día 3", "tipo": "Practice", "inicio": "2026-02-20T07:00:00+00:00" }
     ]
   },
   {
     "id": 1279,
-    "nombre": "Australian Grand Prix",
+    "nombre": "Gran Premio de Australia",
     "pais": "Australia",
     "bandera": "/Circuitos/Gran Premio de Australia/bandera.png",
+    "background": "/Circuitos/Gran Premio de Australia/background.jpg",
     "imagen_circuito": "/Circuitos/Gran Premio de Australia/mapa.svg",
     "info_tecnica": "Albert Park, 5.278 km. Circuito semi-urbano con 14 curvas y alta velocidad promedio.",
     "resena_historica": "Sede desde 1996, famosa por su atmósfera vibrante y el lago central del parque.",
     "neumaticos_sugeridos": ["C2", "C3", "C4"],
     "fecha": "2026-03-06T01:30:00+00:00",
     "sesiones": [
-      { "id": 11227, "nombre": "Practice 1", "tipo": "Practice", "inicio": "2026-03-06T01:30:00+00:00" },
-      { "id": 11228, "nombre": "Practice 2", "tipo": "Practice", "inicio": "2026-03-06T05:00:00+00:00" },
-      { "id": 11229, "nombre": "Practice 3", "tipo": "Practice", "inicio": "2026-03-07T01:30:00+00:00" },
-      { "id": 11230, "nombre": "Qualifying", "tipo": "Qualifying", "inicio": "2026-03-07T05:00:00+00:00" },
-      { "id": 11234, "nombre": "Race", "tipo": "Race", "inicio": "2026-03-08T04:00:00+00:00" }
+      { "id": 11227, "nombre": "Práctica 1", "tipo": "Practice", "inicio": "2026-03-06T01:30:00+00:00" },
+      { "id": 11228, "nombre": "Práctica 2", "tipo": "Practice", "inicio": "2026-03-06T05:00:00+00:00" },
+      { "id": 11229, "nombre": "Práctica 3", "tipo": "Practice", "inicio": "2026-03-07T01:30:00+00:00" },
+      { "id": 11230, "nombre": "Clasificación", "tipo": "Qualifying", "inicio": "2026-03-07T05:00:00+00:00" },
+      { "id": 11234, "nombre": "Carrera", "tipo": "Race", "inicio": "2026-03-08T04:00:00+00:00" }
     ]
   },
   {
     "id": 1280,
-    "nombre": "Chinese Grand Prix",
+    "nombre": "Gran Premio de China",
     "pais": "China",
     "bandera": "/Circuitos/Gran Premio de China/bandera.png",
+    "background": "/Circuitos/Gran Premio de China/background.webp",
     "imagen_circuito": "/Circuitos/Gran Premio de China/mapa.svg",
     "info_tecnica": "Shanghai International, 5.451 km. Posee una de las rectas más largas del mundial.",
     "resena_historica": "Inaugurado en 2004, destaca por su diseño basado en el símbolo chino 'Shang'.",
     "neumaticos_sugeridos": ["C2", "C3", "C4"],
     "fecha": "2026-03-13T03:30:00+00:00",
-    "sesiones": []
+    "sesiones": [
+      { "id": 11235, "nombre": "Práctica 1", "tipo": "Practice", "inicio": "2026-03-13T03:30:00+00:00" },
+      { "id": 11236, "nombre": "Clasificación Sprint", "tipo": "Sprint Shootout", "inicio": "2026-03-13T07:30:00+00:00" },
+      { "id": 11240, "nombre": "Sprint", "tipo": "Sprint Qualifying", "inicio": "2026-03-14T03:00:00+00:00" },
+      { "id": 11241, "nombre": "Clasificación", "tipo": "Qualifying", "inicio": "2026-03-14T07:00:00+00:00" },
+      { "id": 11245, "nombre": "Carrera", "tipo": "Race", "inicio": "2026-03-15T07:00:00+00:00" }
+    ]
   },
   {
     "id": 1281,
-    "nombre": "Japanese Grand Prix",
-    "pais": "Japan",
+    "nombre": "Gran Premio de Japón",
+    "pais": "Japón",
     "bandera": "/Circuitos/Gran Premio de Japan/bandera.png",
+    "background": "/Circuitos/Gran Premio de Japan/background.webp",
     "imagen_circuito": "/Circuitos/Gran Premio de Japan/mapa.svg",
     "info_tecnica": "Suzuka, 5.807 km. Único circuito del calendario con configuración en 'ocho'.",
     "resena_historica": "Favorito de los pilotos, propiedad de Honda y escenario de definiciones históricas.",
     "neumaticos_sugeridos": ["C1", "C2", "C3"],
     "fecha": "2026-03-27T02:30:00+00:00",
     "sesiones": [
-      { "id": 11246, "nombre": "Practice 1", "tipo": "Practice", "inicio": "2026-03-27T02:30:00+00:00" },
-      { "id": 11247, "nombre": "Practice 2", "tipo": "Practice", "inicio": "2026-03-27T06:00:00+00:00" },
-      { "id": 11248, "nombre": "Practice 3", "tipo": "Practice", "inicio": "2026-03-28T02:30:00+00:00" },
-      { "id": 11249, "nombre": "Qualifying", "tipo": "Qualifying", "inicio": "2026-03-28T06:00:00+00:00" },
-      { "id": 11253, "nombre": "Race", "tipo": "Race", "inicio": "2026-03-29T05:00:00+00:00" }
+      { "id": 11246, "nombre": "Práctica 1", "tipo": "Practice", "inicio": "2026-03-27T02:30:00+00:00" },
+      { "id": 11247, "nombre": "Práctica 2", "tipo": "Practice", "inicio": "2026-03-27T06:00:00+00:00" },
+      { "id": 11248, "nombre": "Práctica 3", "tipo": "Practice", "inicio": "2026-03-28T02:30:00+00:00" },
+      { "id": 11249, "nombre": "Clasificación", "tipo": "Qualifying", "inicio": "2026-03-28T06:00:00+00:00" },
+      { "id": 11253, "nombre": "Carrera", "tipo": "Race", "inicio": "2026-03-29T05:00:00+00:00" }
     ]
   },
   {
     "id": 1282,
-    "nombre": "Bahrain Grand Prix",
-    "pais": "Bahrain",
+    "nombre": "Gran Premio de Baréin",
+    "pais": "Baréin",
     "bandera": "/Circuitos/Gran Premio de Bahrain/bandera.png",
+    "background": "/Circuitos/Gran Premio de Bahrain/background.jpg",
     "imagen_circuito": "/Circuitos/Gran Premio de Bahrain/mapa.svg",
     "info_tecnica": "Sakhir, 5.412 km. Carrera nocturna con asfalto altamente abrasivo.",
     "resena_historica": "Fue el primer GP en el Medio Oriente (2004) y es famoso por sus fuegos artificiales.",
     "neumaticos_sugeridos": ["C1", "C2", "C3"],
     "fecha": "2026-04-10T11:30:00+00:00",
     "sesiones": [
-      { "id": 11254, "nombre": "Practice 1", "tipo": "Practice", "inicio": "2026-04-10T11:30:00+00:00" },
-      { "id": 11255, "nombre": "Practice 2", "tipo": "Practice", "inicio": "2026-04-10T15:00:00+00:00" },
-      { "id": 11256, "nombre": "Practice 3", "tipo": "Practice", "inicio": "2026-04-11T12:30:00+00:00" },
-      { "id": 11257, "nombre": "Qualifying", "tipo": "Qualifying", "inicio": "2026-04-11T16:00:00+00:00" },
-      { "id": 11261, "nombre": "Race", "tipo": "Race", "inicio": "2026-04-12T15:00:00+00:00" }
+      { "id": 11254, "nombre": "Práctica 1", "tipo": "Practice", "inicio": "2026-04-10T11:30:00+00:00" },
+      { "id": 11255, "nombre": "Práctica 2", "tipo": "Practice", "inicio": "2026-04-10T15:00:00+00:00" },
+      { "id": 11256, "nombre": "Práctica 3", "tipo": "Practice", "inicio": "2026-04-11T12:30:00+00:00" },
+      { "id": 11257, "nombre": "Clasificación", "tipo": "Qualifying", "inicio": "2026-04-11T16:00:00+00:00" },
+      { "id": 11261, "nombre": "Carrera", "tipo": "Race", "inicio": "2026-04-12T15:00:00+00:00" }
     ]
   },
   {
     "id": 1283,
-    "nombre": "Saudi Arabian Grand Prix",
-    "pais": "Saudi Arabia",
+    "nombre": "Gran Premio de Arabia Saudita",
+    "pais": "Arabia Saudita",
     "bandera": "/Circuitos/Gran Premio de Saudi Arabia/bandera.png",
+    "background": "/Circuitos/Gran Premio de Saudi Arabia/background.jpg",
     "imagen_circuito": "/Circuitos/Gran Premio de Saudi Arabia/mapa.svg",
     "info_tecnica": "Jeddah Corniche, 6.174 km. El circuito urbano más rápido del mundo.",
     "resena_historica": "Introducido en 2021, ofrece velocidades extremas pegadas a los muros.",
     "neumaticos_sugeridos": ["C2", "C3", "C4"],
     "fecha": "2026-04-17T13:30:00+00:00",
     "sesiones": [
-      { "id": 11262, "nombre": "Practice 1", "tipo": "Practice", "inicio": "2026-04-17T13:30:00+00:00" },
-      { "id": 11263, "nombre": "Practice 2", "tipo": "Practice", "inicio": "2026-04-17T17:00:00+00:00" },
-      { "id": 11264, "nombre": "Practice 3", "tipo": "Practice", "inicio": "2026-04-18T13:30:00+00:00" },
-      { "id": 11265, "nombre": "Qualifying", "tipo": "Qualifying", "inicio": "2026-04-18T17:00:00+00:00" },
-      { "id": 11269, "nombre": "Race", "tipo": "Race", "inicio": "2026-04-19T17:00:00+00:00" }
+      { "id": 11262, "nombre": "Práctica 1", "tipo": "Practice", "inicio": "2026-04-17T13:30:00+00:00" },
+      { "id": 11263, "nombre": "Práctica 2", "tipo": "Practice", "inicio": "2026-04-17T17:00:00+00:00" },
+      { "id": 11264, "nombre": "Práctica 3", "tipo": "Practice", "inicio": "2026-04-18T13:30:00+00:00" },
+      { "id": 11265, "nombre": "Clasificación", "tipo": "Qualifying", "inicio": "2026-04-18T17:00:00+00:00" },
+      { "id": 11269, "nombre": "Carrera", "tipo": "Race", "inicio": "2026-04-19T17:00:00+00:00" }
     ]
   },
   {
     "id": 1284,
-    "nombre": "Miami Grand Prix",
-    "pais": "United States",
+    "nombre": "Gran Premio de Miami",
+    "pais": "Estados Unidos",
     "bandera": "/Circuitos/Gran Premio de United States - Miami/bandera.png",
+    "background": "/Circuitos/Gran Premio de United States - Miami/background.jpg",
     "imagen_circuito": "/Circuitos/Gran Premio de United States - Miami/mapa.svg",
     "info_tecnica": "Miami International Autodrome, 5.412 km. Rodea el Hard Rock Stadium.",
     "resena_historica": "Carrera con enfoque en el estilo 'show' de EE.UU., debutó en 2022.",
     "neumaticos_sugeridos": ["C2", "C3", "C4"],
     "fecha": "2026-05-01T16:30:00+00:00",
     "sesiones": [
-      { "id": 11270, "nombre": "Practice 1", "tipo": "Practice", "inicio": "2026-05-01T16:30:00+00:00" },
-      { "id": 11271, "nombre": "Sprint Qualifying", "tipo": "Sprint Shootout", "inicio": "2026-05-01T20:30:00+00:00" },
+      { "id": 11270, "nombre": "Práctica 1", "tipo": "Practice", "inicio": "2026-05-01T16:30:00+00:00" },
+      { "id": 11271, "nombre": "Clasificación Sprint", "tipo": "Sprint Shootout", "inicio": "2026-05-01T20:30:00+00:00" },
       { "id": 11275, "nombre": "Sprint", "tipo": "Sprint Qualifying", "inicio": "2026-05-02T16:00:00+00:00" },
-      { "id": 11276, "nombre": "Qualifying", "tipo": "Qualifying", "inicio": "2026-05-02T20:00:00+00:00" },
-      { "id": 11280, "nombre": "Race", "tipo": "Race", "inicio": "2026-05-03T20:00:00+00:00" }
+      { "id": 11276, "nombre": "Clasificación", "tipo": "Qualifying", "inicio": "2026-05-02T20:00:00+00:00" },
+      { "id": 11280, "nombre": "Carrera", "tipo": "Race", "inicio": "2026-05-03T20:00:00+00:00" }
     ]
   },
   {
     "id": 1285,
-    "nombre": "Canadian Grand Prix",
-    "pais": "Canada",
+    "nombre": "Gran Premio de Canadá",
+    "pais": "Canadá",
     "bandera": "/Circuitos/Gran Premio de Canada/bandera.png",
+    "background": "/Circuitos/Gran Premio de Canada/background.avif",
     "imagen_circuito": "/Circuitos/Gran Premio de Canada/mapa.svg",
     "info_tecnica": "Circuit Gilles-Villeneuve, 4.361 km. Mezcla de sectores rápidos y chicanes lentas.",
     "resena_historica": "Famoso por el 'Muro de los Campeones' al final de la recta de boxes.",
     "neumaticos_sugeridos": ["C3", "C4", "C5"],
     "fecha": "2026-05-22T16:30:00+00:00",
     "sesiones": [
-      { "id": 11281, "nombre": "Practice 1", "tipo": "Practice", "inicio": "2026-05-22T16:30:00+00:00" },
-      { "id": 11282, "nombre": "Sprint Qualifying", "tipo": "Sprint Shootout", "inicio": "2026-05-22T20:30:00+00:00" },
+      { "id": 11281, "nombre": "Práctica 1", "tipo": "Practice", "inicio": "2026-05-22T16:30:00+00:00" },
+      { "id": 11282, "nombre": "Clasificación Sprint", "tipo": "Sprint Shootout", "inicio": "2026-05-22T20:30:00+00:00" },
       { "id": 11286, "nombre": "Sprint", "tipo": "Sprint Qualifying", "inicio": "2026-05-23T16:00:00+00:00" },
-      { "id": 11287, "nombre": "Qualifying", "tipo": "Qualifying", "inicio": "2026-05-23T20:00:00+00:00" },
-      { "id": 11291, "nombre": "Race", "tipo": "Race", "inicio": "2026-05-24T20:00:00+00:00" }
+      { "id": 11287, "nombre": "Clasificación", "tipo": "Qualifying", "inicio": "2026-05-23T20:00:00+00:00" },
+      { "id": 11291, "nombre": "Carrera", "tipo": "Race", "inicio": "2026-05-24T20:00:00+00:00" }
     ]
   },
   {
     "id": 1286,
-    "nombre": "Monaco Grand Prix",
-    "pais": "Monaco",
+    "nombre": "Gran Premio de Mónaco",
+    "pais": "Mónaco",
     "bandera": "/Circuitos/Gran Premio de Monaco/bandera.png",
+    "background": "/Circuitos/Gran Premio de Monaco/background.webp",
     "imagen_circuito": "/Circuitos/Gran Premio de Monaco/mapa.svg",
     "info_tecnica": "Monte Carlo, 3.337 km. El circuito más estrecho, técnico y glamuroso del mundo.",
     "resena_historica": "Presente desde 1950, es la carrera más prestigiosa que todo piloto anhela ganar.",
     "neumaticos_sugeridos": ["C3", "C4", "C5"],
     "fecha": "2026-06-05T11:30:00+00:00",
     "sesiones": [
-      { "id": 11292, "nombre": "Practice 1", "tipo": "Practice", "inicio": "2026-06-05T11:30:00+00:00" },
-      { "id": 11293, "nombre": "Practice 2", "tipo": "Practice", "inicio": "2026-06-05T15:00:00+00:00" },
-      { "id": 11294, "nombre": "Practice 3", "tipo": "Practice", "inicio": "2026-06-06T10:30:00+00:00" },
-      { "id": 11295, "nombre": "Qualifying", "tipo": "Qualifying", "inicio": "2026-06-06T14:00:00+00:00" },
-      { "id": 11299, "nombre": "Race", "tipo": "Race", "inicio": "2026-06-07T13:00:00+00:00" }
+      { "id": 11292, "nombre": "Práctica 1", "tipo": "Practice", "inicio": "2026-06-05T11:30:00+00:00" },
+      { "id": 11293, "nombre": "Práctica 2", "tipo": "Practice", "inicio": "2026-06-05T15:00:00+00:00" },
+      { "id": 11294, "nombre": "Práctica 3", "tipo": "Practice", "inicio": "2026-06-06T10:30:00+00:00" },
+      { "id": 11295, "nombre": "Clasificación", "tipo": "Qualifying", "inicio": "2026-06-06T14:00:00+00:00" },
+      { "id": 11299, "nombre": "Carrera", "tipo": "Race", "inicio": "2026-06-07T13:00:00+00:00" }
     ]
   },
   {
     "id": 1287,
-    "nombre": "Barcelona Grand Prix",
-    "pais": "Spain",
+    "nombre": "Gran Premio de Barcelona",
+    "pais": "España",
     "bandera": "/Circuitos/Gran Premio de Spain - Barcelona/bandera.png",
+    "background": "/Circuitos/Gran Premio de Spain - Barcelona/background.webp",
     "imagen_circuito": "/Circuitos/Gran Premio de Spain - Barcelona/mapa.svg",
     "info_tecnica": "Circuit de Barcelona-Catalunya, 4.657 km. Equilibrio perfecto de curvas rápidas y lentas.",
     "resena_historica": "Referente de tests y GP desde 1991; en 2026 mantiene su relevancia histórica.",
     "neumaticos_sugeridos": ["C1", "C2", "C3"],
     "fecha": "2026-06-12T11:30:00+00:00",
-    "sesiones": []
+    "sesiones": [
+      { "id": 11300, "nombre": "Práctica 1", "tipo": "Practice", "inicio": "2026-06-12T11:30:00+00:00" },
+      { "id": 11301, "nombre": "Práctica 2", "tipo": "Practice", "inicio": "2026-06-12T15:00:00+00:00" },
+      { "id": 11302, "nombre": "Práctica 3", "tipo": "Practice", "inicio": "2026-06-13T10:30:00+00:00" },
+      { "id": 11303, "nombre": "Clasificación", "tipo": "Qualifying", "inicio": "2026-06-13T14:00:00+00:00" },
+      { "id": 11307, "nombre": "Carrera", "tipo": "Race", "inicio": "2026-06-14T13:00:00+00:00" }
+    ]
   },
   {
     "id": 1288,
-    "nombre": "Austrian Grand Prix",
+    "nombre": "Gran Premio de Austria",
     "pais": "Austria",
     "bandera": "/Circuitos/Gran Premio de Austria/bandera.png",
+    "background": "/Circuitos/Gran Premio de Austria/background.jpg",
     "imagen_circuito": "/Circuitos/Gran Premio de Austria/mapa.svg",
     "info_tecnica": "Red Bull Ring, 4.318 km. Circuito corto con grandes cambios de elevación.",
     "resena_historica": "Antiguo Österreichring, reconstruido para ofrecer carreras rápidas en los Alpes.",
     "neumaticos_sugeridos": ["C3", "C4", "C5"],
     "fecha": "2026-06-26T11:30:00+00:00",
     "sesiones": [
-      { "id": 11308, "nombre": "Practice 1", "tipo": "Practice", "inicio": "2026-06-26T11:30:00+00:00" },
-      { "id": 11309, "nombre": "Practice 2", "tipo": "Practice", "inicio": "2026-06-26T15:00:00+00:00" },
-      { "id": 11310, "nombre": "Practice 3", "tipo": "Practice", "inicio": "2026-06-27T10:30:00+00:00" },
-      { "id": 11311, "nombre": "Qualifying", "tipo": "Qualifying", "inicio": "2026-06-27T14:00:00+00:00" },
-      { "id": 11315, "nombre": "Race", "tipo": "Race", "inicio": "2026-06-28T13:00:00+00:00" }
+      { "id": 11308, "nombre": "Práctica 1", "tipo": "Practice", "inicio": "2026-06-26T11:30:00+00:00" },
+      { "id": 11309, "nombre": "Práctica 2", "tipo": "Practice", "inicio": "2026-06-26T15:00:00+00:00" },
+      { "id": 11310, "nombre": "Práctica 3", "tipo": "Practice", "inicio": "2026-06-27T10:30:00+00:00" },
+      { "id": 11311, "nombre": "Clasificación", "tipo": "Qualifying", "inicio": "2026-06-27T14:00:00+00:00" },
+      { "id": 11315, "nombre": "Carrera", "tipo": "Race", "inicio": "2026-06-28T13:00:00+00:00" }
     ]
   },
   {
     "id": 1289,
-    "nombre": "British Grand Prix",
-    "pais": "United Kingdom",
+    "nombre": "Gran Premio de Gran Bretaña",
+    "pais": "Reino Unido",
     "bandera": "/Circuitos/Gran Premio de United Kingdom/bandera.png",
+    "background": "/Circuitos/Gran Premio de United Kingdom/background.jpg",
     "imagen_circuito": "/Circuitos/Gran Premio de United Kingdom/mapa.svg",
     "info_tecnica": "Silverstone, 5.891 km. Alta velocidad lateral en curvas como Becketts.",
     "resena_historica": "Cuna de la F1, albergó la primera carrera del mundial en 1950.",
     "neumaticos_sugeridos": ["C1", "C2", "C3"],
     "fecha": "2026-07-03T11:30:00+00:00",
     "sesiones": [
-      { "id": 11316, "nombre": "Practice 1", "tipo": "Practice", "inicio": "2026-07-03T11:30:00+00:00" },
-      { "id": 11317, "nombre": "Sprint Qualifying", "tipo": "Sprint Shootout", "inicio": "2026-07-03T15:30:00+00:00" },
+      { "id": 11316, "nombre": "Práctica 1", "tipo": "Practice", "inicio": "2026-07-03T11:30:00+00:00" },
+      { "id": 11317, "nombre": "Clasificación Sprint", "tipo": "Sprint Shootout", "inicio": "2026-07-03T15:30:00+00:00" },
       { "id": 11321, "nombre": "Sprint", "tipo": "Sprint Qualifying", "inicio": "2026-07-04T11:00:00+00:00" },
-      { "id": 11322, "nombre": "Qualifying", "tipo": "Qualifying", "inicio": "2026-07-04T15:00:00+00:00" },
-      { "id": 11326, "nombre": "Race", "tipo": "Race", "inicio": "2026-07-05T14:00:00+00:00" }
+      { "id": 11322, "nombre": "Clasificación", "tipo": "Qualifying", "inicio": "2026-07-04T15:00:00+00:00" },
+      { "id": 11326, "nombre": "Carrera", "tipo": "Race", "inicio": "2026-07-05T14:00:00+00:00" }
     ]
   },
   {
     "id": 1290,
-    "nombre": "Belgian Grand Prix",
-    "pais": "Belgium",
+    "nombre": "Gran Premio de Bélgica",
+    "pais": "Bélgica",
     "bandera": "/Circuitos/Gran Premio de Belgium/bandera.png",
+    "background": "/Circuitos/Gran Premio de Belgium/background.jpg",
     "imagen_circuito": "/Circuitos/Gran Premio de Belgium/mapa.svg",
     "info_tecnica": "Spa-Francorchamps, 7.004 km. El trazado más largo y desafiante por clima.",
     "resena_historica": "Hogar de Eau Rouge, un lugar de culto para los fanáticos del automovilismo.",
     "neumaticos_sugeridos": ["C2", "C3", "C4"],
     "fecha": "2026-07-17T11:30:00+00:00",
     "sesiones": [
-      { "id": 11327, "nombre": "Practice 1", "tipo": "Practice", "inicio": "2026-07-17T11:30:00+00:00" },
-      { "id": 11328, "nombre": "Practice 2", "tipo": "Practice", "inicio": "2026-07-17T15:00:00+00:00" },
-      { "id": 11329, "nombre": "Practice 3", "tipo": "Practice", "inicio": "2026-07-18T10:30:00+00:00" },
-      { "id": 11330, "nombre": "Qualifying", "tipo": "Qualifying", "inicio": "2026-07-18T14:00:00+00:00" },
-      { "id": 11334, "nombre": "Race", "tipo": "Race", "inicio": "2026-07-19T13:00:00+00:00" }
+      { "id": 11327, "nombre": "Práctica 1", "tipo": "Practice", "inicio": "2026-07-17T11:30:00+00:00" },
+      { "id": 11328, "nombre": "Práctica 2", "tipo": "Practice", "inicio": "2026-07-17T15:00:00+00:00" },
+      { "id": 11329, "nombre": "Práctica 3", "tipo": "Practice", "inicio": "2026-07-18T10:30:00+00:00" },
+      { "id": 11330, "nombre": "Clasificación", "tipo": "Qualifying", "inicio": "2026-07-18T14:00:00+00:00" },
+      { "id": 11334, "nombre": "Carrera", "tipo": "Race", "inicio": "2026-07-19T13:00:00+00:00" }
     ]
   },
   {
     "id": 1291,
-    "nombre": "Hungarian Grand Prix",
-    "pais": "Hungary",
+    "nombre": "Gran Premio de Hungría",
+    "pais": "Hungría",
     "bandera": "/Circuitos/Gran Premio de Hungary/bandera.png",
+    "background": "/Circuitos/Gran Premio de Hungary/background.jpg",
     "imagen_circuito": "/Circuitos/Gran Premio de Hungary/mapa.svg",
     "info_tecnica": "Hungaroring, 4.381 km. Trazado tortuoso que exige máxima carga aerodinámica.",
     "resena_historica": "Fue la primera carrera detrás del 'Telón de Acero' en 1986.",
     "neumaticos_sugeridos": ["C3", "C4", "C5"],
     "fecha": "2026-07-24T11:30:00+00:00",
-    "sesiones": []
+    "sesiones": [
+      { "id": 11335, "nombre": "Práctica 1", "tipo": "Practice", "inicio": "2026-07-24T11:30:00+00:00" },
+      { "id": 11336, "nombre": "Práctica 2", "tipo": "Practice", "inicio": "2026-07-24T15:00:00+00:00" },
+      { "id": 11337, "nombre": "Práctica 3", "tipo": "Practice", "inicio": "2026-07-25T10:30:00+00:00" },
+      { "id": 11338, "nombre": "Clasificación", "tipo": "Qualifying", "inicio": "2026-07-25T14:00:00+00:00" },
+      { "id": 11342, "nombre": "Carrera", "tipo": "Race", "inicio": "2026-07-26T13:00:00+00:00" }
+    ]
   },
   {
     "id": 1292,
-    "nombre": "Dutch Grand Prix",
-    "pais": "Netherlands",
+    "nombre": "Gran Premio de los Países Bajos",
+    "pais": "Países Bajos",
     "bandera": "/Circuitos/Gran Premio de Netherlands/bandera.png",
+    "background": "/Circuitos/Gran Premio de Netherlands/background.webp",
     "imagen_circuito": "/Circuitos/Gran Premio de Netherlands/mapa.svg",
     "info_tecnica": "Zandvoort, 4.259 km. Destaca por sus curvas peraltadas únicas en F1.",
     "resena_historica": "Regresó en 2021 impulsado por la 'marea naranja' de fans locales.",
     "neumaticos_sugeridos": ["C1", "C2", "C3"],
     "fecha": "2026-08-21T10:30:00+00:00",
     "sesiones": [
-      { "id": 11343, "nombre": "Practice 1", "tipo": "Practice", "inicio": "2026-08-21T10:30:00+00:00" },
-      { "id": 11344, "nombre": "Sprint Qualifying", "tipo": "Sprint Shootout", "inicio": "2026-08-21T14:30:00+00:00" },
+      { "id": 11343, "nombre": "Práctica 1", "tipo": "Practice", "inicio": "2026-08-21T10:30:00+00:00" },
+      { "id": 11344, "nombre": "Clasificación Sprint", "tipo": "Sprint Shootout", "inicio": "2026-08-21T14:30:00+00:00" },
       { "id": 11348, "nombre": "Sprint", "tipo": "Sprint Qualifying", "inicio": "2026-08-22T10:00:00+00:00" },
-      { "id": 11349, "nombre": "Qualifying", "tipo": "Qualifying", "inicio": "2026-08-22T14:00:00+00:00" },
-      { "id": 11353, "nombre": "Race", "tipo": "Race", "inicio": "2026-08-23T13:00:00+00:00" }
+      { "id": 11349, "nombre": "Clasificación", "tipo": "Qualifying", "inicio": "2026-08-22T14:00:00+00:00" },
+      { "id": 11353, "nombre": "Carrera", "tipo": "Race", "inicio": "2026-08-23T13:00:00+00:00" }
     ]
   },
   {
     "id": 1293,
-    "nombre": "Italian Grand Prix",
-    "pais": "Italy",
+    "nombre": "Gran Premio de Italia",
+    "pais": "Italia",
     "bandera": "/Circuitos/Gran Premio de Italy - Italian/bandera.png",
+    "background": "/Circuitos/Gran Premio de Italy - Italian/background.jpg",
     "imagen_circuito": "/Circuitos/Gran Premio de Italy - Italian/mapa.svg",
     "info_tecnica": "Autodromo Nazionale Monza, 5.793 km. El templo de la velocidad pura.",
     "resena_historica": "Sede histórica de Ferrari, donde los 'Tifosi' celebran con pasión desbordada.",
     "neumaticos_sugeridos": ["C2", "C3", "C4"],
     "fecha": "2026-09-04T10:30:00+00:00",
     "sesiones": [
-      { "id": 11354, "nombre": "Practice 1", "tipo": "Practice", "inicio": "2026-09-04T10:30:00+00:00" },
-      { "id": 11355, "nombre": "Practice 2", "tipo": "Practice", "inicio": "2026-09-04T14:00:00+00:00" },
-      { "id": 11356, "nombre": "Practice 3", "tipo": "Practice", "inicio": "2026-09-05T10:30:00+00:00" },
-      { "id": 11357, "nombre": "Qualifying", "tipo": "Qualifying", "inicio": "2026-09-05T14:00:00+00:00" },
-      { "id": 11361, "nombre": "Race", "tipo": "Race", "inicio": "2026-09-06T13:00:00+00:00" }
+      { "id": 11354, "nombre": "Práctica 1", "tipo": "Practice", "inicio": "2026-09-04T10:30:00+00:00" },
+      { "id": 11355, "nombre": "Práctica 2", "tipo": "Practice", "inicio": "2026-09-04T14:00:00+00:00" },
+      { "id": 11356, "nombre": "Práctica 3", "tipo": "Practice", "inicio": "2026-09-05T10:30:00+00:00" },
+      { "id": 11357, "nombre": "Clasificación", "tipo": "Qualifying", "inicio": "2026-09-05T14:00:00+00:00" },
+      { "id": 11361, "nombre": "Carrera", "tipo": "Race", "inicio": "2026-09-06T13:00:00+00:00" }
     ]
   },
   {
     "id": 1294,
-    "nombre": "Spanish Grand Prix",
-    "pais": "Spain",
+    "nombre": "Gran Premio de España",
+    "pais": "España",
     "bandera": "/Circuitos/Gran Premio de Spain - Spanish/bandera.png",
+    "background": "/Circuitos/Gran Premio de Spain - Spanish/background.jpg",
     "imagen_circuito": "/Circuitos/Gran Premio de Spain - Spanish/mapa.svg",
     "info_tecnica": "Circuito semi-urbano, Madrid (IFEMA). Propuesta de alta tecnología y sostenibilidad.",
     "resena_historica": "Nueva era para el GP de España, trasladando el evento a la capital en un entorno moderno.",
     "neumaticos_sugeridos": ["C2", "C3", "C4"],
     "fecha": "2026-09-11T11:30:00+00:00",
     "sesiones": [
-      { "id": 11362, "nombre": "Practice 1", "tipo": "Practice", "inicio": "2026-09-11T11:30:00+00:00" },
-      { "id": 11363, "nombre": "Practice 2", "tipo": "Practice", "inicio": "2026-09-11T15:00:00+00:00" },
-      { "id": 11364, "nombre": "Practice 3", "tipo": "Practice", "inicio": "2026-09-12T10:30:00+00:00" },
-      { "id": 11365, "nombre": "Qualifying", "tipo": "Qualifying", "inicio": "2026-09-12T14:00:00+00:00" },
-      { "id": 11369, "nombre": "Race", "tipo": "Race", "inicio": "2026-09-13T13:00:00+00:00" }
+      { "id": 11362, "nombre": "Práctica 1", "tipo": "Practice", "inicio": "2026-09-11T11:30:00+00:00" },
+      { "id": 11363, "nombre": "Práctica 2", "tipo": "Practice", "inicio": "2026-09-11T15:00:00+00:00" },
+      { "id": 11364, "nombre": "Práctica 3", "tipo": "Practice", "inicio": "2026-09-12T10:30:00+00:00" },
+      { "id": 11365, "nombre": "Clasificación", "tipo": "Qualifying", "inicio": "2026-09-12T14:00:00+00:00" },
+      { "id": 11369, "nombre": "Carrera", "tipo": "Race", "inicio": "2026-09-13T13:00:00+00:00" }
     ]
   },
   {
     "id": 1295,
-    "nombre": "Azerbaijan Grand Prix",
-    "pais": "Azerbaijan",
+    "nombre": "Gran Premio de Azerbaiyán",
+    "pais": "Azerbaiyán",
     "bandera": "/Circuitos/Gran Premio de Azerbaijan/bandera.png",
+    "background": "/Circuitos/Gran Premio de Azerbaijan/background.jpg",
     "imagen_circuito": "/Circuitos/Gran Premio de Azerbaijan/mapa.svg",
     "info_tecnica": "Baku City Circuit, 6.003 km. Combina una sección histórica estrecha con una recta de 2km.",
     "resena_historica": "Famoso por carreras caóticas e impredecibles desde su debut en 2016.",
     "neumaticos_sugeridos": ["C3", "C4", "C5"],
     "fecha": "2026-09-24T08:30:00+00:00",
     "sesiones": [
-      { "id": 11370, "nombre": "Practice 1", "tipo": "Practice", "inicio": "2026-09-24T08:30:00+00:00" },
-      { "id": 11371, "nombre": "Practice 2", "tipo": "Practice", "inicio": "2026-09-24T12:00:00+00:00" },
-      { "id": 11372, "nombre": "Practice 3", "tipo": "Practice", "inicio": "2026-09-25T08:30:00+00:00" },
-      { "id": 11373, "nombre": "Qualifying", "tipo": "Qualifying", "inicio": "2026-09-25T12:00:00+00:00" },
-      { "id": 11377, "nombre": "Race", "tipo": "Race", "inicio": "2026-09-26T11:00:00+00:00" }
+      { "id": 11370, "nombre": "Práctica 1", "tipo": "Practice", "inicio": "2026-09-24T08:30:00+00:00" },
+      { "id": 11371, "nombre": "Práctica 2", "tipo": "Practice", "inicio": "2026-09-24T12:00:00+00:00" },
+      { "id": 11372, "nombre": "Práctica 3", "tipo": "Practice", "inicio": "2026-09-25T08:30:00+00:00" },
+      { "id": 11373, "nombre": "Clasificación", "tipo": "Qualifying", "inicio": "2026-09-25T12:00:00+00:00" },
+      { "id": 11377, "nombre": "Carrera", "tipo": "Race", "inicio": "2026-09-26T11:00:00+00:00" }
     ]
   },
   {
     "id": 1296,
-    "nombre": "Singapore Grand Prix",
-    "pais": "Singapore",
+    "nombre": "Gran Premio de Singapur",
+    "pais": "Singapur",
     "bandera": "/Circuitos/Gran Premio de Singapore/bandera.png",
+    "background": "/Circuitos/Gran Premio de Singapore/background.jpg",
     "imagen_circuito": "/Circuitos/Gran Premio de Singapore/mapa.svg",
     "info_tecnica": "Marina Bay, 4.940 km. Carrera nocturna bajo humedad extrema y 23 curvas.",
     "resena_historica": "Fue la primera carrera nocturna de la F1 (2008), convirtiéndose en un ícono visual.",
     "neumaticos_sugeridos": ["C3", "C4", "C5"],
     "fecha": "2026-10-09T09:30:00+00:00",
     "sesiones": [
-      { "id": 11378, "nombre": "Practice 1", "tipo": "Practice", "inicio": "2026-10-09T09:30:00+00:00" },
-      { "id": 11379, "nombre": "Sprint Qualifying", "tipo": "Sprint Shootout", "inicio": "2026-10-09T12:30:00+00:00" },
+      { "id": 11378, "nombre": "Práctica 1", "tipo": "Practice", "inicio": "2026-10-09T09:30:00+00:00" },
+      { "id": 11379, "nombre": "Clasificación Sprint", "tipo": "Sprint Shootout", "inicio": "2026-10-09T12:30:00+00:00" },
       { "id": 11383, "nombre": "Sprint", "tipo": "Sprint Qualifying", "inicio": "2026-10-10T09:00:00+00:00" },
-      { "id": 11384, "nombre": "Qualifying", "tipo": "Qualifying", "inicio": "2026-10-10T13:00:00+00:00" },
-      { "id": 11388, "nombre": "Race", "tipo": "Race", "inicio": "2026-10-11T12:00:00+00:00" }
+      { "id": 11384, "nombre": "Clasificación", "tipo": "Qualifying", "inicio": "2026-10-10T13:00:00+00:00" },
+      { "id": 11388, "nombre": "Carrera", "tipo": "Race", "inicio": "2026-10-11T12:00:00+00:00" }
     ]
   },
   {
     "id": 1297,
-    "nombre": "United States Grand Prix",
-    "pais": "United States",
+    "nombre": "Gran Premio de Estados Unidos",
+    "pais": "Estados Unidos",
     "bandera": "/Circuitos/Gran Premio de United States - United States/bandera.png",
+    "background": "/Circuitos/Gran Premio de United States - United States/background.avif",
     "imagen_circuito": "/Circuitos/Gran Premio de United States - United States/mapa.svg",
     "info_tecnica": "Circuit of the Americas (COTA), 5.513 km. Posee una subida empinada hacia la curva 1.",
     "resena_historica": "Primer circuito en EE.UU. construido específicamente para la F1 (2012).",
     "neumaticos_sugeridos": ["C2", "C3", "C4"],
     "fecha": "2026-10-23T17:30:00+00:00",
     "sesiones": [
-      { "id": 11389, "nombre": "Practice 1", "tipo": "Practice", "inicio": "2026-10-23T17:30:00+00:00" },
-      { "id": 11390, "nombre": "Practice 2", "tipo": "Practice", "inicio": "2026-10-23T21:00:00+00:00" },
-      { "id": 11391, "nombre": "Practice 3", "tipo": "Practice", "inicio": "2026-10-24T17:30:00+00:00" },
-      { "id": 11392, "nombre": "Qualifying", "tipo": "Qualifying", "inicio": "2026-10-24T21:00:00+00:00" },
-      { "id": 11396, "nombre": "Race", "tipo": "Race", "inicio": "2026-10-25T20:00:00+00:00" }
+      { "id": 11389, "nombre": "Práctica 1", "tipo": "Practice", "inicio": "2026-10-23T17:30:00+00:00" },
+      { "id": 11390, "nombre": "Práctica 2", "tipo": "Practice", "inicio": "2026-10-23T21:00:00+00:00" },
+      { "id": 11391, "nombre": "Práctica 3", "tipo": "Practice", "inicio": "2026-10-24T17:30:00+00:00" },
+      { "id": 11392, "nombre": "Clasificación", "tipo": "Qualifying", "inicio": "2026-10-24T21:00:00+00:00" },
+      { "id": 11396, "nombre": "Carrera", "tipo": "Race", "inicio": "2026-10-25T20:00:00+00:00" }
     ]
   },
   {
     "id": 1298,
-    "nombre": "Mexico City Grand Prix",
-    "pais": "Mexico",
+    "nombre": "Gran Premio de la Ciudad de México",
+    "pais": "México",
     "bandera": "/Circuitos/Gran Premio de Mexico/bandera.png",
+    "background": "/Circuitos/Gran Premio de Mexico/background.avif",
     "imagen_circuito": "/Circuitos/Gran Premio de Mexico/mapa.svg",
     "info_tecnica": "Autódromo Hermanos Rodríguez, 4.304 km. A 2,200 metros sobre el nivel del mar.",
     "resena_historica": "Famoso por el Foro Sol, un estadio de béisbol por donde cruza la pista ante miles de fans.",
     "neumaticos_sugeridos": ["C3", "C4", "C5"],
     "fecha": "2026-10-30T18:30:00+00:00",
-    "sesiones": []
+    "sesiones": [
+      { "id": 11397, "nombre": "Práctica 1", "tipo": "Practice", "inicio": "2026-10-30T18:30:00+00:00" },
+      { "id": 11398, "nombre": "Práctica 2", "tipo": "Practice", "inicio": "2026-10-30T22:00:00+00:00" },
+      { "id": 11399, "nombre": "Práctica 3", "tipo": "Practice", "inicio": "2026-10-31T17:30:00+00:00" },
+      { "id": 11400, "nombre": "Clasificación", "tipo": "Qualifying", "inicio": "2026-10-31T21:00:00+00:00" },
+      { "id": 11404, "nombre": "Carrera", "tipo": "Race", "inicio": "2026-11-01T20:00:00+00:00" }
+    ]
   },
   {
     "id": 1299,
-    "nombre": "São Paulo Grand Prix",
-    "pais": "Brazil",
+    "nombre": "Gran Premio de São Paulo",
+    "pais": "Brasil",
     "bandera": "/Circuitos/Gran Premio de Brazil/bandera.png",
+    "background": "/Circuitos/Gran Premio de Brazil/background.jpg",
     "imagen_circuito": "/Circuitos/Gran Premio de Brazil/mapa.svg",
     "info_tecnica": "Interlagos, 4.309 km. Se corre en sentido antihorario con muchas ondulaciones.",
     "resena_historica": "Tierra de leyendas como Senna; escenario de finales de mundial inolvidables.",
     "neumaticos_sugeridos": ["C2", "C3", "C4"],
     "fecha": "2026-11-06T15:30:00+00:00",
     "sesiones": [
-      { "id": 11405, "nombre": "Practice 1", "tipo": "Practice", "inicio": "2026-11-06T15:30:00+00:00" },
-      { "id": 11406, "nombre": "Practice 2", "tipo": "Practice", "inicio": "2026-11-06T19:00:00+00:00" },
-      { "id": 11407, "nombre": "Practice 3", "tipo": "Practice", "inicio": "2026-11-07T14:30:00+00:00" },
-      { "id": 11408, "nombre": "Qualifying", "tipo": "Qualifying", "inicio": "2026-11-07T18:00:00+00:00" },
-      { "id": 11412, "nombre": "Race", "tipo": "Race", "inicio": "2026-11-08T17:00:00+00:00" }
+      { "id": 11405, "nombre": "Práctica 1", "tipo": "Practice", "inicio": "2026-11-06T15:30:00+00:00" },
+      { "id": 11406, "nombre": "Práctica 2", "tipo": "Practice", "inicio": "2026-11-06T19:00:00+00:00" },
+      { "id": 11407, "nombre": "Práctica 3", "tipo": "Practice", "inicio": "2026-11-07T14:30:00+00:00" },
+      { "id": 11408, "nombre": "Clasificación", "tipo": "Qualifying", "inicio": "2026-11-07T18:00:00+00:00" },
+      { "id": 11412, "nombre": "Carrera", "tipo": "Race", "inicio": "2026-11-08T17:00:00+00:00" }
     ]
   },
   {
     "id": 1300,
-    "nombre": "Las Vegas Grand Prix",
-    "pais": "United States",
+    "nombre": "Gran Premio de Las Vegas",
+    "pais": "Estados Unidos",
     "bandera": "/Circuitos/Gran Premio de United States - Las Vegas/bandera.png",
+    "background": "/Circuitos/Gran Premio de United States - Las Vegas/background.jpg",
     "imagen_circuito": "/Circuitos/Gran Premio de United States - Las Vegas/mapa.svg",
     "info_tecnica": "Las Vegas Strip Circuit, 6.201 km. Rectas veloces que pasan por casinos icónicos.",
     "resena_historica": "El evento más espectacular del calendario, con carrera en sábado noche local.",
     "neumaticos_sugeridos": ["C3", "C4", "C5"],
     "fecha": "2026-11-20T00:30:00+00:00",
     "sesiones": [
-      { "id": 11413, "nombre": "Practice 1", "tipo": "Practice", "inicio": "2026-11-20T00:30:00+00:00" },
-      { "id": 11414, "nombre": "Practice 2", "tipo": "Practice", "inicio": "2026-11-20T04:00:00+00:00" },
-      { "id": 11415, "nombre": "Practice 3", "tipo": "Practice", "inicio": "2026-11-21T00:30:00+00:00" },
-      { "id": 11416, "nombre": "Qualifying", "tipo": "Qualifying", "inicio": "2026-11-21T04:00:00+00:00" },
-      { "id": 11420, "nombre": "Race", "tipo": "Race", "inicio": "2026-11-22T04:00:00+00:00" }
+      { "id": 11413, "nombre": "Práctica 1", "tipo": "Practice", "inicio": "2026-11-20T00:30:00+00:00" },
+      { "id": 11414, "nombre": "Práctica 2", "tipo": "Practice", "inicio": "2026-11-20T04:00:00+00:00" },
+      { "id": 11415, "nombre": "Práctica 3", "tipo": "Practice", "inicio": "2026-11-21T00:30:00+00:00" },
+      { "id": 11416, "nombre": "Clasificación", "tipo": "Qualifying", "inicio": "2026-11-21T04:00:00+00:00" },
+      { "id": 11420, "nombre": "Carrera", "tipo": "Race", "inicio": "2026-11-22T04:00:00+00:00" }
     ]
   },
   {
     "id": 1301,
-    "nombre": "Qatar Grand Prix",
+    "nombre": "Gran Premio de Qatar",
     "pais": "Qatar",
     "bandera": "/Circuitos/Gran Premio de Qatar/bandera.png",
+    "background": "/Circuitos/Gran Premio de Qatar/background.jpg",
     "imagen_circuito": "/Circuitos/Gran Premio de Qatar/mapa.svg",
     "info_tecnica": "Lusail International, 5.419 km. Circuito fluido con curvas de alta velocidad.",
     "resena_historica": "Originalmente para MotoGP, se adaptó a la F1 ofreciendo un desafío físico intenso.",
     "neumaticos_sugeridos": ["C1", "C2", "C3"],
     "fecha": "2026-11-27T13:30:00+00:00",
     "sesiones": [
-      { "id": 11421, "nombre": "Practice 1", "tipo": "Practice", "inicio": "2026-11-27T13:30:00+00:00" },
-      { "id": 11422, "nombre": "Practice 2", "tipo": "Practice", "inicio": "2026-11-27T17:00:00+00:00" },
-      { "id": 11423, "nombre": "Practice 3", "tipo": "Practice", "inicio": "2026-11-28T14:30:00+00:00" },
-      { "id": 11424, "nombre": "Qualifying", "tipo": "Qualifying", "inicio": "2026-11-28T18:00:00+00:00" },
-      { "id": 11428, "nombre": "Race", "tipo": "Race", "inicio": "2026-11-29T16:00:00+00:00" }
+      { "id": 11421, "nombre": "Práctica 1", "tipo": "Practice", "inicio": "2026-11-27T13:30:00+00:00" },
+      { "id": 11422, "nombre": "Práctica 2", "tipo": "Practice", "inicio": "2026-11-27T17:00:00+00:00" },
+      { "id": 11423, "nombre": "Práctica 3", "tipo": "Practice", "inicio": "2026-11-28T14:30:00+00:00" },
+      { "id": 11424, "nombre": "Clasificación", "tipo": "Qualifying", "inicio": "2026-11-28T18:00:00+00:00" },
+      { "id": 11428, "nombre": "Carrera", "tipo": "Race", "inicio": "2026-11-29T16:00:00+00:00" }
     ]
   },
   {
     "id": 1302,
-    "nombre": "Abu Dhabi Grand Prix",
-    "pais": "United Arab Emirates",
+    "nombre": "Gran Premio de Abu Dabi",
+    "pais": "Emiratos Árabes Unidos",
     "bandera": "/Circuitos/Gran Premio de United Arab Emirates/bandera.png",
+    "background": "/Circuitos/Gran Premio de United Arab Emirates/background.jpg",
     "imagen_circuito": "/Circuitos/Gran Premio de United Arab Emirates/mapa.svg",
     "info_tecnica": "Yas Marina Circuit, 5.281 km. Carrera nocturna que cierra la temporada.",
     "resena_historica": "Sede del final de temporada desde 2009, conocido por su hotel sobre la pista.",
     "neumaticos_sugeridos": ["C3", "C4", "C5"],
     "fecha": "2026-12-04T09:30:00+00:00",
     "sesiones": [
-      { "id": 11429, "nombre": "Practice 1", "tipo": "Practice", "inicio": "2026-12-04T09:30:00+00:00" },
-      { "id": 11430, "nombre": "Practice 2", "tipo": "Practice", "inicio": "2026-12-04T13:00:00+00:00" },
-      { "id": 11431, "nombre": "Practice 3", "tipo": "Practice", "inicio": "2026-12-05T10:30:00+00:00" },
-      { "id": 11432, "nombre": "Qualifying", "tipo": "Qualifying", "inicio": "2026-12-05T14:00:00+00:00" },
-      { "id": 11436, "nombre": "Race", "tipo": "Race", "inicio": "2026-12-06T13:00:00+00:00" }
+      { "id": 11429, "nombre": "Práctica 1", "tipo": "Practice", "inicio": "2026-12-04T09:30:00+00:00" },
+      { "id": 11430, "nombre": "Práctica 2", "tipo": "Practice", "inicio": "2026-12-04T13:00:00+00:00" },
+      { "id": 11431, "nombre": "Práctica 3", "tipo": "Practice", "inicio": "2026-12-05T10:30:00+00:00" },
+      { "id": 11432, "nombre": "Clasificación", "tipo": "Qualifying", "inicio": "2026-12-05T14:00:00+00:00" },
+      { "id": 11436, "nombre": "Carrera", "tipo": "Race", "inicio": "2026-12-06T13:00:00+00:00" }
     ]
   }
 ]
