@@ -6,7 +6,7 @@ import CircuitCard from "./circuitos/CircuitCard.astro";
 
 // Carga de datos
 const filePath = path.join(process.cwd(), 'public', 'calendario_f1_2026.json');
-let circuitos = [];
+let circuitos: any[] = [];
 
 try {
   const fileContent = await fs.readFile(filePath, 'utf-8');

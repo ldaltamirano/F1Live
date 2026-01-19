@@ -1,0 +1,35 @@
+---
+interface Props {
+  driver: any;
+}
+
+const { driver } = Astro.props;
+const { nombre, apellido, numero, nacionalidad, codigo } = driver.info_biografica;
+---
+
+<a href={`/pilotos/${driver.id}`} class="group relative bg-[#1e1e24] rounded-2xl overflow-hidden border border-white/5 hover:border-[#e10600] transition-all duration-300 hover:shadow-[0_0_30px_rgba(225,6,0,0.15)] hover:-translate-y-2 flex flex-col h-full">
+  {/* Barra decorativa superior */}
+  <div class="h-1 w-full bg-gradient-to-r from-[#e10600] to-red-900 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+  
+  <div class="p-6 relative z-10 flex flex-col h-full justify-between">
+    <div class="flex justify-between items-start mb-4">
+      <div class="text-6xl font-black text-white/10 group-hover:text-white/20 transition-colors font-mono leading-none">
+        {numero}
+      </div>
+      <div class="text-[#e10600] font-bold text-sm tracking-widest uppercase border border-[#e10600]/20 px-2 py-1 rounded bg-[#e10600]/5">
+        {codigo}
+      </div>
+    </div>
+    
+    <div>
+      <span class="block text-sm font-medium text-gray-400 mb-0 uppercase tracking-wider">{nombre}</span>
+      <h2 class="text-3xl font-black text-white uppercase italic leading-none group-hover:text-[#e10600] transition-colors">
+        {apellido}
+      </h2>
+      <p class="text-xs text-gray-500 mt-3 border-t border-white/5 pt-3 flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-gray-600 group-hover:bg-[#e10600] transition-colors"></span>
+        {nacionalidad}
+      </p>
+    </div>
+  </div>
+</a>
