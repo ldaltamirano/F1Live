@@ -47,6 +47,82 @@ Feel free to check [our documentation](https://docs.astro.build) or jump into ou
 
 # F1 Live - Project Roadmap
 
+## 📰 Roadmap: Sección Noticias (Home)
+
+Plan para transformar la página de inicio en un hub de información con noticias destacadas.
+
+### 📝 Fase 1: Estructura y Componentes
+- [ ] **Schema de Noticias**: Crear `news.json` con campos: `id`, `titulo`, `bajada`, `imagen`, `fecha`, `tags`, `cuerpo`.
+- [ ] **Componente Card**: `<NewsCard />` con diseño moderno (imagen de fondo o top, fecha formateada).
+- [ ] **Sección en Home**: Integrar un grid de "Últimas Noticias" en `index.astro`.
+
+### 📖 Fase 2: Página de Lectura
+- [ ] **Ruta Dinámica**: Crear `/noticias/[id]` para leer el artículo completo.
+- [ ] **Markdown Support**: Permitir que el `cuerpo` de la noticia soporte Markdown o HTML básico.
+
+## 🗄️ Roadmap: Migración a Base de Datos (Turso)
+
+Plan para migrar de archivos JSON estáticos a una base de datos SQLite distribuida con Turso.
+
+### 🛠️ Fase 1: Configuración y Esquema
+- [ ] **Setup Turso**: Crear base de datos en Turso y obtener `TURSO_DATABASE_URL` y `TURSO_AUTH_TOKEN`.
+- [ ] **Instalar Cliente**: Agregar `@libsql/client` al proyecto.
+- [ ] **Diseño de Tablas**: Definir SQL para `drivers`, `teams`, `circuits`, `races`, `results`.
+
+### 🔄 Fase 2: Migración de Datos (JSON a SQL)
+- [ ] **Script de Seeding**: Crear script (Node.js) que lea los JSONs actuales (`public/*.json`) e inserte los datos en Turso.
+- [ ] **Verificación**: Comprobar que los datos en Turso coinciden con los JSON.
+
+### 🔌 Fase 3: Integración en Astro
+- [ ] **Cliente DB**: Crear `src/lib/db.ts` para gestionar la conexión.
+- [ ] **Refactor de Lectura**: Reemplazar `fs.readFile` en `getStaticPaths` y cargas de datos por consultas SQL (`SELECT * FROM ...`).
+
+### 🚀 Fase 4: Escritura y Admin
+- [ ] **API Endpoints**: Crear endpoints en Astro (`src/pages/api/...`) para operaciones de escritura (UPDATE standings, INSERT results).
+- [ ] **Conectar Dashboard**: Hacer que el Admin Dashboard envíe peticiones a la API en lugar de editar archivos locales.
+
+## 💻 Roadmap: Admin Dashboard (Gestión de Datos)
+
+Plan para crear un panel de control interno que facilite la actualización de los archivos JSON sin tocar código.
+
+### 🔐 Fase 1: Base y Seguridad
+- [ ] **Layout Admin**: Crear un layout específico (`/layouts/AdminLayout.astro`) con sidebar y modo oscuro forzado.
+- [ ] **Autenticación Simple**: Implementar un login básico (cookie/session) para proteger la ruta `/admin`.
+- [ ] **Visor de Archivos**: Listar los archivos JSON actuales (`drivers`, `teams`, `standings`) y ver su contenido "raw".
+
+### ✏️ Fase 2: Editores Visuales
+- [ ] **Editor de Drivers**: Formulario para modificar biografías de pilotos.
+- [ ] **Editor de Standings**: Interfaz tipo hoja de cálculo para ajustar la tabla de posiciones rápidamente.
+- [ ] **Status del Calendario**: Toggles para marcar sesiones como "Completadas" o "En Curso".
+
+### 🤖 Fase 3: Automatización y API
+- [ ] **Importador de Resultados**: Script para "Simular Carrera" que actualice puntos automáticamente basado en posiciones ingresadas.
+- [ ] **Sincronización OpenF1**: Botón para traer datos reales de la API y actualizar los JSON locales.
+- [ ] **Backup System**: Botón para descargar una copia de seguridad de todos los JSONs actuales.
+
+## 🏆 Roadmap: Sección Resultados y Standings
+
+Plan para visualizar las clasificaciones del campeonato y los resultados de cada sesión.
+
+### 📊 Fase 1: Tablas de Clasificación (Standings)
+- [x] **Estructura de Datos**: Definir y crear `standings_2026.json` o calcular dinámicamente desde resultados.
+- [x] **Componente Tabla**: Crear `<StandingsTable />` reutilizable con ordenamiento y estilos de equipo.
+- [x] **Página Principal**: Implementar `/resultados` con pestañas para Pilotos y Constructores.
+- [x] **Gráfico de Evolución**: Integrar librería de gráficos (ej. Chart.js) para ver progreso de puntos.
+- [x] **Gráfico de evolucion por seleccion de pilotos**: Poder selecciones los pilots a graficar.
+
+
+### 🏁 Fase 2: Resultados por Gran Premio
+- [ ] **Rutas Dinámicas**: Crear `/resultados/[round]` para el detalle de cada GP.
+- [ ] **Componente Sesión**: `<SessionResult />` para mostrar tablas de tiempos (P1, P2, P3, Qualy, Race).
+- [ ] **Formato de Tiempos**: Helper para formatear diferencias (`+0.4s`) y sectores.
+- [ ] **Highlights**: Mostrar "Driver of the Day" y "Fastest Lap" con tarjetas destacadas.
+
+### 📈 Fase 3: Análisis y Estadísticas
+- [ ] **Head-to-Head**: Comparativa visual (barras) de puntos/posiciones entre compañeros.
+- [ ] **Gap Analysis**: Visualización de intervalos de tiempo en carrera.
+- [ ] **Tyre Strategy**: Gráfico visual de las paradas en boxes y compuestos usados.
+
 ## 🏎️ Roadmap: Sección Circuitos
 
 Plan de trabajo para mejorar la experiencia en la sección de circuitos y detalles del Gran Premio.
@@ -89,30 +165,7 @@ Plan de trabajo para la sección de pilotos y perfiles individuales, aprovechand
 - [ ] **Head-to-Head**: Comparativa visual con su compañero de equipo en la página de detalle.
 - [ ] **Trayectoria**: Línea de tiempo simple con equipos anteriores (usando `info_profesional.ex_equipos` o `equipo_anterior`).
 
-## 🏆 Roadmap: Sección Resultados y Standings
-
-Plan para visualizar las clasificaciones del campeonato y los resultados de cada sesión.
-
-### 📊 Fase 1: Tablas de Clasificación (Standings)
-- [x] **Estructura de Datos**: Definir y crear `standings_2026.json` o calcular dinámicamente desde resultados.
-- [x] **Componente Tabla**: Crear `<StandingsTable />` reutilizable con ordenamiento y estilos de equipo.
-- [x] **Página Principal**: Implementar `/resultados` con pestañas para Pilotos y Constructores.
-- [x] **Gráfico de Evolución**: Integrar librería de gráficos (ej. Chart.js) para ver progreso de puntos.
-- [x] **Gráfico de evolucion por seleccion de pilotos**: Poder selecciones los pilots a graficar.
-
-
-### 🏁 Fase 2: Resultados por Gran Premio
-- [ ] **Rutas Dinámicas**: Crear `/resultados/[round]` para el detalle de cada GP.
-- [ ] **Componente Sesión**: `<SessionResult />` para mostrar tablas de tiempos (P1, P2, P3, Qualy, Race).
-- [ ] **Formato de Tiempos**: Helper para formatear diferencias (`+0.4s`) y sectores.
-- [ ] **Highlights**: Mostrar "Driver of the Day" y "Fastest Lap" con tarjetas destacadas.
-
-### 📈 Fase 3: Análisis y Estadísticas
-- [ ] **Head-to-Head**: Comparativa visual (barras) de puntos/posiciones entre compañeros.
-- [ ] **Gap Analysis**: Visualización de intervalos de tiempo en carrera.
-- [ ] **Tyre Strategy**: Gráfico visual de las paradas en boxes y compuestos usados.
-
-## 🔴 Roadmap: Sección Live
+##  Roadmap: Sección Live
 
 Plan para la experiencia de seguimiento en vivo de las sesiones durante el fin de semana de carrera.
 
@@ -130,43 +183,3 @@ Plan para la experiencia de seguimiento en vivo de las sesiones durante el fin d
 - [ ] **Tracker en Mapa**: Posición aproximada de los pilotos en el mapa del circuito (interpolación).
 - [ ] **Comparativa de Telemetría**: Gráficos de velocidad/aceleración entre dos pilotos seleccionados.
 - [ ] **Tyre History**: Visualización de la estrategia de neumáticos en uso y vueltas acumuladas.
-
-## 💻 Roadmap: Admin Dashboard (Gestión de Datos)
-
-Plan para crear un panel de control interno que facilite la actualización de los archivos JSON sin tocar código.
-
-### 🔐 Fase 1: Base y Seguridad
-- [ ] **Layout Admin**: Crear un layout específico (`/layouts/AdminLayout.astro`) con sidebar y modo oscuro forzado.
-- [ ] **Autenticación Simple**: Implementar un login básico (cookie/session) para proteger la ruta `/admin`.
-- [ ] **Visor de Archivos**: Listar los archivos JSON actuales (`drivers`, `teams`, `standings`) y ver su contenido "raw".
-
-### ✏️ Fase 2: Editores Visuales
-- [ ] **Editor de Drivers**: Formulario para modificar biografías de pilotos.
-- [ ] **Editor de Standings**: Interfaz tipo hoja de cálculo para ajustar la tabla de posiciones rápidamente.
-- [ ] **Status del Calendario**: Toggles para marcar sesiones como "Completadas" o "En Curso".
-
-### 🤖 Fase 3: Automatización y API
-- [ ] **Importador de Resultados**: Script para "Simular Carrera" que actualice puntos automáticamente basado en posiciones ingresadas.
-- [ ] **Sincronización OpenF1**: Botón para traer datos reales de la API y actualizar los JSON locales.
-- [ ] **Backup System**: Botón para descargar una copia de seguridad de todos los JSONs actuales.
-
-## 🗄️ Roadmap: Migración a Base de Datos (Turso)
-
-Plan para migrar de archivos JSON estáticos a una base de datos SQLite distribuida con Turso.
-
-### 🛠️ Fase 1: Configuración y Esquema
-- [ ] **Setup Turso**: Crear base de datos en Turso y obtener `TURSO_DATABASE_URL` y `TURSO_AUTH_TOKEN`.
-- [ ] **Instalar Cliente**: Agregar `@libsql/client` al proyecto.
-- [ ] **Diseño de Tablas**: Definir SQL para `drivers`, `teams`, `circuits`, `races`, `results`.
-
-### 🔄 Fase 2: Migración de Datos (JSON a SQL)
-- [ ] **Script de Seeding**: Crear script (Node.js) que lea los JSONs actuales (`public/*.json`) e inserte los datos en Turso.
-- [ ] **Verificación**: Comprobar que los datos en Turso coinciden con los JSON.
-
-### 🔌 Fase 3: Integración en Astro
-- [ ] **Cliente DB**: Crear `src/lib/db.ts` para gestionar la conexión.
-- [ ] **Refactor de Lectura**: Reemplazar `fs.readFile` en `getStaticPaths` y cargas de datos por consultas SQL (`SELECT * FROM ...`).
-
-### 🚀 Fase 4: Escritura y Admin
-- [ ] **API Endpoints**: Crear endpoints en Astro (`src/pages/api/...`) para operaciones de escritura (UPDATE standings, INSERT results).
-- [ ] **Conectar Dashboard**: Hacer que el Admin Dashboard envíe peticiones a la API en lugar de editar archivos locales.
