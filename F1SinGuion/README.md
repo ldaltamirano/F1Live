@@ -61,6 +61,8 @@ Plan para transformar la página de inicio en un hub de información con noticia
 ### 📖 Fase 2: Página de Lectura
 - [x] **Ruta Dinámica**: Crear `/noticias/[id]` para leer el artículo completo.
 - [x] **Markdown Support**: Permitir que el `cuerpo` de la noticia soporte Markdown o HTML básico.
+- [x] **Agregar SEO** Agegar a la home y a las paginas de noticias
+
 
 ## 🗄️ Roadmap: Migración a Base de Datos (Turso)
 

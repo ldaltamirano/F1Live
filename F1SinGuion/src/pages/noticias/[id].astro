@@ -44,7 +44,11 @@ const md = new MarkdownIt({ html: true });
 const content = md.render(contentRaw);
 ---
 
-<Layout title={`${newsItem.titulo} - F1 Live`}>
+<Layout 
+  title={`${newsItem.titulo} - F1 Live`}
+  description={newsItem.bajada}
+  image={newsItem.imagen}
+>
   <article class="bg-[#15151e] min-h-screen text-white pt-24 pb-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-4xl mx-auto">
       
