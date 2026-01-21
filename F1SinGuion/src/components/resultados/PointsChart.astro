@@ -1,0 +1,76 @@
+---
+interface Props {
+  id: string;
+  labels: string[];
+  datasets: {
+    label: string;
+    data: number[];
+    color: string;
+    hidden?: boolean;
+  }[];
+}
+
+const { id, labels, datasets } = Astro.props;
+
+// Preparamos los datos para pasarlos al script del cliente
+const chartData = {
+  labels,
+  datasets: datasets.map(d => ({
+    label: d.label,
+    data: d.data,
+    borderColor: d.color,
+    backgroundColor: d.color,
+    hidden: d.hidden || false,
+    tension: 0.3,
+    pointRadius: 4,
+    pointHoverRadius: 6
+  }))
+};
+---
+
+<div class="relative w-full h-[400px] mt-8">
+  <canvas id={id}></canvas>
+</div>
+
+<script define:vars={{ id, chartData }} type="module">
+  import Chart from 'https://cdn.jsdelivr.net/npm/chart.js/auto/+esm';
+
+  const ctx = document.getElementById(id);
+  
+  if (ctx) {
+    window.f1Charts = window.f1Charts || {};
+
+    window.f1Charts[id] = new Chart(ctx, {
+      type: 'line',
+      data: chartData,
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false // Ocultamos leyenda para limpieza, ya tenemos la tabla
+          },
+          tooltip: {
+            mode: 'index',
+            intersect: false,
+            backgroundColor: 'rgba(30, 30, 36, 0.9)',
+            titleColor: '#fff',
+            bodyColor: '#ccc',
+            borderColor: 'rgba(255,255,255,0.1)',
+            borderWidth: 1
+          }
+        },
+        scales: {
+          y: {
+            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+            ticks: { color: '#888' }
+          },
+          x: {
+            grid: { display: false },
+            ticks: { color: '#888' }
+          }
+        }
+      }
+    });
+  }
+</script>

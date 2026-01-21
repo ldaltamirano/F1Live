@@ -2,16 +2,30 @@
 import Layout from "../layouts/Layout.astro";
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import DriverCard from "./pilotos/DriverCard.astro";
+import DriverCard from "@components/pilotos/DriverCard.astro";
 
 // Carga de datos de pilotos
-const filePath = path.join(process.cwd(), 'public', 'drivers.json');
+const driversPath = path.join(process.cwd(), 'public', 'drivers_2026.json');
+const teamsPath = path.join(process.cwd(), 'public', 'teams_2026.json'); 
+
 let drivers: any[] = [];
 
 try {
-  const fileContent = await fs.readFile(filePath, 'utf-8');
-  const data = JSON.parse(fileContent);
-  drivers = data.parrilla || [];
+  const [driversContent, teamsContent] = await Promise.all([
+    fs.readFile(driversPath, 'utf-8'),
+    fs.readFile(teamsPath, 'utf-8')
+  ]);
+
+  const driversData = JSON.parse(driversContent);
+  const teamsData = JSON.parse(teamsContent);
+
+  // Fusionamos la info del piloto con la de su equipo para tener colores y logos
+  drivers = driversData.map((driver: any) => {
+    // Buscamos el equipo que tenga al piloto en su lista de driver_ids
+    const team = teamsData.find((t: any) => t.driver_ids?.includes(driver.id)) || teamsData.find((t: any) => t.id === driver.team_id);
+    return { ...driver, team };
+  });
+
 } catch (error) {
   console.error("Error al cargar los pilotos:", error);
 }

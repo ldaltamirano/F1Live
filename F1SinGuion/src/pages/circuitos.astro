@@ -1,8 +1,9 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import "@styles/global.css";
+import Layout from "@layouts/Layout.astro";
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import CircuitCard from "./circuitos/CircuitCard.astro";
+import CircuitCard from "@components/circuitos/CircuitCard.astro";
 
 // Carga de datos
 const filePath = path.join(process.cwd(), 'public', 'calendario_f1_2026.json');
@@ -10,7 +11,10 @@ let circuitos: any[] = [];
 
 try {
   const fileContent = await fs.readFile(filePath, 'utf-8');
-  circuitos = JSON.parse(fileContent);
+  const data = JSON.parse(fileContent);
+  if (Array.isArray(data)) {
+    circuitos = data;
+  }
 } catch (error) {
   console.error("Error al cargar el calendario:", error);
 }
@@ -45,7 +49,7 @@ let rondaCounter = 0;
       </div>
 
       <div id="circuitGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {circuitos.map((gp) => {
+        {circuitos.filter(gp => gp).map((gp) => {
         const esTest = gp.nombre.includes('Testing');
         if (!esTest) rondaCounter++;
         

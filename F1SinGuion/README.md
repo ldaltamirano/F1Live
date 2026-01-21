@@ -94,18 +94,23 @@ Plan de trabajo para la sección de pilotos y perfiles individuales, aprovechand
 Plan para visualizar las clasificaciones del campeonato y los resultados de cada sesión.
 
 ### 📊 Fase 1: Tablas de Clasificación (Standings)
-- [ ] **Campeonato de Pilotos**: Tabla con posición, piloto, equipo, puntos y victorias.
-- [ ] **Campeonato de Constructores**: Tabla sumatoria por escuderías con sus colores.
-- [ ] **Gráfico de Evolución**: Visualización de líneas (Chart.js o similar) del progreso de puntos tras cada ronda.
+- [x] **Estructura de Datos**: Definir y crear `standings_2026.json` o calcular dinámicamente desde resultados.
+- [x] **Componente Tabla**: Crear `<StandingsTable />` reutilizable con ordenamiento y estilos de equipo.
+- [x] **Página Principal**: Implementar `/resultados` con pestañas para Pilotos y Constructores.
+- [x] **Gráfico de Evolución**: Integrar librería de gráficos (ej. Chart.js) para ver progreso de puntos.
+- [x] **Gráfico de evolucion por seleccion de pilotos**: Poder selecciones los pilots a graficar.
+
 
 ### 🏁 Fase 2: Resultados por Gran Premio
-- [ ] **Resumen Post-Carrera**: Página de resultados accesible desde el calendario (`/circuitos/[id]/resultados`).
-- [ ] **Tablas por Sesión**: Mostrar tiempos de Prácticas, Clasificación (Q1, Q2, Q3) y Carrera.
-- [ ] **Highlights**: Vuelta rápida, Driver of the Day y abandonos (DNF).
+- [ ] **Rutas Dinámicas**: Crear `/resultados/[round]` para el detalle de cada GP.
+- [ ] **Componente Sesión**: `<SessionResult />` para mostrar tablas de tiempos (P1, P2, P3, Qualy, Race).
+- [ ] **Formato de Tiempos**: Helper para formatear diferencias (`+0.4s`) y sectores.
+- [ ] **Highlights**: Mostrar "Driver of the Day" y "Fastest Lap" con tarjetas destacadas.
 
 ### 📈 Fase 3: Análisis y Estadísticas
-- [ ] **Head-to-Head**: Comparativa de puntos entre compañeros de equipo.
-- [ ] **Ritmo de Carrera**: (Avanzado) Gráfico de tiempos por vuelta si la API lo permite.
+- [ ] **Head-to-Head**: Comparativa visual (barras) de puntos/posiciones entre compañeros.
+- [ ] **Gap Analysis**: Visualización de intervalos de tiempo en carrera.
+- [ ] **Tyre Strategy**: Gráfico visual de las paradas en boxes y compuestos usados.
 
 ## 🔴 Roadmap: Sección Live
 

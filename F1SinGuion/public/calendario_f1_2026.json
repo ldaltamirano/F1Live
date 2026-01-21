@@ -43,6 +43,7 @@
     "info_tecnica": "Albert Park, 5.278 km. Circuito semi-urbano con 14 curvas y alta velocidad promedio.",
     "resena_historica": "Sede desde 1996, famosa por su atmósfera vibrante y el lago central del parque.",
     "neumaticos_sugeridos": ["C2", "C3", "C4"],
+    "home_driver_ids": ["piastri"],
     "fecha": "2026-03-06T01:30:00+00:00",
     "sesiones": [
       { "id": 11227, "nombre": "Práctica 1", "tipo": "Practice", "inicio": "2026-03-06T01:30:00+00:00" },
@@ -81,6 +82,7 @@
     "info_tecnica": "Suzuka, 5.807 km. Único circuito del calendario con configuración en 'ocho'.",
     "resena_historica": "Favorito de los pilotos, propiedad de Honda y escenario de definiciones históricas.",
     "neumaticos_sugeridos": ["C1", "C2", "C3"],
+    "home_driver_ids": ["tsunoda"],
     "fecha": "2026-03-27T02:30:00+00:00",
     "sesiones": [
       { "id": 11246, "nombre": "Práctica 1", "tipo": "Practice", "inicio": "2026-03-27T02:30:00+00:00" },
@@ -138,6 +140,7 @@
     "info_tecnica": "Miami International Autodrome, 5.412 km. Rodea el Hard Rock Stadium.",
     "resena_historica": "Carrera con enfoque en el estilo 'show' de EE.UU., debutó en 2022.",
     "neumaticos_sugeridos": ["C2", "C3", "C4"],
+    "home_team_ids": ["haas", "cadillac"],
     "fecha": "2026-05-01T16:30:00+00:00",
     "sesiones": [
       { "id": 11270, "nombre": "Práctica 1", "tipo": "Practice", "inicio": "2026-05-01T16:30:00+00:00" },
@@ -157,6 +160,7 @@
     "info_tecnica": "Circuit Gilles-Villeneuve, 4.361 km. Mezcla de sectores rápidos y chicanes lentas.",
     "resena_historica": "Famoso por el 'Muro de los Campeones' al final de la recta de boxes.",
     "neumaticos_sugeridos": ["C3", "C4", "C5"],
+    "home_driver_ids": ["stroll"],
     "fecha": "2026-05-22T16:30:00+00:00",
     "sesiones": [
       { "id": 11281, "nombre": "Práctica 1", "tipo": "Practice", "inicio": "2026-05-22T16:30:00+00:00" },
@@ -176,6 +180,7 @@
     "info_tecnica": "Monte Carlo, 3.337 km. El circuito más estrecho, técnico y glamuroso del mundo.",
     "resena_historica": "Presente desde 1950, es la carrera más prestigiosa que todo piloto anhela ganar.",
     "neumaticos_sugeridos": ["C3", "C4", "C5"],
+    "home_driver_ids": ["leclerc"],
     "fecha": "2026-06-05T11:30:00+00:00",
     "sesiones": [
       { "id": 11292, "nombre": "Práctica 1", "tipo": "Practice", "inicio": "2026-06-05T11:30:00+00:00" },
@@ -214,6 +219,7 @@
     "info_tecnica": "Red Bull Ring, 4.318 km. Circuito corto con grandes cambios de elevación.",
     "resena_historica": "Antiguo Österreichring, reconstruido para ofrecer carreras rápidas en los Alpes.",
     "neumaticos_sugeridos": ["C3", "C4", "C5"],
+    "home_team_ids": ["redbull"],
     "fecha": "2026-06-26T11:30:00+00:00",
     "sesiones": [
       { "id": 11308, "nombre": "Práctica 1", "tipo": "Practice", "inicio": "2026-06-26T11:30:00+00:00" },
@@ -233,6 +239,8 @@
     "info_tecnica": "Silverstone, 5.891 km. Alta velocidad lateral en curvas como Becketts.",
     "resena_historica": "Cuna de la F1, albergó la primera carrera del mundial en 1950.",
     "neumaticos_sugeridos": ["C1", "C2", "C3"],
+    "home_team_ids": ["mclaren", "mercedes", "astonmartin", "williams", "alpine", "redbull"],
+    "home_driver_ids": ["hamilton", "russell", "norris", "bearman"],
     "fecha": "2026-07-03T11:30:00+00:00",
     "sesiones": [
       { "id": 11316, "nombre": "Práctica 1", "tipo": "Practice", "inicio": "2026-07-03T11:30:00+00:00" },
@@ -290,6 +298,7 @@
     "info_tecnica": "Zandvoort, 4.259 km. Destaca por sus curvas peraltadas únicas en F1.",
     "resena_historica": "Regresó en 2021 impulsado por la 'marea naranja' de fans locales.",
     "neumaticos_sugeridos": ["C1", "C2", "C3"],
+    "home_driver_ids": ["verstappen"],
     "fecha": "2026-08-21T10:30:00+00:00",
     "sesiones": [
       { "id": 11343, "nombre": "Práctica 1", "tipo": "Practice", "inicio": "2026-08-21T10:30:00+00:00" },
@@ -309,6 +318,8 @@
     "info_tecnica": "Autodromo Nazionale Monza, 5.793 km. El templo de la velocidad pura.",
     "resena_historica": "Sede histórica de Ferrari, donde los 'Tifosi' celebran con pasión desbordada.",
     "neumaticos_sugeridos": ["C2", "C3", "C4"],
+    "home_team_ids": ["ferrari", "rb"],
+    "home_driver_ids": ["antonelli"],
     "fecha": "2026-09-04T10:30:00+00:00",
     "sesiones": [
       { "id": 11354, "nombre": "Práctica 1", "tipo": "Practice", "inicio": "2026-09-04T10:30:00+00:00" },
@@ -328,6 +339,7 @@
     "info_tecnica": "Circuito semi-urbano, Madrid (IFEMA). Propuesta de alta tecnología y sostenibilidad.",
     "resena_historica": "Nueva era para el GP de España, trasladando el evento a la capital en un entorno moderno.",
     "neumaticos_sugeridos": ["C2", "C3", "C4"],
+    "home_driver_ids": ["alonso", "sainz"],
     "fecha": "2026-09-11T11:30:00+00:00",
     "sesiones": [
       { "id": 11362, "nombre": "Práctica 1", "tipo": "Practice", "inicio": "2026-09-11T11:30:00+00:00" },
@@ -385,6 +397,7 @@
     "info_tecnica": "Circuit of the Americas (COTA), 5.513 km. Posee una subida empinada hacia la curva 1.",
     "resena_historica": "Primer circuito en EE.UU. construido específicamente para la F1 (2012).",
     "neumaticos_sugeridos": ["C2", "C3", "C4"],
+    "home_team_ids": ["haas", "cadillac"],
     "fecha": "2026-10-23T17:30:00+00:00",
     "sesiones": [
       { "id": 11389, "nombre": "Práctica 1", "tipo": "Practice", "inicio": "2026-10-23T17:30:00+00:00" },
@@ -423,6 +436,7 @@
     "info_tecnica": "Interlagos, 4.309 km. Se corre en sentido antihorario con muchas ondulaciones.",
     "resena_historica": "Tierra de leyendas como Senna; escenario de finales de mundial inolvidables.",
     "neumaticos_sugeridos": ["C2", "C3", "C4"],
+    "home_driver_ids": ["bortoleto"],
     "fecha": "2026-11-06T15:30:00+00:00",
     "sesiones": [
       { "id": 11405, "nombre": "Práctica 1", "tipo": "Practice", "inicio": "2026-11-06T15:30:00+00:00" },
@@ -442,6 +456,7 @@
     "info_tecnica": "Las Vegas Strip Circuit, 6.201 km. Rectas veloces que pasan por casinos icónicos.",
     "resena_historica": "El evento más espectacular del calendario, con carrera en sábado noche local.",
     "neumaticos_sugeridos": ["C3", "C4", "C5"],
+    "home_team_ids": ["haas", "cadillac"],
     "fecha": "2026-11-20T00:30:00+00:00",
     "sesiones": [
       { "id": 11413, "nombre": "Práctica 1", "tipo": "Practice", "inicio": "2026-11-20T00:30:00+00:00" },

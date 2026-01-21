@@ -1,0 +1,78 @@
+---
+import fs from 'node:fs/promises';
+import path from 'node:path';
+
+interface Props {
+  team: {
+    id: string;
+    nombre: string;
+    nombre_completo: string;
+    base: string;
+    jefe: string;
+    color_var: string;
+    pilotos?: string[];
+    driver_ids?: string[];
+    logo: string;
+    imagen_coche: string;
+  };
+}
+
+const { team } = Astro.props;
+
+// Cargar datos de pilotos para vincular por ID
+const driversPath = path.join(process.cwd(), 'public', 'drivers_2026.json');
+let driversList: string[] = [];
+
+try {
+  const driversContent = await fs.readFile(driversPath, 'utf-8');
+  const allDrivers = JSON.parse(driversContent);
+  
+  // Usamos driver_ids (del JSON nuevo) o pilotos (si contiene IDs)
+  const ids = team.driver_ids || team.pilotos || [];
+  
+  driversList = ids.map((id) => {
+    const driver = allDrivers.find((d: any) => d.id === id);
+    return driver ? `${driver.nombre} ${driver.apellido}` : id;
+  });
+} catch (error) {
+  console.error("Error al cargar pilotos en TeamCard:", error);
+  driversList = team.pilotos || [];
+}
+---
+
+<div 
+  class="group relative bg-[#1e1e24] rounded-2xl overflow-hidden border border-white/5 hover:-translate-y-2 transition-all duration-500 shadow-lg"
+  style={`border-top: 4px solid ${team.color_var}`}
+>
+  {/* Efecto de brillo con el color del equipo */}
+  <div 
+    class="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none"
+    style={`background: radial-gradient(circle at center, ${team.color_var}, transparent 70%)`}
+  ></div>
+
+  <div class="p-6 relative z-10">
+    <div class="flex justify-between items-start mb-4">
+      <div class="bg-white/90 p-3 rounded-xl backdrop-blur-sm shadow-sm">
+        <img src={team.logo} alt={`Logo ${team.nombre}`} class="h-10 w-auto object-contain max-w-[100px]" />
+      </div>
+      <span class="text-xs font-mono text-gray-500 uppercase">{team.base}</span>
+    </div>
+
+    <h2 class="text-3xl font-black text-white italic uppercase tracking-tighter mb-1">{team.nombre}</h2>
+    <p class="text-xs text-gray-400 mb-6 font-medium line-clamp-1">{team.nombre_completo}</p>
+
+    <div class="flex gap-2 mb-8">
+      {
+        driversList.map((piloto) => (
+          <span class="text-xs font-bold bg-white/5 border border-white/10 px-2 py-1 rounded text-white/80">
+            {piloto}
+          </span>
+        ))
+      }
+    </div>
+
+    <div class="relative h-36 w-full mt-auto group-hover:scale-105 transition-transform duration-500">
+      <img src={team.imagen_coche} alt={`Coche ${team.nombre}`} class="w-full h-full object-contain drop-shadow-2xl" />
+    </div>
+  </div>
+</div>

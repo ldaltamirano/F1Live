@@ -1,0 +1,28 @@
+---
+interface Props {
+  compounds: string[];
+}
+
+const { compounds } = Astro.props;
+---
+
+<div class="bg-[#1e1e24] rounded-2xl p-6 border border-white/5">
+  <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2 uppercase italic">
+    <span class="text-[#e10600]">Tyre</span> Allocation
+  </h3>
+  
+  <div class="flex justify-center gap-4">
+    {compounds.slice(0, 3).map((c, i) => (
+      <div class="flex flex-col items-center gap-2">
+        <div class={`w-12 h-12 rounded-full flex items-center justify-center text-sm font-black border-4 shadow-lg ${
+          i === 0 ? 'border-white text-white bg-[#1e1e24]' : 
+          i === 1 ? 'border-[#ffd700] text-[#ffd700] bg-[#1e1e24]' : 
+          'border-[#e10600] text-[#e10600] bg-[#1e1e24]'
+        }`}>
+          {c}
+        </div>
+        <span class="text-[10px] text-gray-500 uppercase font-bold">{i === 0 ? 'Hard' : i === 1 ? 'Medium' : 'Soft'}</span>
+      </div>
+    ))}
+  </div>
+</div>

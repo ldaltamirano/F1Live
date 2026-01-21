@@ -1,0 +1,38 @@
+---
+interface Props {
+  gp: any;
+  roundDisplay: string;
+}
+
+const { gp, roundDisplay } = Astro.props;
+---
+
+<div class="relative w-full h-[50vh] min-h-[400px] overflow-hidden">
+  {/* Imagen de Fondo con Overlay */}
+  <div class="absolute inset-0">
+    <img 
+      src={gp.background || gp.imagen_circuito} 
+      alt={`Background ${gp.nombre}`} 
+      class="w-full h-full object-cover opacity-50"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-[#15151e] via-[#15151e]/60 to-transparent"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-[#15151e] via-transparent to-transparent"></div>
+  </div>
+
+  {/* Contenido */}
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-center pb-12">
+    <div class="mb-6">
+      <slot name="back-button" />
+    </div>
+    
+    <div class="flex items-center gap-3 mb-2">
+      <span class="bg-[#e10600] text-white text-xs font-bold px-2 py-1 rounded uppercase tracking-wider">{roundDisplay}</span>
+      <div class="flex items-center gap-2 text-white/80 font-medium uppercase tracking-widest text-sm">
+        <img src={gp.bandera} alt={gp.pais} class="w-6 rounded-sm" />
+        {gp.pais}
+      </div>
+    </div>
+
+    <h1 transition:name={`title-${gp.id}`} class="text-5xl md:text-7xl font-black text-white italic uppercase tracking-tighter mb-4">{gp.nombre}</h1>
+  </div>
+</div>

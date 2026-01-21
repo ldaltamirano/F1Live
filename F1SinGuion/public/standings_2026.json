@@ -1,0 +1,58 @@
+{
+  "last_updated": "2026-03-09",
+  "round_completed": 0,
+  "drivers": [
+    { "position": 0, "driver_id": "verstappen", "points": 0, "wins": 0, "podiums": 0 },
+    { "position": 0, "driver_id": "leclerc", "points": 0, "wins": 0, "podiums": 0 },
+    { "position": 0, "driver_id": "hamilton", "points": 0, "wins": 0, "podiums": 0 },
+    { "position": 0, "driver_id": "piastri", "points": 0, "wins": 0, "podiums": 0 },
+    { "position": 0, "driver_id": "norris", "points": 0, "wins": 0, "podiums": 0 },
+    { "position": 0, "driver_id": "alonso", "points": 0, "wins": 0, "podiums": 0 },
+    { "position": 0, "driver_id": "russell", "points": 0, "wins": 0, "podiums": 0 },
+    { "position": 0, "driver_id": "colapinto", "points": 0, "wins": 0, "podiums": 0 },
+    { "position": 0, "driver_id": "gasly", "points": 0, "wins": 0, "podiums": 0 },
+    { "position": 0, "driver_id": "antonelli", "points": 0, "wins": 0, "podiums": 0 },
+    { "position": 0, "driver_id": "albon", "points": 0, "wins": 0, "podiums": 0 },
+    { "position": 0, "driver_id": "hadjar", "points": 0, "wins": 0, "podiums": 0 },
+    { "position": 0, "driver_id": "stroll", "points": 0, "wins": 0, "podiums": 0 },
+    { "position": 0, "driver_id": "sainz", "points": 0, "wins": 0, "podiums": 0 },
+    { "position": 0, "driver_id": "lawson", "points": 0, "wins": 0, "podiums": 0 },
+    { "position": 0, "driver_id": "ocon", "points": 0, "wins": 0, "podiums": 0 },
+    { "position": 0, "driver_id": "bearman", "points": 0, "wins": 0, "podiums": 0 },
+    { "position": 0, "driver_id": "hulkenberg", "points": 0, "wins": 0, "podiums": 0 },
+    { "position": 0, "driver_id": "bottas", "points": 0, "wins": 0, "podiums": 0 },
+    { "position": 0, "driver_id": "lindblad", "points": 0, "wins": 0, "podiums": 0 },
+    { "position": 0, "driver_id": "bortoleto", "points": 0, "wins": 0, "podiums": 0 },
+    { "position": 0, "driver_id": "perez", "points": 0, "wins": 0, "podiums": 0 }
+  ],
+  "constructors": [
+    { "position": 0, "team_id": "ferrari", "points": 0, "wins": 0, "podiums": 0 },
+    { "position": 0, "team_id": "redbull", "points": 0, "wins": 0, "podiums": 0 },
+    { "position": 0, "team_id": "mclaren", "points": 0, "wins": 0, "podiums": 0 },
+    { "position": 0, "team_id": "astonmartin", "points": 0, "wins": 0, "podiums": 0 },
+    { "position": 0, "team_id": "mercedes", "points": 0, "wins": 0, "podiums": 0 },
+    { "position": 0, "team_id": "alpine", "points": 0, "wins": 0, "podiums": 0 },
+    { "position": 0, "team_id": "williams", "points": 0, "wins": 0, "podiums": 0 },
+    { "position": 0, "team_id": "rb", "points": 0, "wins": 0, "podiums": 0 },
+    { "position": 0, "team_id": "haas", "points": 0, "wins": 0, "podiums": 0 },
+    { "position": 0, "team_id": "audi", "points": 0, "wins": 0, "podiums": 0 },
+    { "position": 0, "team_id": "cadillac", "points": 0, "wins": 0, "podiums": 0 }
+  ]
+,
+  "history": {
+    "labels": ["Start"],
+    "drivers": {
+      "verstappen": [0], "leclerc": [0], "hamilton": [0], "piastri": [0],
+      "norris": [0], "alonso": [0], "russell": [0], "colapinto": [0],
+      "gasly": [0], "antonelli": [0], "albon": [0], "hadjar": [0],
+      "stroll": [0], "sainz": [0], "lawson": [0], "ocon": [0],
+      "bearman": [0], "hulkenberg": [0], "bottas": [0], "lindblad": [0],
+      "bortoleto": [0], "perez": [0]
+    },
+    "constructors": {
+      "ferrari": [0], "redbull": [0], "mclaren": [0], "astonmartin": [0],
+      "mercedes": [0], "alpine": [0], "williams": [0], "rb": [0],
+      "haas": [0], "audi": [0], "cadillac": [0]
+    }
+  }
+}

@@ -1,0 +1,530 @@
+[
+  {
+    "id": "leclerc",
+    "nombre": "Charles",
+    "apellido": "Leclerc",
+    "numero": 16,
+    "pais": "Monaco",
+    "team_id": "ferrari",
+    "codigo": "LEC",
+    "redes_sociales": {
+      "instagram": "https://www.instagram.com/charles_leclerc",
+      "twitter": "https://twitter.com/Charles_Leclerc"
+    },
+    "estadisticas_historicas": {
+      "campeonatos": 0,
+      "victorias": 7,
+      "podios": 36,
+      "poles": 26
+    },
+    "rendimiento_2026": {
+      "posicion": 0,
+      "puntos": 0,
+      "victorias_temp": 0
+    }
+  },
+  {
+    "id": "hamilton",
+    "nombre": "Lewis",
+    "apellido": "Hamilton",
+    "numero": 44,
+    "pais": "United Kingdom",
+    "team_id": "ferrari",
+    "codigo": "HAM",
+    "redes_sociales": {
+      "instagram": "https://www.instagram.com/lewishamilton",
+      "twitter": "https://twitter.com/LewisHamilton"
+    },
+    "estadisticas_historicas": {
+      "campeonatos": 7,
+      "victorias": 105,
+      "podios": 201,
+      "poles": 104
+    },
+    "rendimiento_2026": {
+      "posicion": 0,
+      "puntos": 0,
+      "victorias_temp": 0
+    }
+  },
+  {
+    "id": "norris",
+    "nombre": "Lando",
+    "apellido": "Norris",
+    "numero": 4,
+    "pais": "United Kingdom",
+    "team_id": "mclaren",
+    "codigo": "NOR",
+    "redes_sociales": {
+      "instagram": "https://www.instagram.com/landonorris",
+      "twitter": "https://twitter.com/LandoNorris"
+    },
+    "estadisticas_historicas": {
+      "campeonatos": 0,
+      "victorias": 3,
+      "podios": 25,
+      "poles": 3
+    },
+    "rendimiento_2026": {
+      "posicion": 0,
+      "puntos": 0,
+      "victorias_temp": 0
+    }
+  },
+  {
+    "id": "piastri",
+    "nombre": "Oscar",
+    "apellido": "Piastri",
+    "numero": 81,
+    "pais": "Australia",
+    "team_id": "mclaren",
+    "codigo": "PIA",
+    "redes_sociales": {
+      "instagram": "https://www.instagram.com/oscarpiastri",
+      "twitter": "https://twitter.com/oscarpiastri"
+    },
+    "estadisticas_historicas": {
+      "campeonatos": 0,
+      "victorias": 2,
+      "podios": 9,
+      "poles": 0
+    },
+    "rendimiento_2026": {
+      "posicion": 0,
+      "puntos": 0,
+      "victorias_temp": 0
+    }
+  },
+  {
+    "id": "verstappen",
+    "nombre": "Max",
+    "apellido": "Verstappen",
+    "numero": 1,
+    "pais": "Netherlands",
+    "team_id": "redbull",
+    "codigo": "VER",
+    "redes_sociales": {
+      "instagram": "https://www.instagram.com/maxverstappen1",
+      "twitter": "https://twitter.com/Max33Verstappen"
+    },
+    "estadisticas_historicas": {
+      "campeonatos": 4,
+      "victorias": 61,
+      "podios": 110,
+      "poles": 40
+    },
+    "rendimiento_2026": {
+      "posicion": 0,
+      "puntos": 0,
+      "victorias_temp": 0
+    }
+  },
+  {
+    "id": "lawson",
+    "nombre": "Liam",
+    "apellido": "Lawson",
+    "numero": 30,
+    "pais": "New Zealand",
+    "team_id": "redbull",
+    "codigo": "LAW",
+    "redes_sociales": {
+      "instagram": "https://www.instagram.com/liamlawson30",
+      "twitter": "https://twitter.com/LiamLawson30"
+    },
+    "estadisticas_historicas": {
+      "campeonatos": 0,
+      "victorias": 0,
+      "podios": 0,
+      "poles": 0
+    },
+    "rendimiento_2026": {
+      "posicion": 0,
+      "puntos": 0,
+      "victorias_temp": 0
+    }
+  },
+  {
+    "id": "russell",
+    "nombre": "George",
+    "apellido": "Russell",
+    "numero": 63,
+    "pais": "United Kingdom",
+    "team_id": "mercedes",
+    "codigo": "RUS",
+    "redes_sociales": {
+      "instagram": "https://www.instagram.com/georgerussell63",
+      "twitter": "https://twitter.com/GeorgeRussell63"
+    },
+    "estadisticas_historicas": {
+      "campeonatos": 0,
+      "victorias": 2,
+      "podios": 14,
+      "poles": 3
+    },
+    "rendimiento_2026": {
+      "posicion": 0,
+      "puntos": 0,
+      "victorias_temp": 0
+    }
+  },
+  {
+    "id": "antonelli",
+    "nombre": "Kimi",
+    "apellido": "Antonelli",
+    "numero": 12,
+    "pais": "Italy",
+    "team_id": "mercedes",
+    "codigo": "ANT",
+    "redes_sociales": {
+      "instagram": "https://www.instagram.com/kimi.antonelli",
+      "twitter": "https://twitter.com/kimi_antonelli"
+    },
+    "estadisticas_historicas": {
+      "campeonatos": 0,
+      "victorias": 0,
+      "podios": 0,
+      "poles": 0
+    },
+    "rendimiento_2026": {
+      "posicion": 0,
+      "puntos": 0,
+      "victorias_temp": 0
+    }
+  },
+  {
+    "id": "alonso",
+    "nombre": "Fernando",
+    "apellido": "Alonso",
+    "numero": 14,
+    "pais": "Spain",
+    "team_id": "astonmartin",
+    "codigo": "ALO",
+    "redes_sociales": {
+      "instagram": "https://www.instagram.com/fernandoalo_oficial",
+      "twitter": "https://twitter.com/alo_oficial"
+    },
+    "estadisticas_historicas": {
+      "campeonatos": 2,
+      "victorias": 32,
+      "podios": 106,
+      "poles": 22
+    },
+    "rendimiento_2026": {
+      "posicion": 0,
+      "puntos": 0,
+      "victorias_temp": 0
+    }
+  },
+  {
+    "id": "stroll",
+    "nombre": "Lance",
+    "apellido": "Stroll",
+    "numero": 18,
+    "pais": "Canada",
+    "team_id": "astonmartin",
+    "codigo": "STR",
+    "redes_sociales": {
+      "instagram": "https://www.instagram.com/lance_stroll",
+      "twitter": "https://twitter.com/lance_stroll"
+    },
+    "estadisticas_historicas": {
+      "campeonatos": 0,
+      "victorias": 0,
+      "podios": 3,
+      "poles": 1
+    },
+    "rendimiento_2026": {
+      "posicion": 0,
+      "puntos": 0,
+      "victorias_temp": 0
+    }
+  },
+  {
+    "id": "gasly",
+    "nombre": "Pierre",
+    "apellido": "Gasly",
+    "numero": 10,
+    "pais": "France",
+    "team_id": "alpine",
+    "codigo": "GAS",
+    "redes_sociales": {
+      "instagram": "https://www.instagram.com/pierregasly",
+      "twitter": "https://twitter.com/PierreGASLY"
+    },
+    "estadisticas_historicas": {
+      "campeonatos": 0,
+      "victorias": 1,
+      "podios": 4,
+      "poles": 0
+    },
+    "rendimiento_2026": {
+      "posicion": 0,
+      "puntos": 0,
+      "victorias_temp": 0
+    }
+  },
+  {
+    "id": "colapinto",
+    "nombre": "Franco",
+    "apellido": "Colapinto",
+    "numero": 43,
+    "pais": "Argentina",
+    "team_id": "alpine",
+    "codigo": "COL",
+    "redes_sociales": {
+      "instagram": "https://www.instagram.com/francolapinto",
+      "twitter": "https://twitter.com/FranColapinto"
+    },
+    "estadisticas_historicas": {
+      "campeonatos": 0,
+      "victorias": 0,
+      "podios": 1,
+      "poles": 0
+    },
+    "rendimiento_2026": {
+      "posicion": 0,
+      "puntos": 0,
+      "victorias_temp": 0
+    }
+  },
+  {
+    "id": "albon",
+    "nombre": "Alexander",
+    "apellido": "Albon",
+    "numero": 23,
+    "pais": "Thailand",
+    "team_id": "williams",
+    "codigo": "ALB",
+    "redes_sociales": {
+      "instagram": "https://www.instagram.com/alex_albon",
+      "twitter": "https://twitter.com/alex_albon"
+    },
+    "estadisticas_historicas": {
+      "campeonatos": 0,
+      "victorias": 0,
+      "podios": 2,
+      "poles": 0
+    },
+    "rendimiento_2026": {
+      "posicion": 0,
+      "puntos": 0,
+      "victorias_temp": 0
+    }
+  },
+  {
+    "id": "sainz",
+    "nombre": "Carlos",
+    "apellido": "Sainz",
+    "numero": 55,
+    "pais": "Spain",
+    "team_id": "williams",
+    "codigo": "SAI",
+    "redes_sociales": {
+      "instagram": "https://www.instagram.com/carlossainz55",
+      "twitter": "https://twitter.com/Carlossainz55"
+    },
+    "estadisticas_historicas": {
+      "campeonatos": 0,
+      "victorias": 3,
+      "podios": 23,
+      "poles": 5
+    },
+    "rendimiento_2026": {
+      "posicion": 0,
+      "puntos": 0,
+      "victorias_temp": 0
+    }
+  },
+  {
+    "id": "hadjar",
+    "nombre": "Isack",
+    "apellido": "Hadjar",
+    "numero": 6,
+    "pais": "France",
+    "team_id": "rb",
+    "codigo": "HAD",
+    "redes_sociales": {
+      "instagram": "https://www.instagram.com/isackhadjar",
+      "twitter": "https://twitter.com/isackhadjar"
+    },
+    "estadisticas_historicas": {
+      "campeonatos": 0,
+      "victorias": 0,
+      "podios": 0,
+      "poles": 0
+    },
+    "rendimiento_2026": {
+      "posicion": 0,
+      "puntos": 0,
+      "victorias_temp": 0
+    }
+  },
+  {
+    "id": "hulkenberg",
+    "nombre": "Nico",
+    "apellido": "Hülkenberg",
+    "numero": 27,
+    "pais": "Germany",
+    "team_id": "audi",
+    "codigo": "HUL",
+    "redes_sociales": {
+      "instagram": "https://www.instagram.com/hulkhulkenberg",
+      "twitter": "https://twitter.com/HulkHulkenberg"
+    },
+    "estadisticas_historicas": {
+      "campeonatos": 0,
+      "victorias": 0,
+      "podios": 1,
+      "poles": 1
+    },
+    "rendimiento_2026": {
+      "posicion": 0,
+      "puntos": 0,
+      "victorias_temp": 0
+    }
+  },
+  {
+    "id": "bortoleto",
+    "nombre": "Gabriel",
+    "apellido": "Bortoleto",
+    "numero": 5,
+    "pais": "Brazil",
+    "team_id": "audi",
+    "codigo": "BOR",
+    "redes_sociales": {
+      "instagram": "https://www.instagram.com/gabrielbortoleto_",
+      "twitter": "https://twitter.com/gabi_bortoleto"
+    },
+    "estadisticas_historicas": {
+      "campeonatos": 0,
+      "victorias": 0,
+      "podios": 0,
+      "poles": 0
+    },
+    "rendimiento_2026": {
+      "posicion": 0,
+      "puntos": 0,
+      "victorias_temp": 0
+    }
+  },
+  {
+    "id": "ocon",
+    "nombre": "Esteban",
+    "apellido": "Ocon",
+    "numero": 31,
+    "pais": "France",
+    "team_id": "haas",
+    "codigo": "OCO",
+    "redes_sociales": {
+      "instagram": "https://www.instagram.com/estebanocon",
+      "twitter": "https://twitter.com/OconEsteban"
+    },
+    "estadisticas_historicas": {
+      "campeonatos": 0,
+      "victorias": 1,
+      "podios": 3,
+      "poles": 0
+    },
+    "rendimiento_2026": {
+      "posicion": 0,
+      "puntos": 0,
+      "victorias_temp": 0
+    }
+  },
+  {
+    "id": "bearman",
+    "nombre": "Oliver",
+    "apellido": "Bearman",
+    "numero": 87,
+    "pais": "United Kingdom",
+    "team_id": "haas",
+    "codigo": "BEA",
+    "redes_sociales": {
+      "instagram": "https://www.instagram.com/olliebearman",
+      "twitter": "https://twitter.com/OllieBearman"
+    },
+    "estadisticas_historicas": {
+      "campeonatos": 0,
+      "victorias": 0,
+      "podios": 0,
+      "poles": 0
+    },
+    "rendimiento_2026": {
+      "posicion": 0,
+      "puntos": 0,
+      "victorias_temp": 0
+    }
+  },
+  {
+    "id": "perez",
+    "nombre": "Sergio",
+    "apellido": "Pérez",
+    "numero": 11,
+    "pais": "Mexico",
+    "team_id": "cadillac",
+    "codigo": "PER",
+    "redes_sociales": {
+      "instagram": "https://www.instagram.com/schecoperez",
+      "twitter": "https://twitter.com/SChecoPerez"
+    },
+    "estadisticas_historicas": {
+      "campeonatos": 0,
+      "victorias": 6,
+      "podios": 39,
+      "poles": 3
+    },
+    "rendimiento_2026": {
+      "posicion": 0,
+      "puntos": 0,
+      "victorias_temp": 0
+    }
+  },
+  {
+    "id": "bottas",
+    "nombre": "Valtteri",
+    "apellido": "Bottas",
+    "numero": 77,
+    "pais": "Finland",
+    "team_id": "cadillac",
+    "codigo": "BOT",
+    "redes_sociales": {
+      "instagram": "https://www.instagram.com/valtteribottas",
+      "twitter": "https://twitter.com/ValtteriBottas"
+    },
+    "estadisticas_historicas": {
+      "campeonatos": 0,
+      "victorias": 10,
+      "podios": 67,
+      "poles": 20
+    },
+    "rendimiento_2026": {
+      "posicion": 0,
+      "puntos": 0,
+      "victorias_temp": 0
+    }
+  },
+  {
+    "id": "lindblad",
+    "nombre": "Arvid",
+    "apellido": "Lindblad",
+    "numero": 41,
+    "pais": "United Kingdom",
+    "team_id": "rb",
+    "codigo": "LIN",
+    "redes_sociales": {
+      "instagram": "https://www.instagram.com/arvid.lindblad",
+      "twitter": "https://twitter.com/arvidlindblad"
+    },
+    "estadisticas_historicas": {
+      "campeonatos": 0,
+      "victorias": 0,
+      "podios": 0,
+      "poles": 0
+    },
+    "rendimiento_2026": {
+      "posicion": 0,
+      "puntos": 0,
+      "victorias_temp": 0
+    }
+  }
+]

@@ -1,11 +1,13 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import '@styles/global.css';
+import Layout from '@layouts/Layout.astro';
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import CircuitHero from './CircuitHero.astro';
-import CircuitMap from './CircuitMap.astro';
-import SessionTimes from './SessionTimes.astro';
-import TyreCompounds from './TyreCompounds.astro';
+// Usamos alias para importar los componentes de forma segura
+import CircuitHero from '@components/circuitos/CircuitHero.astro';
+import CircuitMap from '@components/circuitos/CircuitMap.astro';
+import SessionTimes from '@components/circuitos/SessionTimes.astro';
+import TyreCompounds from '@components/circuitos/TyreCompounds.astro';
 
 interface Session {
   id: number;
@@ -33,7 +35,11 @@ export async function getStaticPaths() {
   let circuitos: Circuit[] = [];
   try {
     const fileContent = await fs.readFile(filePath, 'utf-8');
-    circuitos = JSON.parse(fileContent);
+    const data = JSON.parse(fileContent);
+    // Validamos que sea un array antes de asignarlo
+    if (Array.isArray(data)) {
+      circuitos = data;
+    }
   } catch (error) {
     console.error("Error al cargar el calendario:", error);
     return [];
@@ -41,7 +47,7 @@ export async function getStaticPaths() {
 
   let roundCounter = 0;
   
-  return circuitos.map((gp) => {
+  return circuitos.filter(gp => gp.id).map((gp) => {
     let roundDisplay = "Pre-Season";
     if (!gp.nombre.includes('Testing')) {
         roundCounter++;

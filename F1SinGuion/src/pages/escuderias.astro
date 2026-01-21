@@ -1,0 +1,54 @@
+---
+import "../styles/global.css";
+import Layout from "../layouts/Layout.astro";
+import TeamCard from "../components/escuderias/TeamCard.astro";
+import fs from 'node:fs/promises';
+import path from 'node:path';
+
+// Carga de datos de equipos
+const filePath = path.join(process.cwd(), 'public', 'teams_2026.json');
+let teams = [];
+
+try {
+  const fileContent = await fs.readFile(filePath, 'utf-8');
+  const data = JSON.parse(fileContent);
+  if (Array.isArray(data)) {
+    teams = data;
+  }
+} catch (error) {
+  console.error("Error al cargar los equipos:", error);
+}
+---
+
+<Layout title="Escuderías - F1 2026">
+  <div class="bg-[#15151e] min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      
+      {/* Header */}
+      <div class="text-center mb-16">
+        <h1 class="text-4xl md:text-6xl font-black text-white uppercase italic tracking-tighter mb-4">
+          F1 Teams <span class="text-[#e10600]">2026</span>
+        </h1>
+        <p class="text-gray-400 max-w-2xl mx-auto text-lg">
+          Descubre las escuderías que competirán por el campeonato mundial en la nueva era de la Fórmula 1.
+        </p>
+      </div>
+
+      {/* Grid de Equipos */}
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {teams.map((team) => (
+          <a href={`/escuderias/${team.id}`} class="block h-full hover:no-underline">
+            <TeamCard team={team} />
+          </a>
+        ))}
+      </div>
+
+      {/* Mensaje si no hay datos */}
+      {teams.length === 0 && (
+        <div class="text-center text-gray-500 py-12">
+          <p>No se pudo cargar la información de las escuderías.</p>
+        </div>
+      )}
+    </div>
+  </div>
+</Layout>

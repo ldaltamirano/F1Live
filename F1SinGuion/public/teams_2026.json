@@ -1,0 +1,211 @@
+[
+  {
+    "id": "ferrari",
+    "nombre": "Ferrari",
+    "nombre_completo": "Scuderia Ferrari HP",
+    "base": "Maranello, Italy",
+    "jefe": "Frédéric Vasseur",
+    "color_var": "var(--color-ferrari)",
+    "driver_ids": [
+      "leclerc",
+      "hamilton"
+    ],
+    "logo": "/Escuderias/ferrari/logo.png",
+    "logo_blanco": "/Escuderias/ferrari/logo_blanco.png",
+    "imagen_coche": "https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/ferrari.png.transform/4col/image.png",
+    "motor": "Ferrari",
+    "campeonatos_constructores": 16,
+    "ano_fundacion": 1929,
+    "web": "https://www.ferrari.com"
+  },
+  {
+    "id": "mclaren",
+    "nombre": "McLaren",
+    "nombre_completo": "McLaren Formula 1 Team",
+    "base": "Woking, United Kingdom",
+    "jefe": "Andrea Stella",
+    "color_var": "var(--color-mclaren)",
+    "driver_ids": [
+      "norris",
+      "piastri"
+    ],
+    "logo": "/Escuderias/mclaren/logo.png",
+    "logo_blanco": "/Escuderias/mclaren/logo_blanco.png",
+    "imagen_coche": "https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/mclaren.png.transform/4col/image.png",
+    "motor": "Mercedes",
+    "campeonatos_constructores": 8,
+    "ano_fundacion": 1963,
+    "web": "https://www.mclaren.com/racing"
+  },
+  {
+    "id": "redbull",
+    "nombre": "Red Bull",
+    "nombre_completo": "Oracle Red Bull Racing",
+    "base": "Milton Keynes, United Kingdom",
+    "jefe": "Christian Horner",
+    "color_var": "var(--color-redbull)",
+    "driver_ids": [
+      "verstappen",
+      "lawson"
+    ],
+    "logo": "/Escuderias/red-bull/logo.png",
+    "logo_blanco": "/Escuderias/red-bull/logo_blanco.png",
+    "imagen_coche": "https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/red-bull-racing.png.transform/4col/image.png",
+    "motor": "Red Bull-Ford",
+    "campeonatos_constructores": 6,
+    "ano_fundacion": 2005,
+    "web": "https://www.redbullracing.com"
+  },
+  {
+    "id": "mercedes",
+    "nombre": "Mercedes",
+    "nombre_completo": "Mercedes-AMG PETRONAS F1 Team",
+    "base": "Brackley, United Kingdom",
+    "jefe": "Toto Wolff",
+    "color_var": "var(--color-mercedes)",
+    "driver_ids": [
+      "russell",
+      "antonelli"
+    ],
+    "logo": "/Escuderias/mercedes/logo.png",
+    "logo_blanco": "/Escuderias/mercedes/logo_blanco.png",
+    "imagen_coche": "https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/mercedes.png.transform/4col/image.png",
+    "motor": "Mercedes",
+    "campeonatos_constructores": 8,
+    "ano_fundacion": 2010,
+    "web": "https://www.mercedesamgf1.com"
+  },
+  {
+    "id": "astonmartin",
+    "nombre": "Aston Martin",
+    "nombre_completo": "Aston Martin Aramco F1 Team",
+    "base": "Silverstone, United Kingdom",
+    "jefe": "Mike Krack",
+    "color_var": "var(--color-astonmartin)",
+    "driver_ids": [
+      "alonso",
+      "stroll"
+    ],
+    "logo": "/Escuderias/aston-martin/logo.webp",
+    "logo_blanco": "/Escuderias/aston-martin/logo_blanco.png",
+    "imagen_coche": "https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/aston-martin.png.transform/4col/image.png",
+    "motor": "Honda",
+    "campeonatos_constructores": 0,
+    "ano_fundacion": 2021,
+    "web": "https://www.astonmartinf1.com"
+  },
+  {
+    "id": "alpine",
+    "nombre": "Alpine",
+    "nombre_completo": "BWT Alpine F1 Team",
+    "base": "Enstone, United Kingdom",
+    "jefe": "Steve Nielsen",
+    "color_var": "var(--color-alpine)",
+    "driver_ids": [
+      "gasly",
+      "colapinto"
+    ],
+    "logo": "/Escuderias/alpine/logo.png",
+    "logo_blanco": "/Escuderias/alpine/logo_blanco.webp",
+    "imagen_coche": "https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/alpine.png.transform/4col/image.png",
+    "motor": "Mercedes",
+    "campeonatos_constructores": 2,
+    "ano_fundacion": 1977,
+    "web": "https://www.alpine-cars.co.uk/racing/formula-1.html"
+  },
+  {
+    "id": "williams",
+    "nombre": "Williams",
+    "nombre_completo": "Williams Racing",
+    "base": "Grove, United Kingdom",
+    "jefe": "James Vowles",
+    "color_var": "var(--color-williams)",
+    "driver_ids": [
+      "albon",
+      "sainz"
+    ],
+    "logo": "/Escuderias/williams/logo.png",
+    "logo_blanco": "/Escuderias/williams/logo_blanco.png",
+    "imagen_coche": "https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/williams.png.transform/4col/image.png",
+    "motor": "Mercedes",
+    "campeonatos_constructores": 9,
+    "ano_fundacion": 1977,
+    "web": "https://www.williamsf1.com"
+  },
+  {
+    "id": "rb",
+    "nombre": "RB",
+    "nombre_completo": "Visa Cash App RB F1 Team",
+    "base": "Faenza, Italy",
+    "jefe": "Laurent Mekies",
+    "color_var": "var(--color-rb)",
+    "driver_ids": [
+      "hadjar",
+      "lindblad"
+    ],
+    "logo": "/Escuderias/racing-bulls/logo.png",
+    "logo_blanco": "/Escuderias/racing-bulls/logo_blanco.png",
+    "imagen_coche": "https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/rb.png.transform/4col/image.png",
+    "motor": "Red Bull-Ford",
+    "campeonatos_constructores": 0,
+    "ano_fundacion": 2025,
+    "web": "https://www.visacashapprb.com"
+  },
+  {
+    "id": "audi",
+    "nombre": "Audi",
+    "nombre_completo": "Audi F1 Team",
+    "base": "Hinwil, Switzerland",
+    "jefe": "Jonathan Wheatley",
+    "color_var": "var(--color-audi)",
+    "driver_ids": [
+      "hulkenberg",
+      "bortoleto"
+    ],
+    "logo": "/Escuderias/audi/logo.png",
+    "logo_blanco": "/Escuderias/audi/logo_blanco.png",
+    "imagen_coche": "https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/kick-sauber.png.transform/4col/image.png",
+    "motor": "Audi",
+    "campeonatos_constructores": 0,
+    "ano_fundacion": 2026,
+    "web": "https://www.audi.com"
+  },
+  {
+    "id": "haas",
+    "nombre": "Haas",
+    "nombre_completo": "MoneyGram Haas F1 Team",
+    "base": "Kannapolis, United States",
+    "jefe": "Ayao Komatsu",
+    "color_var": "var(--color-haas)",
+    "driver_ids": [
+      "ocon",
+      "bearman"
+    ],
+    "logo": "/Escuderias/haas/logo.svg",
+    "logo_blanco": "/Escuderias/haas/logo_blanco.png",
+    "imagen_coche": "https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/haas-f1-team.png.transform/4col/image.png",
+    "motor": "Ferrari",
+    "campeonatos_constructores": 0,
+    "ano_fundacion": 2016,
+    "web": "https://www.haasf1team.com"
+  },
+  {
+    "id": "cadillac",
+    "nombre": "Cadillac",
+    "nombre_completo": "Cadillac F1 Team",
+    "base": "Fishers, United States",
+    "jefe": "Michael Andretti",
+    "color_var": "var(--color-cadillac)",
+    "driver_ids": [
+      "perez",
+      "bottas"
+    ],
+    "logo": "/Escuderias/cadillac/logo.png",
+    "logo_blanco": "/Escuderias/cadillac/logo_blanco.png",
+    "imagen_coche": "https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/manual/Misc/2021-Car-Images/F12021_Generic_Side.png.transform/4col/image.png",
+    "motor": "Cadillac",
+    "campeonatos_constructores": 0,
+    "ano_fundacion": 2026,
+    "web": "https://www.cadillac.com"
+  }
+]

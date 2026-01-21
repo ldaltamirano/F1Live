@@ -6,6 +6,9 @@ interface Props {
 
 const { gp, roundLabel } = Astro.props;
 
+// Validación de seguridad: si no hay datos, no renderizar nada para evitar errores
+if (!gp) return;
+
 // Lógica para calcular el rango de fechas (Inicio - Fin)
 const startDate = new Date(gp.fecha);
 let endDate = new Date(gp.fecha);
@@ -90,20 +93,7 @@ if (endDate.getTime() > startDate.getTime()) {
     {/* Footer: Neumáticos y Año */}
     <div class="border-t border-white/5 pt-4 flex justify-between items-center">
        {
-        gp.neumaticos_sugeridos && gp.neumaticos_sugeridos.length > 3 ? (
-            <div class="flex gap-1 items-center">
-              <span class="text-[10px] text-gray-600 mr-1 uppercase font-bold">Tyres</span>
-              {gp.neumaticos_sugeridos.slice(0, 5).map((n: string) => (
-                <span class={`w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold border border-white/10 ${
-                  n === 'C1' || n === 'C2' ? 'bg-white text-black' :
-                  n === 'C3' ? 'bg-[#ffd700] text-black' :
-                  'bg-[#e10600] text-white'
-                }`}>
-                  {n}
-                </span>
-              ))}
-            </div>
-        ) : 
+        gp.neumaticos_sugeridos && gp.neumaticos_sugeridos.length > 0 ? (
             <div class="flex gap-1 items-center">
               <span class="text-[10px] text-gray-600 mr-1 uppercase font-bold">Tyres</span>
               {gp.neumaticos_sugeridos.slice(0, 3).map((n: string, i: number) => (
@@ -116,7 +106,7 @@ if (endDate.getTime() > startDate.getTime()) {
                 </span>
               ))}
             </div>
-       }
+        ) : null }
        
        <span class="text-[10px] text-gray-600 font-mono group-hover:text-white transition-colors">
           {new Date(gp.fecha).getFullYear()}
