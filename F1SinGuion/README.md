@@ -130,3 +130,43 @@ Plan para la experiencia de seguimiento en vivo de las sesiones durante el fin d
 - [ ] **Tracker en Mapa**: Posición aproximada de los pilotos en el mapa del circuito (interpolación).
 - [ ] **Comparativa de Telemetría**: Gráficos de velocidad/aceleración entre dos pilotos seleccionados.
 - [ ] **Tyre History**: Visualización de la estrategia de neumáticos en uso y vueltas acumuladas.
+
+## 💻 Roadmap: Admin Dashboard (Gestión de Datos)
+
+Plan para crear un panel de control interno que facilite la actualización de los archivos JSON sin tocar código.
+
+### 🔐 Fase 1: Base y Seguridad
+- [ ] **Layout Admin**: Crear un layout específico (`/layouts/AdminLayout.astro`) con sidebar y modo oscuro forzado.
+- [ ] **Autenticación Simple**: Implementar un login básico (cookie/session) para proteger la ruta `/admin`.
+- [ ] **Visor de Archivos**: Listar los archivos JSON actuales (`drivers`, `teams`, `standings`) y ver su contenido "raw".
+
+### ✏️ Fase 2: Editores Visuales
+- [ ] **Editor de Drivers**: Formulario para modificar biografías de pilotos.
+- [ ] **Editor de Standings**: Interfaz tipo hoja de cálculo para ajustar la tabla de posiciones rápidamente.
+- [ ] **Status del Calendario**: Toggles para marcar sesiones como "Completadas" o "En Curso".
+
+### 🤖 Fase 3: Automatización y API
+- [ ] **Importador de Resultados**: Script para "Simular Carrera" que actualice puntos automáticamente basado en posiciones ingresadas.
+- [ ] **Sincronización OpenF1**: Botón para traer datos reales de la API y actualizar los JSON locales.
+- [ ] **Backup System**: Botón para descargar una copia de seguridad de todos los JSONs actuales.
+
+## 🗄️ Roadmap: Migración a Base de Datos (Turso)
+
+Plan para migrar de archivos JSON estáticos a una base de datos SQLite distribuida con Turso.
+
+### 🛠️ Fase 1: Configuración y Esquema
+- [ ] **Setup Turso**: Crear base de datos en Turso y obtener `TURSO_DATABASE_URL` y `TURSO_AUTH_TOKEN`.
+- [ ] **Instalar Cliente**: Agregar `@libsql/client` al proyecto.
+- [ ] **Diseño de Tablas**: Definir SQL para `drivers`, `teams`, `circuits`, `races`, `results`.
+
+### 🔄 Fase 2: Migración de Datos (JSON a SQL)
+- [ ] **Script de Seeding**: Crear script (Node.js) que lea los JSONs actuales (`public/*.json`) e inserte los datos en Turso.
+- [ ] **Verificación**: Comprobar que los datos en Turso coinciden con los JSON.
+
+### 🔌 Fase 3: Integración en Astro
+- [ ] **Cliente DB**: Crear `src/lib/db.ts` para gestionar la conexión.
+- [ ] **Refactor de Lectura**: Reemplazar `fs.readFile` en `getStaticPaths` y cargas de datos por consultas SQL (`SELECT * FROM ...`).
+
+### 🚀 Fase 4: Escritura y Admin
+- [ ] **API Endpoints**: Crear endpoints en Astro (`src/pages/api/...`) para operaciones de escritura (UPDATE standings, INSERT results).
+- [ ] **Conectar Dashboard**: Hacer que el Admin Dashboard envíe peticiones a la API en lugar de editar archivos locales.
