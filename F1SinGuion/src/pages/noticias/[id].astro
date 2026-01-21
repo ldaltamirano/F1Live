@@ -1,0 +1,110 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import MarkdownIt from 'markdown-it';
+
+export async function getStaticPaths() {
+  const newsPath = path.join(process.cwd(), 'public', 'news.json');
+  let news = [];
+
+  try {
+    const newsContent = await fs.readFile(newsPath, 'utf-8');
+    news = JSON.parse(newsContent);
+  } catch (error) {
+    console.error("Error al cargar noticias:", error);
+    return [];
+  }
+
+  return news.map((item: any) => ({
+    params: { id: item.id },
+    props: { newsItem: item },
+  }));
+}
+
+const { newsItem } = Astro.props;
+
+const formattedDate = new Date(newsItem.fecha).toLocaleDateString('es-ES', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric'
+});
+
+// Leer el contenido del archivo Markdown referenciado
+const mdPath = path.join(process.cwd(), 'public', 'noticias', newsItem.archivo_contenido);
+let contentRaw = '';
+try {
+  contentRaw = await fs.readFile(mdPath, 'utf-8');
+} catch (error) {
+  console.error(`Error al leer el archivo de noticia ${newsItem.id}:`, error);
+  contentRaw = "Contenido no disponible.";
+}
+
+const md = new MarkdownIt({ html: true });
+const content = md.render(contentRaw);
+---
+
+<Layout title={`${newsItem.titulo} - F1 Live`}>
+  <article class="bg-[#15151e] min-h-screen text-white pt-24 pb-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto">
+      
+      {/* Botón Volver */}
+      <a href="/" class="inline-flex items-center text-gray-400 hover:text-white transition-colors mb-8 group">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 transform group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        Back to Home
+      </a>
+
+      {/* Header de la noticia */}
+      <header class="mb-8">
+        <div class="flex flex-wrap gap-2 mb-4">
+          {newsItem.tags.map((tag: string) => (
+            <span class="text-xs font-bold uppercase tracking-wider bg-[#e10600] text-white px-2 py-1 rounded-sm">
+              {tag}
+            </span>
+          ))}
+        </div>
+        
+        <h1 class="text-3xl md:text-5xl font-black italic uppercase leading-tight mb-4">
+          {newsItem.titulo}
+        </h1>
+
+        <p class="text-xl text-gray-300 font-medium leading-relaxed mb-8 border-l-4 border-[#e10600] pl-4">
+          {newsItem.bajada}
+        </p>
+
+        <div class="flex items-center gap-4 text-sm text-gray-400 border-b border-white/10 pb-6">
+          <span>{formattedDate}</span>
+          {newsItem.autor && (
+            <>
+              <span class="w-1 h-1 bg-gray-600 rounded-full"></span>
+              <span class="text-white font-medium">By {newsItem.autor}</span>
+            </>
+          )}
+          {newsItem.fuente && (
+             <>
+              <span class="w-1 h-1 bg-gray-600 rounded-full"></span>
+              <span class="text-[#e10600] font-bold">{newsItem.fuente}</span>
+            </>
+          )}
+        </div>
+      </header>
+
+      {/* Imagen Principal */}
+      <div class="relative aspect-video w-full overflow-hidden rounded-2xl mb-10 border border-white/10 shadow-2xl">
+        <img 
+          src={newsItem.imagen} 
+          alt={newsItem.titulo} 
+          class="w-full h-full object-cover"
+        />
+      </div>
+
+      {/* Cuerpo de la noticia */}
+      <div class="prose prose-invert prose-lg max-w-none">        
+        <div class="text-gray-300 leading-relaxed" set:html={content} />
+      </div>
+
+    </div>
+  </article>
+</Layout>

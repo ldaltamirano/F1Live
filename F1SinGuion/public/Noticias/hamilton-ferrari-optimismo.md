@@ -1,0 +1,1 @@
+La sonrisa ha vuelto al rostro de Lewis Hamilton. El piloto británico, en su debut oficial con los colores de Maranello, completó 98 vueltas en el circuito de Sakhir, marcando el tercer mejor tiempo del día. 'La base es sólida, el motor empuja increíblemente bien y el equilibrio en curva lenta ha mejorado drásticamente respecto a lo que veía desde fuera el año pasado', comentó.

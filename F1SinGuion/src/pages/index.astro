@@ -1,18 +1,75 @@
 ---
-import "@styles/global.css";
-import Button from "@components/Button.astro";
-import Layout from "@layouts/Layout.astro";
+import Layout from '../layouts/Layout.astro';
+import NewsCard from '@components/noticias/NewsCard.astro';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+
+// Cargar noticias
+const newsPath = path.join(process.cwd(), 'public', 'news.json');
+let news = [];
+
+try {
+  const newsContent = await fs.readFile(newsPath, 'utf-8');
+  news = JSON.parse(newsContent);
+} catch (error) {
+  console.error("Error al cargar noticias:", error);
+}
+
+// Ordenar por fecha (más reciente primero)
+news.sort((a: any, b: any) => new Date(b.fecha).getTime() - new Date(a.fecha).getTime());
+
+const principalNews = news.find((n: any) => n.tipo === 'principal');
+const otherNews = news.filter((n: any) => n.tipo !== 'principal');
+
 ---
 
-<Layout title="F1 Live - Inicio">
-  <!-- Contenido de la página de inicio -->
-  <div class="min-h-screen flex flex-col items-center justify-center bg-brand-black text-brand-white font-sans p-8">
-    <h1 class="text-5xl font-black italic uppercase mb-6">
-      Bienvenido a F1SinGuion
-    </h1>
-    <p class="text-lg mb-8">
-      Sigue las últimas noticias y actualizaciones en vivo de la Fórmula 1.
-    </p>
-    <Button text="Ver Calendario 2026" href="/circuitos" />
-  </div>
+<Layout title="F1 Live 2026 - Inicio">
+  <main class="bg-[#15151e] min-h-screen">
+    
+    {/* Hero Section */}
+    <section class="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
+      <div class="absolute inset-0 z-0">
+        {/* Imagen de fondo genérica */}
+        <img 
+          src="https://media.formula1.com/image/upload/f_auto,c_limit,w_1920,q_auto/fom-website/2023/Miscellaneous/2023-season-end-comp" 
+          alt="F1 2026 Hero" 
+          class="w-full h-full object-cover opacity-30"
+        />
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#15151e]/60 to-[#15151e]"></div>
+      </div>
+      
+      <div class="relative z-10 text-center px-4">
+        <h1 class="text-6xl md:text-8xl font-black text-white italic uppercase tracking-tighter mb-4 drop-shadow-2xl">
+          F1 Live <span class="text-[#e10600]">2026</span>
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-300 font-light tracking-wide max-w-2xl mx-auto">
+          Experience the new era of Formula 1.
+        </p>
+      </div>
+    </section>
+
+    {/* Sección de Noticias */}
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 -mt-32 relative z-20">
+      <div class="flex items-center justify-between mb-8">
+        <h2 class="text-3xl font-bold text-white uppercase italic tracking-wider border-l-4 border-[#e10600] pl-4">
+          Latest News
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Noticia Principal (ocupa 2 columnas en desktop) */}
+        {principalNews && (
+          <div class="md:col-span-2 lg:col-span-2">
+            <NewsCard news={principalNews} featured={true} />
+          </div>
+        )}
+
+        {/* Resto de noticias */}
+        {otherNews.map((item: any) => (
+          <NewsCard news={item} />
+        ))}
+      </div>
+    </section>
+
+  </main>
 </Layout>

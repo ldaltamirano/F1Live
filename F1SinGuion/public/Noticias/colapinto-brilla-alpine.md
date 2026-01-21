@@ -1,0 +1,1 @@
+En un día marcado por las simulaciones de carrera de los equipos punteros, Franco Colapinto aprovechó los últimos minutos con neumáticos blandos (C4) para colocar su Alpine en la cuarta posición de la tabla de tiempos, solo por detrás de Verstappen, Leclerc y Norris. 'El coche responde bien a los cambios de setup, me siento muy cómodo', declaró el joven piloto.

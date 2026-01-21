@@ -1,0 +1,70 @@
+---
+interface Props {
+  news: {
+    id: string;
+    titulo: string;
+    bajada: string;
+    imagen: string;
+    fecha: string;
+    tags: string[];
+    fuente?: string;
+    autor?: string;
+    tipo?: string;
+  };
+  featured?: boolean;
+}
+
+const { news, featured = false } = Astro.props;
+
+const formattedDate = new Date(news.fecha).toLocaleDateString('es-ES', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric'
+});
+---
+
+<article class="group relative bg-[#1e1e24] rounded-2xl overflow-hidden border border-white/5 hover:-translate-y-1 transition-all duration-300 hover:shadow-xl hover:shadow-red-900/10 flex flex-col h-full">
+  <a href={`/noticias/${news.id}`} class="flex flex-col h-full">
+    <div class={`relative overflow-hidden shrink-0 ${featured ? 'h-64 md:h-80' : 'h-48'}`}>
+      <img
+        src={news.imagen}
+        alt={news.titulo}
+        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+        loading="lazy"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-[#1e1e24] via-transparent to-transparent opacity-80"></div>
+      
+      <div class="absolute bottom-3 left-4 flex gap-2">
+        {news.tags.slice(0, 2).map(tag => (
+          <span class="text-[10px] font-bold uppercase tracking-wider bg-[#e10600] text-white px-2 py-1 rounded-sm shadow-sm">
+            {tag}
+          </span>
+        ))}
+      </div>
+    </div>
+
+    <div class="p-5 flex flex-col flex-grow">
+      <div class="flex items-center justify-between mb-3 text-xs text-gray-500 font-mono uppercase tracking-wide">
+        <span>{formattedDate}</span>
+        {news.fuente && <span class="text-[#e10600] font-bold">{news.fuente}</span>}
+      </div>
+
+      <h3 class={`font-bold text-white leading-tight mb-3 group-hover:text-[#e10600] transition-colors ${featured ? 'text-2xl md:text-3xl' : 'text-xl'}`}>
+        {news.titulo}
+      </h3>
+
+      <p class="text-gray-400 text-sm line-clamp-3 leading-relaxed mb-4 flex-grow">
+        {news.bajada}
+      </p>
+      
+      {news.autor && (
+        <div class="pt-4 border-t border-white/5 text-xs text-gray-500 flex items-center gap-2 mt-auto">
+            <div class="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-[10px] font-bold text-gray-300 uppercase">
+                {news.autor.charAt(0)}
+            </div>
+            <span class="font-medium">By {news.autor}</span>
+        </div>
+      )}
+    </div>
+  </a>
+</article>

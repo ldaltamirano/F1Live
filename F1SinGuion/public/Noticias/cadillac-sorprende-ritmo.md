@@ -1,0 +1,1 @@
+Muchos esperaban que el equipo número 11 de la parrilla sufriera en sus primeros kilómetros, pero el Cadillac F1-26 ha demostrado ser un tanque. Valtteri Bottas y Checo Pérez se repartieron la jornada, acumulando datos cruciales. Michael Andretti se mostró cautelosamente optimista: 'Estamos aquí para competir, no solo para rellenar la parrilla'.

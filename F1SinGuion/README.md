@@ -50,13 +50,17 @@ Feel free to check [our documentation](https://docs.astro.build) or jump into ou
 Plan para transformar la página de inicio en un hub de información con noticias destacadas.
 
 ### 📝 Fase 1: Estructura y Componentes
-- [ ] **Schema de Noticias**: Crear `news.json` con campos: `id`, `titulo`, `bajada`, `imagen`, `fecha`, `tags`, `cuerpo`.
-- [ ] **Componente Card**: `<NewsCard />` con diseño moderno (imagen de fondo o top, fecha formateada).
-- [ ] **Sección en Home**: Integrar un grid de "Últimas Noticias" en `index.astro`.
+- [x] **Schema de Noticias**: Crear `news.json` con campos: `id`, `titulo`, `bajada`, `imagen`, `fecha`, `tags`, `cuerpo`, `fuente`, `autor`.
+- [x] **Componente Card**: `<NewsCard />` con diseño moderno (imagen de fondo o top, fecha formateada).
+- [x] **Sección en Home**: Integrar un grid de "Últimas Noticias" en `index.astro`.
+- [x] **Agregar estados a las noticias**: Implementar estados para ubicarlas en la home (principal, secundaria, elegiada por el autor, etc.)
+- [x] **Actualizar front** Actualizar front para estos cambios
+
+
 
 ### 📖 Fase 2: Página de Lectura
-- [ ] **Ruta Dinámica**: Crear `/noticias/[id]` para leer el artículo completo.
-- [ ] **Markdown Support**: Permitir que el `cuerpo` de la noticia soporte Markdown o HTML básico.
+- [x] **Ruta Dinámica**: Crear `/noticias/[id]` para leer el artículo completo.
+- [x] **Markdown Support**: Permitir que el `cuerpo` de la noticia soporte Markdown o HTML básico.
 
 ## 🗄️ Roadmap: Migración a Base de Datos (Turso)
 

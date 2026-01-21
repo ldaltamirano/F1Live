@@ -1,0 +1,62 @@
+[
+  {
+    "id": "audi-debut-2026",
+    "titulo": "Audi revela su diseño definitivo para el debut en 2026",
+    "bajada": "La marca de los cuatro aros presenta un monoplaza agresivo que promete desafiar a los grandes desde el primer día.",
+    "imagen": "https://media.formula1.com/image/upload/f_auto,c_limit,w_1440,q_auto/fom-website/2025/Audi/Audi_Livery_Launch_2026",
+    "fecha": "2026-02-08T10:00:00Z",
+    "tags": ["Audi", "Lanzamiento", "Tech"],
+    "fuente": "Audi Media Center",
+    "tipo": "principal",
+    "autor": "Equipo de Prensa",
+    "archivo_contenido": "audi-debut-2026.md"
+  },
+  {
+    "id": "verstappen-tests-bahrein",
+    "titulo": "Verstappen vuela en el primer día de tests en Sakhir",
+    "bajada": "El campeón del mundo marca el ritmo con el nuevo RB22, dejando claro que Red Bull sigue siendo la referencia.",
+    "imagen": "https://media.formula1.com/image/upload/f_auto,c_limit,w_1440,q_auto/fom-website/2025/Testing/Bahrain_Day1_Verstappen",
+    "fecha": "2026-02-11T17:30:00Z",
+    "tags": ["Red Bull", "Testing", "Verstappen"],
+    "fuente": "F1.com",
+    "autor": "Lawrence Barretto",
+    "tipo": "secundaria",
+    "archivo_contenido": "verstappen-tests-bahrein.md"
+  },
+  {
+    "id": "hamilton-ferrari-optimismo",
+    "titulo": "Hamilton: 'El Ferrari SF-26 es el coche que esperaba'",
+    "bajada": "Tras su primer día completo de test en Bahréin, Lewis Hamilton se muestra radiante con el rendimiento de su nuevo monoplaza.",
+    "imagen": "https://media.formula1.com/image/upload/f_auto,c_limit,w_1440,q_auto/fom-website/2025/Ferrari/Hamilton_Bahrain_Test",
+    "fecha": "2026-02-12T18:00:00Z",
+    "tags": ["Ferrari", "Hamilton", "Testing"],
+    "fuente": "Sky Sports",
+    "tipo": "normal",
+    "autor": "Ted Kravitz",
+    "archivo_contenido": "hamilton-ferrari-optimismo.md"
+  },
+  {
+    "id": "cadillac-sorprende-ritmo",
+    "titulo": "Cadillac silencia a los críticos con un ritmo sólido",
+    "bajada": "La escudería estadounidense completa más de 100 vueltas sin fallos mecánicos graves en su segunda jornada.",
+    "imagen": "https://media.formula1.com/image/upload/f_auto,c_limit,w_1440,q_auto/fom-website/2025/Cadillac/Andretti_Cadillac_Track",
+    "fecha": "2026-02-12T19:30:00Z",
+    "tags": ["Cadillac", "Andretti", "Bottas"],
+    "fuente": "The Race",
+    "tipo": "sedundaria",
+    "autor": "Edd Straw",
+    "archivo_contenido": "cadillac-sorprende-ritmo.md"
+  },
+  {
+    "id": "colapinto-brilla-alpine",
+    "titulo": "Franco Colapinto pone a Alpine en el Top 5",
+    "bajada": "El argentino sorprende con una vuelta rápida al final de la sesión que ilusiona a la escudería francesa.",
+    "imagen": "https://media.formula1.com/image/upload/f_auto,c_limit,w_1440,q_auto/fom-website/2025/Alpine/Colapinto_Bahrain",
+    "fecha": "2026-02-13T16:45:00Z",
+    "tags": ["Alpine", "Colapinto", "Argentina"],
+    "fuente": "ESPN",
+    "tipo": "normal",
+    "autor": "Juan Fossaroli",
+    "archivo_contenido": "colapinto-brilla-alpine.md"
+  }
+]
