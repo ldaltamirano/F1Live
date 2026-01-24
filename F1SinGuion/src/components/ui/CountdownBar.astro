@@ -1,0 +1,108 @@
+---
+interface Props {
+  targetDate: string; // ISO string
+  eventName: string;
+  sessionName?: string;
+  flag?: string;
+}
+
+const { targetDate, eventName, sessionName = "Grand Prix", flag } = Astro.props;
+---
+
+<div class="w-full bg-surface border-b border-white/10 text-white overflow-hidden relative z-[60]">
+  <!-- Background pattern opcional -->
+  <div class="absolute inset-0 bg-[url('/patterns/carbon.png')] opacity-20"></div>
+  
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-12 flex items-center justify-between relative z-10 text-xs md:text-sm font-bold tracking-wider uppercase">
+    
+    <!-- Left: Event Info -->
+    <div class="flex items-center gap-3 truncate">
+      {flag && <img src={flag} alt="Bandera" class="h-4 w-auto rounded-sm shadow-sm" />}
+      <span class="truncate">
+        <span class="text-white">{eventName}</span>
+        <span class="text-text-muted mx-1">-</span>
+        <span class="text-white">{sessionName}</span>
+      </span>
+    </div>
+
+    <!-- Right: Timer -->
+    <div class="flex items-center gap-4" id="countdown-timer" data-target={targetDate}>
+      <div class="flex gap-1">
+        <span class="tabular-nums text-white" id="days">00</span>
+        <span class="text-text-muted text-[10px] self-end mb-0.5">d</span>
+      </div>
+      <div class="flex gap-1">
+        <span class="tabular-nums text-white" id="hours">00</span>
+        <span class="text-text-muted text-[10px] self-end mb-0.5">h</span>
+      </div>
+      <div class="flex gap-1">
+        <span class="tabular-nums text-white" id="minutes">00</span>
+        <span class="text-text-muted text-[10px] self-end mb-0.5">m</span>
+      </div>
+      <div class="flex gap-1">
+        <span class="tabular-nums text-white w-5 text-right" id="seconds">00</span>
+        <span class="text-text-muted text-[10px] self-end mb-0.5">s</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function startCountdown() {
+    const container = document.getElementById('countdown-timer');
+    if (!container) return;
+
+    const targetDateStr = container.dataset.target;
+    if (!targetDateStr) return;
+
+    const targetDate = new Date(targetDateStr).getTime();
+    const daysEl = document.getElementById('days');
+    const hoursEl = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
+
+    function update() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance < 0) {
+        // Si el tiempo pasó, podríamos mostrar "EN CURSO" o recargar
+        if (daysEl) daysEl.innerText = "00";
+        if (hoursEl) hoursEl.innerText = "00";
+        if (minutesEl) minutesEl.innerText = "00";
+        if (secondsEl) secondsEl.innerText = "00";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      if (daysEl) daysEl.innerText = days.toString().padStart(2, '0');
+      if (hoursEl) hoursEl.innerText = hours.toString().padStart(2, '0');
+      if (minutesEl) minutesEl.innerText = minutes.toString().padStart(2, '0');
+      if (secondsEl) secondsEl.innerText = seconds.toString().padStart(2, '0');
+    }
+
+    update(); // Ejecutar inmediatamente
+    const interval = setInterval(update, 1000);
+
+    // Limpiar intervalo al cambiar de página (View Transitions / Client Router)
+    document.addEventListener('astro:before-swap', () => {
+      clearInterval(interval);
+    }, { once: true });
+  }
+
+  // Ejecutar en carga inicial y navegación
+  document.addEventListener('astro:page-load', startCountdown);
+</script>
+
+<style>
+  /* Efecto de borde inferior brillante sutil */
+  .bg-surface {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.5);
+  }
+</style>

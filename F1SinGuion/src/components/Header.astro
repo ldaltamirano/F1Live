@@ -1,0 +1,54 @@
+---
+import Navbar from "./ui/Navbar.astro";
+import CountdownBar from "./CountdownBar.astro";
+import fs from 'node:fs/promises';
+import path from 'node:path';
+
+// Cargar calendario para encontrar el próximo evento
+const calendarPath = path.join(process.cwd(), 'public', 'calendario_f1_2026.json');
+let nextEventData = null;
+
+try {
+  const calendarContent = await fs.readFile(calendarPath, 'utf-8');
+  const calendar = JSON.parse(calendarContent);
+  const now = new Date();
+
+  // Lógica para encontrar el próximo evento relevante
+  for (const event of calendar) {
+    // 1. Buscar si es un GP y tiene carrera futura
+    const raceSession = event.sesiones?.find((s: any) => s.tipo === 'Race');
+    
+    if (raceSession) {
+      const raceDate = new Date(raceSession.inicio);
+      if (raceDate > now) {
+        nextEventData = {
+          targetDate: raceSession.inicio,
+          eventName: event.nombre,
+          sessionName: "Carrera",
+          flag: event.bandera
+        };
+        break; // Encontramos el próximo GP
+      }
+    } else {
+      // 2. Si no es GP (ej. Tests), buscar la primera sesión futura
+      const nextSession = event.sesiones?.find((s: any) => new Date(s.inicio) > now);
+      if (nextSession) {
+        nextEventData = {
+          targetDate: nextSession.inicio,
+          eventName: event.nombre,
+          sessionName: nextSession.nombre, // Ej: "Día 1"
+          flag: event.bandera
+        };
+        break;
+      }
+    }
+  }
+} catch (error) {
+  console.error("Error cargando calendario en Header:", error);
+}
+---
+
+<header class="sticky top-0 left-0 w-full z-50">
+  {nextEventData && <CountdownBar {...nextEventData} />}
+  <Navbar />
+</header>

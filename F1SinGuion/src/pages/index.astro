@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import HeroBackground from '@components/ui/HeroBackground.astro';
 import NewsCard from '@components/noticias/NewsCard.astro';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -27,25 +28,20 @@ const otherNews = news.filter((n: any) => n.tipo !== 'principal');
   title="F1 Live 2026 - Inicio"
   description="Sigue toda la acción de la Fórmula 1 2026. Noticias, resultados, clasificaciones y estadísticas en tiempo real."
 >
-  <main class="bg-[#15151e] min-h-screen">
+  <main class="bg-bg min-h-screen">
     
     {/* Hero Section */}
     <section class="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
       <div class="absolute inset-0 z-0">
-        {/* Imagen de fondo genérica */}
-        <img 
-          src="https://media.formula1.com/image/upload/f_auto,c_limit,w_1920,q_auto/fom-website/2023/Miscellaneous/2023-season-end-comp" 
-          alt="F1 2026 Hero" 
-          class="w-full h-full object-cover opacity-30"
-        />
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#15151e]/60 to-[#15151e]"></div>
+        <HeroBackground class="text-text opacity-20" />
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-bg/60 to-bg"></div>
       </div>
       
       <div class="relative z-10 text-center px-4">
-        <h1 class="text-6xl md:text-8xl font-black text-white italic uppercase tracking-tighter mb-4 drop-shadow-2xl">
-          F1 Live <span class="text-[#e10600]">2026</span>
+        <h1 class="text-6xl md:text-8xl font-black text-text italic uppercase tracking-tighter mb-4 drop-shadow-2xl">
+          F1 Live <span class="text-transparent bg-clip-text bg-gradient-to-r from-secondary to-primary drop-shadow-[-5px_0_15px_rgba(217,70,239,0.5)] drop-shadow-[5px_0_15px_rgba(59,130,246,0.5)]">2026</span>
         </h1>
-        <p class="text-xl md:text-2xl text-gray-300 font-light tracking-wide max-w-2xl mx-auto">
+        <p class="text-xl md:text-2xl text-text-muted font-light tracking-wide max-w-2xl mx-auto">
           Experience the new era of Formula 1.
         </p>
       </div>
@@ -54,7 +50,7 @@ const otherNews = news.filter((n: any) => n.tipo !== 'principal');
     {/* Sección de Noticias */}
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 -mt-32 relative z-20">
       <div class="flex items-center justify-between mb-8">
-        <h2 class="text-3xl font-bold text-white uppercase italic tracking-wider border-l-4 border-[#e10600] pl-4">
+        <h2 class="text-3xl font-black text-transparent bg-clip-text text-white uppercase italic tracking-tighter border-l-4 border-secondary pl-4">
           Latest News
         </h2>
       </div>

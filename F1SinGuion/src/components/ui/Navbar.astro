@@ -1,4 +1,6 @@
 ---
+import Button from "./Button.astro";
+
 const navItems = [
   { name: "Inicio", href: "/" },
   { name: "Live", href: "/live" },
@@ -11,13 +13,14 @@ const navItems = [
 const currentPath = Astro.url.pathname;
 ---
 
-<nav class="w-full bg-brand-black border-b border-gray-800 sticky top-0 z-50">
+<nav id="navbar" class="w-full bg-surface border-b border-white/10 z-50 shadow-[0_4px_30px_rgba(0,0,0,0.5)] backdrop-blur-sm transition-colors duration-300">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-20">
       <!-- Logo -->
       <div class="flex-shrink-0 flex items-center gap-2">
         <a href="/" class="flex items-center gap-2 group">
-            <img src="/logo.png" alt="F1 Live" class="h-8 w-auto opacity-90 group-hover:opacity-100 transition-opacity" />
+            <img src="/logo.png" alt="F1 Live" class="h-10 w-auto opacity-90 group-hover:opacity-100 group-hover:drop-shadow-[0_0_8px_rgba(6,182,212,0.5)] transition-all duration-300" />
+        </a>
       </div>
 
       <!-- Desktop Menu -->
@@ -27,10 +30,10 @@ const currentPath = Astro.url.pathname;
             <a
               href={item.href}
               class:list={[
-                "px-3 py-2 rounded-md text-sm font-bold uppercase tracking-widest transition-all duration-300 hover:text-brand-red",
+                "px-3 py-2 rounded-md text-sm font-bold uppercase tracking-widest transition-all duration-300 hover:text-accent hover:drop-shadow-[0_0_5px_rgba(6,182,212,0.8)]",
                 currentPath === item.href 
-                  ? "text-brand-red border-b-2 border-brand-red" 
-                  : "text-brand-silver"
+                  ? "text-white border-b-2 border-transparent [border-image:linear-gradient(to_right,var(--color-secondary),var(--color-primary))_1] drop-shadow-[0_0_8px_rgba(217,70,239,0.5)]" 
+                  : "text-text-muted hover:bg-white/5"
               ]}
             >
               {item.name}
@@ -41,32 +44,23 @@ const currentPath = Astro.url.pathname;
 
       <!-- Mobile Menu Button -->
       <div class="-mr-2 flex md:hidden">
-        <button type="button" id="mobile-menu-btn" class="inline-flex items-center justify-center p-2 rounded-md text-brand-silver hover:text-white hover:bg-gray-800 focus:outline-none">
+        <Button variant="ghost" id="mobile-menu-btn" class="p-2 text-text-muted hover:text-accent hover:bg-white/10" aria-label="Abrir menú">
           <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
-        </button>
+        </Button>
       </div>
     </div>
   </div>
 
   <!-- Mobile Menu (Hidden by default) -->
-  <div class="hidden md:hidden bg-brand-black border-t border-gray-800" id="mobile-menu">
+  <div class="hidden md:hidden bg-surface border-t border-white/10" id="mobile-menu">
     <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
       {navItems.map((item) => (
-        <a href={item.href} class="text-brand-silver hover:text-brand-red hover:bg-gray-900 block px-3 py-2 rounded-md text-base font-bold uppercase tracking-widest">
+        <a href={item.href} class="text-text-muted hover:text-accent hover:drop-shadow-[0_0_5px_rgba(6,182,212,0.8)] hover:bg-white/5 block px-3 py-2 rounded-md text-base font-bold uppercase tracking-widest transition-all">
           {item.name}
         </a>
       ))}
     </div>
   </div>
 </nav>
-
-<script>
-  const btn = document.getElementById('mobile-menu-btn');
-  const menu = document.getElementById('mobile-menu');
-
-  btn?.addEventListener('click', () => {
-    menu?.classList.toggle('hidden');
-  });
-</script>

@@ -1,0 +1,68 @@
+---
+interface Props {
+  class?: string;
+  hover?: boolean;
+  noPadding?: boolean;
+}
+
+const { class: className, hover = false, noPadding = false } = Astro.props;
+---
+
+<div class:list={['card', { 'card-hover': hover, 'no-padding': noPadding }, className]}>
+  <slot />
+</div>
+
+<style>
+  .card {
+    background-color: var(--color-surface);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    overflow: hidden;
+    position: relative;
+    /* Eliminamos border estándar para usar el degradado */
+    border: none;
+  }
+
+  /* Borde degradado sutil usando máscara */
+  .card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-md);
+    padding: 1px; /* Grosor del borde */
+    background: linear-gradient(to bottom, var(--color-secondary), var(--color-accent));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0.3; /* Sutil por defecto */
+    transition: opacity 0.3s ease;
+  }
+
+  .card.no-padding { padding: 0; }
+
+  .card-hover { transition: all 0.3s ease; }
+  
+  .card-hover:hover { 
+    transform: translateY(-4px); 
+    box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.5);
+  }
+
+  .card-hover:hover::after {
+    opacity: 0.8; /* Más visible en hover */
+  }
+  
+  /* Resplandor superior opcional para efecto "glass" */
+  .card-hover::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-md);
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+</style>
