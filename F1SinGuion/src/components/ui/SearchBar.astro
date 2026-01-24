@@ -1,0 +1,37 @@
+---
+---
+
+<div class="search-component relative flex items-center justify-end group">
+  <input 
+    type="text" 
+    placeholder="BUSCAR" 
+    class="search-input w-0 opacity-0 px-0 border-none bg-surface-hover rounded-full text-sm text-text placeholder-text-muted focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all duration-300" 
+  />
+  <button class="search-btn p-2 text-text-muted hover:text-accent transition-colors z-10" aria-label="Buscar">
+    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+  </button>
+</div>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const components = document.querySelectorAll('.search-component');
+    
+    components.forEach(component => {
+      const btn = component.querySelector('.search-btn');
+      const input = component.querySelector('.search-input');
+
+      btn?.addEventListener('click', () => {
+        input?.classList.toggle('w-0');
+        input?.classList.toggle('w-64');
+        input?.classList.toggle('opacity-0');
+        input?.classList.toggle('px-4');
+        input?.classList.toggle('py-1.5');
+        input?.classList.toggle('border');
+        input?.classList.toggle('border-white/10');
+        if (!input?.classList.contains('w-0')) {
+          (input as HTMLElement)?.focus();
+        }
+      });
+    });
+  });
+</script>

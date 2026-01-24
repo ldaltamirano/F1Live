@@ -24,20 +24,20 @@ const { class: className, hover = false, noPadding = false } = Astro.props;
   }
 
   /* Borde degradado sutil usando máscara */
-  .card::after {
+  /* .card::after {
     content: "";
     position: absolute;
     inset: 0;
     border-radius: var(--radius-md);
-    padding: 1px; /* Grosor del borde */
+    padding: 1px; 
     background: linear-gradient(to bottom, var(--color-secondary), var(--color-accent));
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     pointer-events: none;
-    opacity: 0.3; /* Sutil por defecto */
+    opacity: 0.3;
     transition: opacity 0.3s ease;
-  }
+  } */
 
   .card.no-padding { padding: 0; }
 

@@ -32,7 +32,7 @@ let monthDisplay = startMonth;
 
 if (endDate.getTime() > startDate.getTime()) {
      if (startMonth === endMonth) {
-         if (startDay !== endDay) dayDisplay = `${startDay}-${endDay}`;
+         if (startDay !== endDay) dayDisplay = `${startDay}-${endDay}`; 
      } else {
          dayDisplay = `${startDay}-${endDay}`;
          monthDisplay = `${startMonth}/${endMonth}`;
@@ -40,38 +40,38 @@ if (endDate.getTime() > startDate.getTime()) {
 }
 ---
 
-<a href={`/circuitos/${gp.id}`} class="card-item group relative bg-[#1e1e24] rounded-2xl overflow-hidden border border-white/5 hover:border-[#e10600] transition-all duration-300 hover:shadow-[0_0_30px_rgba(225,6,0,0.15)] hover:-translate-y-2 flex flex-col" data-name={gp.nombre} data-country={gp.pais}>
+<a href={`/circuitos/${gp.id}`} class="card-item group relative bg-surface rounded-2xl overflow-hidden border border-white/10 hover:border-accent transition-all duration-300 hover:shadow-[0_0_30px_rgba(6,182,212,0.15)] hover:-translate-y-2 flex flex-col" data-name={gp.nombre} data-country={gp.pais}>
   
   {/* Barra superior decorativa roja que aparece al hacer hover */}
-  <div class="h-1 w-full bg-gradient-to-r from-[#e10600] to-red-900 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+  <div class="h-1 w-full bg-gradient-to-r from-accent to-secondary transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
 
   <div class="p-6 flex flex-col h-full relative z-10">
     
     {/* Cabecera: Ronda y Fecha */}
     <div class="flex justify-between items-start mb-6">
       <div class="flex flex-col">
-        <span class="text-[#e10600] text-xs font-black uppercase tracking-widest mb-1">
+        <span class="text-accent text-xs font-black uppercase tracking-widest mb-1">
           {roundLabel}
         </span> 
         <div class="flex items-center gap-2">
           <img transition:name={`flag-${gp.id}`} src={gp.bandera} alt={`Bandera ${gp.pais}`} class="w-6 h-auto rounded-sm shadow-sm opacity-80 group-hover:opacity-100 transition-opacity" />
-          <span class="text-white/90 font-bold text-sm uppercase tracking-wider">{gp.pais}</span>
+          <span class="text-text font-bold text-sm uppercase tracking-wider">{gp.pais}</span>
         </div>
       </div>
       
       {/* Badge de Fecha estilo calendario */}
-      <div class="flex flex-col items-center bg-white/5 rounded-lg px-3 py-2 border border-white/5 group-hover:bg-white/10 transition-colors">
-        <span class="text-xl md:text-2xl font-black text-white leading-none whitespace-nowrap">{dayDisplay}</span>
-        <span class="text-[10px] font-bold text-[#e10600] uppercase tracking-wide">{monthDisplay}</span>
+      <div class="flex flex-col items-center bg-surface-hover rounded-lg px-3 py-2 border border-white/10 group-hover:bg-white/10 transition-colors">
+        <span class="text-xl md:text-2xl font-black text-text leading-none whitespace-nowrap">{dayDisplay}</span>
+        <span class="text-[10px] font-bold text-accent uppercase tracking-wide">{monthDisplay}</span>
       </div>
     </div>
 
     {/* Título del GP */}
     <div class="mb-6">
-      <h2 transition:name={`title-${gp.id}`} class="text-xl font-bold text-white italic leading-tight group-hover:text-[#e10600] transition-colors duration-300">
+      <h2 transition:name={`title-${gp.id}`} class="text-xl font-bold text-text italic leading-tight group-hover:text-secondary transition-colors duration-300">
         {gp.nombre}
       </h2>
-      <p class="text-xs text-gray-500 mt-2 line-clamp-1 font-medium">
+      <p class="text-xs text-text-muted mt-2 line-clamp-1 font-medium">
         {gp.info_tecnica ? gp.info_tecnica.split('.')[0] : ''}
       </p>
     </div>
@@ -79,7 +79,7 @@ if (endDate.getTime() > startDate.getTime()) {
     {/* Mapa del Circuito */}
     <div class="relative h-40 w-full flex items-center justify-center mb-6 mt-auto group-hover:scale-105 transition-transform duration-500">
       {/* Efecto de brillo rojo detrás del mapa al hacer hover */}
-      <div class="absolute inset-0 bg-[#e10600] opacity-0 group-hover:opacity-5 blur-2xl rounded-full transition-opacity duration-500"></div>
+      <div class="absolute inset-0 bg-accent opacity-0 group-hover:opacity-5 blur-2xl rounded-full transition-opacity duration-500"></div>
       
       {/* Imagen invertida para que se vea blanca sobre fondo oscuro */}
       <img 
@@ -91,11 +91,11 @@ if (endDate.getTime() > startDate.getTime()) {
     </div>
 
     {/* Footer: Neumáticos y Año */}
-    <div class="border-t border-white/5 pt-4 flex justify-between items-center">
+    <div class="border-t border-white/10 pt-4 flex justify-between items-center">
        {
         gp.neumaticos_sugeridos && gp.neumaticos_sugeridos.length > 0 ? (
             <div class="flex gap-1 items-center">
-              <span class="text-[10px] text-gray-600 mr-1 uppercase font-bold">Tyres</span>
+              <span class="text-[10px] text-text-muted mr-1 uppercase font-bold">Tyres</span>
               {gp.neumaticos_sugeridos.slice(0, 3).map((n: string, i: number) => (
                 <span class={`w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold border border-white/10 ${
                   i === 0 ? 'bg-white text-black' :
@@ -103,12 +103,12 @@ if (endDate.getTime() > startDate.getTime()) {
                   'bg-[#e10600] text-white'
                 }`}>
                   {n}
-                </span>
+                </span> 
               ))}
             </div>
         ) : null }
        
-       <span class="text-[10px] text-gray-600 font-mono group-hover:text-white transition-colors">
+       <span class="text-[10px] text-text-muted font-mono group-hover:text-text transition-colors">
           {new Date(gp.fecha).getFullYear()}
        </span>
     </div>

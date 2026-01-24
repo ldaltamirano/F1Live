@@ -3,6 +3,8 @@ import Layout from '../../layouts/Layout.astro';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import MarkdownIt from 'markdown-it';
+import Badge from '@components/ui/Badge.astro';
+import Button from '@components/ui/Button.astro';
 
 export async function getStaticPaths() {
   const newsPath = path.join(process.cwd(), 'public', 'news.json');
@@ -49,24 +51,22 @@ const content = md.render(contentRaw);
   description={newsItem.bajada}
   image={newsItem.imagen}
 >
-  <article class="bg-[#15151e] min-h-screen text-white pt-24 pb-12 px-4 sm:px-6 lg:px-8">
+  <article class="bg-bg min-h-screen text-text pt-24 pb-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-4xl mx-auto">
       
       {/* Botón Volver */}
-      <a href="/" class="inline-flex items-center text-gray-400 hover:text-white transition-colors mb-8 group">
+      <Button href="/" variant="ghost">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 transform group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
         </svg>
         Back to Home
-      </a>
+      </Button>
 
       {/* Header de la noticia */}
       <header class="mb-8">
         <div class="flex flex-wrap gap-2 mb-4">
           {newsItem.tags.map((tag: string) => (
-            <span class="text-xs font-bold uppercase tracking-wider bg-[#e10600] text-white px-2 py-1 rounded-sm">
-              {tag}
-            </span>
+            <Badge variant="gradient">{tag}</Badge>
           ))}
         </div>
         
@@ -74,11 +74,11 @@ const content = md.render(contentRaw);
           {newsItem.titulo}
         </h1>
 
-        <p class="text-xl text-gray-300 font-medium leading-relaxed mb-8 border-l-4 border-[#e10600] pl-4">
+        <p class="text-xl text-text-muted font-medium leading-relaxed mb-8 border-l-4 border-secondary pl-4">
           {newsItem.bajada}
         </p>
 
-        <div class="flex items-center gap-4 text-sm text-gray-400 border-b border-white/10 pb-6">
+        <div class="flex items-center gap-4 text-sm text-secondary border-b border-white/10 pb-6">
           <span>{formattedDate}</span>
           {newsItem.autor && (
             <>
@@ -89,7 +89,7 @@ const content = md.render(contentRaw);
           {newsItem.fuente && (
              <>
               <span class="w-1 h-1 bg-gray-600 rounded-full"></span>
-              <span class="text-[#e10600] font-bold">{newsItem.fuente}</span>
+              <span class="text-accent font-bold">{newsItem.fuente}</span>
             </>
           )}
         </div>
@@ -106,7 +106,7 @@ const content = md.render(contentRaw);
 
       {/* Cuerpo de la noticia */}
       <div class="prose prose-invert prose-lg max-w-none">        
-        <div class="text-gray-300 leading-relaxed" set:html={content} />
+        <div class="text-text-muted leading-relaxed" set:html={content} />
       </div>
 
     </div>

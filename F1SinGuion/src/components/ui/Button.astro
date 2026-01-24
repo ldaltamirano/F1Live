@@ -1,90 +1,41 @@
 ---
 interface Props {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
+  variant?: 'primary' | 'secondary' | 'ghost' | 'outline' | 'racing';
   size?: 'sm' | 'md' | 'lg';
   href?: string;
   class?: string;
-  [key: string]: any; // Para aceptar otros atributos como onclick, type, etc.
+  [key: string]: any;
 }
 
 const { variant = 'primary', size = 'md', href, class: className, ...rest } = Astro.props;
 
+const variants = {
+  primary: 'bg-white text-black hover:bg-gray-200 border-transparent',
+  secondary: 'bg-surface text-text border-white/10 hover:bg-surface-hover',
+  ghost: 'bg--white/10 text-white hover:bg-white/20 border-transparent',
+  outline: 'bg-transparent border border-white/20 text-text hover:border-white/40',
+  // Nueva variante "racing" con los colores de la clase
+  racing: 'text-text-muted hover:text-white hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:border-transparent transition-all duration-300 ml-auto',
+};
+
+const sizes = {
+  sm: 'px-3 py-1.5 text-xs',
+  md: 'px-5 py-2.5 text-sm',
+  lg: 'px-8 py-4 text-base',
+};
+
 const Tag = href ? 'a' : 'button';
 ---
 
-<Tag href={href} class:list={['btn', `btn-${variant}`, `btn-${size}`, className]} {...rest}>
+<Tag
+  href={href}
+  class:list={[
+    "my-5 inline-flex items-center justify-center rounded-[5px] font-bold uppercase tracking-widest transition-all duration-300 disabled:opacity-50 disabled:pointer-events-none cursor-pointer",
+    variants[variant] || variants.primary,
+    sizes[size],
+    className
+  ]}
+  {...rest}
+>
   <slot />
 </Tag>
-
-<style>
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    font-weight: 600;
-    border-radius: var(--radius-md);
-    cursor: pointer;
-    transition: all 0.2s ease;
-    text-decoration: none;
-    border: 1px solid transparent;
-    font-family: inherit;
-    line-height: 1;
-  }
-
-  /* Sizes */
-  .btn-sm { padding: 0.5rem 1rem; font-size: 0.875rem; }
-  .btn-md { padding: 0.75rem 1.5rem; font-size: 1rem; }
-  .btn-lg { padding: 1rem 2rem; font-size: 1.125rem; }
-
-  /* Variants */
-  .btn-primary {
-    background-color: var(--color-primary);
-    color: white;
-    box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
-  }
-  .btn-primary:hover {
-    filter: brightness(1.1);
-    box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
-  }
-
-  .btn-secondary {
-    background-color: var(--color-secondary);
-    color: white;
-  }
-  .btn-secondary:hover {
-    filter: brightness(1.1);
-  }
-
-  .btn-outline {
-    background-color: transparent;
-    border-color: var(--color-primary);
-    color: var(--color-primary);
-  }
-  .btn-outline:hover {
-    background-color: var(--color-primary);
-    color: white;
-  }
-
-  .btn-ghost {
-    background-color: transparent;
-    color: var(--color-text);
-  }
-  .btn-ghost:hover {
-    background-color: var(--color-surface-hover);
-  }
-
-  .btn-danger {
-    background-color: var(--color-danger);
-    color: white;
-  }
-  .btn-danger:hover {
-    filter: brightness(1.1);
-  }
-
-  /* Disabled state */
-  .btn:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-</style>

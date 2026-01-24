@@ -27,9 +27,9 @@ const date = new Date(news.fecha).toLocaleDateString('es-ES', {
 });
 ---
 
-<Card class={`h-full flex flex-col group ${featured ? 'md:flex-row' : ''}`} noPadding hover>
+<Card class={`h-full flex flex-col group ${featured ? 'md:flex-row' : ''}`} noPadding>
   <!-- Línea de acento lateral (Magenta) -->
-  <div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary z-10 opacity-70 group-hover:opacity-100 group-hover:shadow-[0_0_10px_var(--color-secondary)] transition-all duration-300"></div>
+  <div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary z-10 opacity-70 group-hover:opacity-100"></div>
 
   <div class={`relative overflow-hidden ${featured ? 'md:w-2/3 h-64 md:h-auto' : 'h-48'}`}>
     <img 
@@ -50,7 +50,7 @@ const date = new Date(news.fecha).toLocaleDateString('es-ES', {
 
     <div class="flex-grow">
       <div class="flex items-center justify-between mb-2 text-xs text-text-muted font-mono uppercase tracking-wide">
-        <span class="group-hover:text-secondary transition-colors duration-300">{date}</span>
+        <span class="text-secondary transition-colors duration-300">{date}</span>
         {news.fuente && <span class="text-accent font-bold">{news.fuente}</span>}
       </div>
 
@@ -73,7 +73,7 @@ const date = new Date(news.fecha).toLocaleDateString('es-ES', {
             <span>{news.autor}</span>
         </div>
       )}
-      <Button href={`/noticias/${news.id}`} variant="ghost" size="sm" class="text-accent hover:text-white hover:bg-gradient-to-r hover:from-secondary hover:to-primary hover:border-transparent transition-all duration-300 ml-auto">
+      <Button href={`/noticias/${news.id}`} variant="racing" size="sm" >
         Leer más &rarr;
       </Button>
     </div>

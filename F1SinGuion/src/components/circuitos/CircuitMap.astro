@@ -6,13 +6,13 @@ interface Props {
 const { gp } = Astro.props;
 ---
 
-<div class="bg-[#1e1e24] rounded-3xl p-8 border border-white/5 relative overflow-hidden group">
+<div class="bg-surface rounded-3xl p-8 border border-white/10 relative overflow-hidden group">
   {/* Efecto de brillo de fondo */}
-  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2/3 h-2/3 bg-[#e10600] opacity-5 blur-[100px] rounded-full group-hover:opacity-10 transition-opacity duration-700"></div>
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2/3 h-2/3 bg-accent opacity-5 blur-[100px] rounded-full group-hover:opacity-10 transition-opacity duration-700"></div>
   
   <img 
     transition:name={`map-${gp.id}`}
     src={gp.imagen_circuito} 
     alt={`Mapa ${gp.nombre}`} 
-    class="relative z-10 w-full h-auto max-h-[400px] object-contain filter invert drop-shadow-[0_0_15px_rgba(255,255,255,0.1)] transform group-hover:scale-105 transition-transform duration-700" />
+    class="relative z-10 w-full h-auto max-h-[400px] object-contain filter invert transform transition-transform duration-700" />
 </div>

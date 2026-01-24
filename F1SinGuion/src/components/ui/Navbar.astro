@@ -1,5 +1,7 @@
 ---
 import Button from "./Button.astro";
+import SearchBar from "./SearchBar.astro";
+import NavMenu from "./NavMenu.astro";
 
 const navItems = [
   { name: "Inicio", href: "/" },
@@ -14,53 +16,76 @@ const currentPath = Astro.url.pathname;
 ---
 
 <nav id="navbar" class="w-full bg-surface border-b border-white/10 z-50 shadow-[0_4px_30px_rgba(0,0,0,0.5)] backdrop-blur-sm transition-colors duration-300">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-20">
-      <!-- Logo -->
-      <div class="flex-shrink-0 flex items-center gap-2">
-        <a href="/" class="flex items-center gap-2 group">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20 relative">
+      
+      <!-- Left Section: Desktop Menu Btn & Mobile Logo -->
+      <div class="flex items-center gap-4">
+        <!-- Desktop Menu Button -->
+        <button id="desktop-menu-btn" class="hidden lg:flex items-center gap-2 text-text-muted hover:text-accent transition-colors group" aria-label="Abrir menú">
+          <svg class="h-6 w-6 group-hover:drop-shadow-[0_0_5px_rgba(6,182,212,0.8)]" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <span class="font-bold tracking-widest text-sm">MENU</span>
+        </button>
+
+        <!-- Mobile Logo -->
+        <a href="/" class="flex lg:hidden items-center gap-2 group">
             <img src="/logo.png" alt="F1 Live" class="h-10 w-auto opacity-90 group-hover:opacity-100 group-hover:drop-shadow-[0_0_8px_rgba(6,182,212,0.5)] transition-all duration-300" />
         </a>
       </div>
 
-      <!-- Desktop Menu -->
-      <div class="hidden md:block">
-        <div class="ml-10 flex items-baseline space-x-8">
-          {navItems.map((item) => (
-            <a
-              href={item.href}
-              class:list={[
-                "px-3 py-2 rounded-md text-sm font-bold uppercase tracking-widest transition-all duration-300 hover:text-accent hover:drop-shadow-[0_0_5px_rgba(6,182,212,0.8)]",
-                currentPath === item.href 
-                  ? "text-white border-b-2 border-transparent [border-image:linear-gradient(to_right,var(--color-secondary),var(--color-primary))_1] drop-shadow-[0_0_8px_rgba(217,70,239,0.5)]" 
-                  : "text-text-muted hover:bg-white/5"
-              ]}
-            >
-              {item.name}
-            </a>
-          ))}
-        </div>
+      <!-- Center Section: Desktop Logo -->
+      <div class="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+        <a href="/" class="flex items-center gap-2 group">
+            <img src="/logo.png" alt="F1 Live" class="h-12 w-auto opacity-90 group-hover:opacity-100 group-hover:drop-shadow-[0_0_8px_rgba(6,182,212,0.5)] transition-all duration-300" />
+        </a>
       </div>
 
-      <!-- Mobile Menu Button -->
-      <div class="-mr-2 flex md:hidden">
+      <!-- Right Section: Desktop Search & Mobile Menu Btn -->
+      <div class="flex items-center gap-4">
+        <!-- Desktop Search -->
+        <div class="hidden lg:flex items-center">
+          <SearchBar />
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <div class="-mr-2 flex lg:hidden">
         <Button variant="ghost" id="mobile-menu-btn" class="p-2 text-text-muted hover:text-accent hover:bg-white/10" aria-label="Abrir menú">
           <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </Button>
       </div>
-    </div>
-  </div>
+      </div>
 
-  <!-- Mobile Menu (Hidden by default) -->
-  <div class="hidden md:hidden bg-surface border-t border-white/10" id="mobile-menu">
-    <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-      {navItems.map((item) => (
-        <a href={item.href} class="text-text-muted hover:text-accent hover:drop-shadow-[0_0_5px_rgba(6,182,212,0.8)] hover:bg-white/5 block px-3 py-2 rounded-md text-base font-bold uppercase tracking-widest transition-all">
-          {item.name}
-        </a>
-      ))}
+      <!-- Mobile Menu (Moved inside container for alignment) -->
+      <div class="hidden absolute top-20 left-0 w-full bg-surface/95 backdrop-blur-md border-b border-white/10 shadow-xl z-40" id="mobile-menu">
+        <!-- Mobile Search -->
+        <div class="p-4 lg:hidden border-b border-white/5">
+          <div class="relative">
+            <input type="text" placeholder="BUSCAR" class="w-full bg-surface-hover border border-white/10 rounded-md py-2 px-4 pl-10 text-text placeholder-text-muted focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all" />
+            <svg class="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+          </div>
+        </div>
+
+        <NavMenu items={navItems} />
+      </div>
     </div>
   </div>
 </nav>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const desktopMenuBtn = document.getElementById('desktop-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    const toggleMenu = () => {
+      mobileMenu?.classList.toggle('hidden');
+    };
+
+    if (menuBtn) menuBtn.addEventListener('click', toggleMenu);
+    if (desktopMenuBtn) desktopMenuBtn.addEventListener('click', toggleMenu);
+  });
+</script>

@@ -24,24 +24,24 @@ let rondaCounter = 0;
 
 <Layout title="Circuitos F1 2026">
   <!-- Fondo oscuro principal (#15151e) para consistencia con el resto del sitio -->
-  <div class="bg-[#15151e] min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+  <div class="bg-bg min-h-screen py-12 px-4 sm:px-6 lg:px-8">
     
     <div class="max-w-7xl mx-auto">
       <!-- Título con tipografía estilo racing -->
-      <h1 class="text-4xl md:text-6xl font-black text-center text-white mb-16 uppercase italic tracking-tighter">
-        F1 Schedule <span class="text-[#e10600]">2026</span>
+      <h1 class="text-4xl md:text-6xl font-black text-center text-text mb-16 uppercase italic tracking-tighter">
+        F1 Schedule <span class="text-accent">2026</span>
       </h1>
 
       {/* Buscador de Circuitos */}
       <div class="max-w-xl mx-auto mb-12 relative group z-20">
-        <div class="absolute -inset-1 bg-gradient-to-r from-[#e10600] to-red-900 rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
+        <div class="absolute -inset-1 bg-gradient-to-r from-accent to-secondary rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
         <input 
           type="text" 
           id="searchInput"
           placeholder="Buscar circuito o país..." 
-          class="relative w-full bg-[#1e1e24] text-white border border-white/10 rounded-lg py-4 px-6 focus:outline-none focus:border-[#e10600] focus:ring-1 focus:ring-[#e10600] placeholder-gray-500 transition-all"
+          class="relative w-full bg-surface text-text border border-white/10 rounded-lg py-4 px-6 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent placeholder-text-muted transition-all"
         />
-        <div class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none">
+        <div class="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
@@ -64,7 +64,7 @@ let rondaCounter = 0;
       </div>
       
       {/* Mensaje sin resultados */}
-      <div id="noResults" class="hidden text-center text-gray-500 mt-12">
+      <div id="noResults" class="hidden text-center text-text-muted mt-12">
         <p class="text-xl italic">No se encontraron circuitos que coincidan con tu búsqueda.</p>
       </div>
     </div>

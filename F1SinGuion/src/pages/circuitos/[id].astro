@@ -8,6 +8,7 @@ import CircuitHero from '@components/circuitos/CircuitHero.astro';
 import CircuitMap from '@components/circuitos/CircuitMap.astro';
 import SessionTimes from '@components/circuitos/SessionTimes.astro';
 import TyreCompounds from '@components/circuitos/TyreCompounds.astro';
+import Button from '@components/ui/Button.astro';
 
 interface Session {
   id: number;
@@ -70,16 +71,16 @@ const { gp, roundDisplay } = Astro.props;
 ---
 
 <Layout title={`${gp.nombre} - F1 2026`}>
-  <div class="bg-[#15151e] min-h-screen text-white">
+  <div class="bg-bg min-h-screen text-text">
     
     {/* Hero Section con Imagen de Fondo */}
     <CircuitHero gp={gp} roundDisplay={roundDisplay}>
-      <a slot="back-button" href="/circuitos" class="inline-flex items-center text-white/80 hover:text-[#e10600] transition-colors group font-medium bg-black/30 backdrop-blur-sm px-4 py-2 rounded-full border border-white/10 hover:border-[#e10600]">
+      <Button slot="back-button" href="/circuitos" variant="ghost" >
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 transform group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
         </svg>
         Back to Schedule
-      </a>
+      </Button>
     </CircuitHero>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 -mt-20 relative z-20">
@@ -93,19 +94,19 @@ const { gp, roundDisplay } = Astro.props;
 
           {/* Detalles Técnicos e Históricos */}
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="bg-[#1e1e24] p-8 rounded-2xl border-l-4 border-[#e10600]">
-              <h3 class="text-lg font-bold uppercase mb-4 text-white flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#e10600]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            <div class="bg-surface p-8 rounded-2xl border-l-4 border-secondary">
+              <h3 class="text-lg font-bold uppercase mb-4 text-text flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                 Technical Info
               </h3>
-              <p class="text-gray-400 leading-relaxed text-sm">{gp.info_tecnica}</p>
+              <p class="text-text-muted leading-relaxed text-sm">{gp.info_tecnica}</p>
             </div>
-            <div class="bg-[#1e1e24] p-8 rounded-2xl border-l-4 border-gray-600">
-              <h3 class="text-lg font-bold uppercase mb-4 text-white flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            <div class="bg-surface p-8 rounded-2xl border-l-4 border-secondary">
+              <h3 class="text-lg font-bold uppercase mb-4 text-text flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                 History
               </h3>
-              <p class="text-gray-400 leading-relaxed text-sm">{gp.resena_historica}</p>
+              <p class="text-text-muted leading-relaxed text-sm">{gp.resena_historica}</p>
             </div>
           </div>
         </div>

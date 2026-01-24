@@ -1,4 +1,6 @@
 ---
+import Badge from '@components/ui/Badge.astro';
+
 interface Props {
   gp: any;
   roundDisplay: string;
@@ -7,7 +9,7 @@ interface Props {
 const { gp, roundDisplay } = Astro.props;
 ---
 
-<div class="relative w-full h-[50vh] min-h-[400px] overflow-hidden">
+<div class="relative w-full h-[50vh] min-h-[400px] overflow-hidden  ">
   {/* Imagen de Fondo con Overlay */}
   <div class="absolute inset-0">
     <img 
@@ -15,8 +17,8 @@ const { gp, roundDisplay } = Astro.props;
       alt={`Background ${gp.nombre}`} 
       class="w-full h-full object-cover opacity-50"
     />
-    <div class="absolute inset-0 bg-gradient-to-t from-[#15151e] via-[#15151e]/60 to-transparent"></div>
-    <div class="absolute inset-0 bg-gradient-to-r from-[#15151e] via-transparent to-transparent"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-bg via-bg/60 to-transparent"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-bg via-transparent to-transparent"></div>
   </div>
 
   {/* Contenido */}
@@ -26,13 +28,13 @@ const { gp, roundDisplay } = Astro.props;
     </div>
     
     <div class="flex items-center gap-3 mb-2">
-      <span class="bg-[#e10600] text-white text-xs font-bold px-2 py-1 rounded uppercase tracking-wider">{roundDisplay}</span>
-      <div class="flex items-center gap-2 text-white/80 font-medium uppercase tracking-widest text-sm">
+      <Badge variant="racing">{roundDisplay}</Badge>
+      <div class="flex items-center gap-2 text-text-muted font-medium uppercase tracking-widest text-sm">
         <img src={gp.bandera} alt={gp.pais} class="w-6 rounded-sm" />
         {gp.pais}
       </div>
     </div>
 
-    <h1 transition:name={`title-${gp.id}`} class="text-5xl md:text-7xl font-black text-white italic uppercase tracking-tighter mb-4">{gp.nombre}</h1>
+    <h1 transition:name={`title-${gp.id}`} class="text-5xl md:text-7xl font-black text-text italic uppercase tracking-tighter mb-4">{gp.nombre}</h1>
   </div>
 </div>
