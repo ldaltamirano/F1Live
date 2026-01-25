@@ -96,7 +96,7 @@ Plan para migrar de archivos JSON estáticos a una base de datos SQLite distribu
 - [x] **Instalar Cliente**: Agregar `@libsql/client` al proyecto.
 - [x] **Setup Drizzle ORM**: Instalar `drizzle-orm` y `drizzle-kit` para manejo de esquemas y migraciones.
 - [x] **Configurar Drizzle**: Crear `drizzle.config.ts` y conectar con Turso.
-- [ ] **Definir Esquemas**: Crear modelos en TypeScript (`src/db/schema.ts`) para `drivers`, `teams`, `circuits`, etc.
+- [x] **Definir Esquemas**: Crear modelos en TypeScript (`src/db/schema.ts`) para `drivers`, `teams`, `circuits`, etc.
 
 ### 🔄 Fase 2: Migración de Datos (JSON a SQL)
 - [ ] **Script de Seeding**: Crear script (Node.js) que lea los JSONs actuales (`public/*.json`) e inserte los datos en Turso.
