@@ -1,0 +1,122 @@
+---
+import PointsChart from './PointsChart.astro';
+
+interface Props {
+  title: string;
+  chartId: string;
+  labels: string[];
+  datasets: {
+    label: string;
+    data: number[];
+    color: string;
+    hidden?: boolean;
+  }[];
+}
+
+const { title, chartId, labels, datasets } = Astro.props;
+---
+
+<div class="fixed top-1/2 right-0 -translate-y-1/2 z-50 flex flex-row items-center pointer-events-none">
+    
+    {/* Contenedor del Gráfico (Popup Flotante) */}
+    <div 
+        id={`container-${chartId}`} 
+        class="hidden mr-2 bg-[#15151e] backdrop-blur-xl border border-white/10 rounded-3xl p-4 sm:p-6 shadow-[0_0_50px_rgba(0,0,0,0.8)] w-[90vw] max-w-3xl pointer-events-auto origin-right transition-all duration-300"
+    >
+        <div class="flex justify-between items-center mb-4 border-b border-white/5 pb-4">
+            <h3 class="text-lg font-bold text-white uppercase italic tracking-wider flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                {title}
+            </h3>
+            <button id={`close-${chartId}`} class="text-gray-400 hover:text-white transition-colors p-1 hover:bg-white/10 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        
+        <div class="flex justify-between items-center mb-2">
+            <p class="text-[10px] text-gray-500 uppercase tracking-wider">Click to filter</p>
+        </div>
+        
+        <div class="flex flex-wrap gap-2 mb-2 justify-start max-h-32 overflow-y-auto custom-scrollbar pr-2">
+            {datasets.map((d, index) => (
+                <button 
+                    class={`filter-btn-${chartId} px-3 py-1 rounded text-[10px] font-bold uppercase tracking-wider border transition-all select-none ${!d.hidden ? 'bg-white/10 text-white border-white/20' : 'bg-transparent text-gray-600 border-white/5 hover:border-white/10'}`}
+                    style={!d.hidden ? `border-color: ${d.color}; box-shadow: 0 0 10px ${d.color}20;` : ''}
+                    data-index={index}
+                    data-color={d.color}
+                >
+                    {d.label}
+                </button>
+            ))}
+        </div>
+
+        <div class="relative -mt-4">
+            <PointsChart id={chartId} labels={labels} datasets={datasets} />
+        </div>
+    </div>
+
+    {/* Botón FAB (Floating Action Button) */}
+    <button 
+        id={`toggle-${chartId}`}
+        class="pointer-events-auto group flex items-center justify-center w-10 h-48 bg-cyan-600 hover:bg-cyan-500 text-white rounded-l-xl shadow-[-5px_0_20px_rgba(8,145,178,0.6)] hover:shadow-[-5px_0_30px_rgba(8,145,178,0.8)] transition-all duration-300 border-y border-l border-white/20"
+        title="Show Chart"
+    >
+        <span class="font-bold uppercase tracking-widest text-xs whitespace-nowrap" style="writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg);">
+            {title}
+        </span>
+    </button>
+</div>
+
+<script define:vars={{ chartId }}>
+    const toggleBtn = document.getElementById(`toggle-${chartId}`);
+    const closeBtn = document.getElementById(`close-${chartId}`);
+    const container = document.getElementById(`container-${chartId}`);
+
+    function toggleChart() {
+        container?.classList.toggle('hidden');
+        
+        // Animación de entrada
+        if (!container?.classList.contains('hidden')) {
+            container.animate([
+                { opacity: 0, transform: 'scale(0.9) translateX(20px)' },
+                { opacity: 1, transform: 'scale(1) translateX(0)' }
+            ], {
+                duration: 300,
+                easing: 'cubic-bezier(0.16, 1, 0.3, 1)'
+            });
+        }
+    }
+
+    toggleBtn?.addEventListener('click', toggleChart);
+    closeBtn?.addEventListener('click', () => container?.classList.add('hidden'));
+
+    const filterButtons = document.querySelectorAll(`.filter-btn-${chartId}`);
+    
+    filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const index = parseInt(btn.getAttribute('data-index'));
+            const color = btn.getAttribute('data-color');
+            const chart = window.f1Charts && window.f1Charts[chartId];
+            
+            if (chart) {
+                const isHidden = !chart.isDatasetVisible(index);
+                chart.setDatasetVisibility(index, isHidden);
+                chart.update();
+
+                if (isHidden) {
+                    btn.classList.remove('bg-transparent', 'text-gray-600', 'border-white/5');
+                    btn.classList.add('bg-white/10', 'text-white');
+                    btn.style.borderColor = color;
+                    btn.style.boxShadow = `0 0 10px ${color}20`;
+                } else {
+                    btn.classList.add('bg-transparent', 'text-gray-600', 'border-white/5');
+                    btn.classList.remove('bg-white/10', 'text-white');
+                    btn.style.borderColor = '';
+                    btn.style.boxShadow = '';
+                }
+            }
+        });
+    });
+</script>

@@ -1,19 +1,20 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import StandingsTable from '../components/resultados/StandingsTable.astro';
-import PointsChart from '../components/resultados/PointsChart.astro';
-import fs from 'node:fs/promises';
-import path from 'node:path';
+import Layout from "../layouts/Layout.astro";
+import StandingsTable from "../components/resultados/StandingsTable.astro";
+import ChartAccordion from "../components/resultados/ChartAccordion.astro";
+import fs from "node:fs/promises";
+import path from "node:path";
+import Button from "@components/ui/Button.astro";
 
 // Cargar datos
-const standingsPath = path.join(process.cwd(), 'public', 'standings_2026.json');
-const driversPath = path.join(process.cwd(), 'public', 'drivers_2026.json');
-const teamsPath = path.join(process.cwd(), 'public', 'teams_2026.json');
+const standingsPath = path.join(process.cwd(), "public", "standings_2026.json");
+const driversPath = path.join(process.cwd(), "public", "drivers_2026.json");
+const teamsPath = path.join(process.cwd(), "public", "teams_2026.json");
 
 const [standingsContent, driversContent, teamsContent] = await Promise.all([
-  fs.readFile(standingsPath, 'utf-8'),
-  fs.readFile(driversPath, 'utf-8'),
-  fs.readFile(teamsPath, 'utf-8')
+  fs.readFile(standingsPath, "utf-8"),
+  fs.readFile(driversPath, "utf-8"),
+  fs.readFile(teamsPath, "utf-8"),
 ]);
 
 const standings = JSON.parse(standingsContent);
@@ -21,226 +22,178 @@ const driversRaw = JSON.parse(driversContent);
 const teamsRaw = JSON.parse(teamsContent);
 
 // Procesar Standings de Pilotos (Cruzar IDs con nombres y equipos)
-const driverStandings = standings.drivers.map((s: any) => {
-  const driverInfo = driversRaw.find((d: any) => d.id === s.driver_id);
-  // Buscar equipo: primero por driver_ids en teams, fallback al team_id del piloto
-  const teamInfo = teamsRaw.find((t: any) => t.driver_ids?.includes(s.driver_id)) || teamsRaw.find((t: any) => t.id === driverInfo?.team_id);
-  
-  return {
-    ...s,
-    nombre: driverInfo?.nombre || 'Unknown',
-    apellido: driverInfo?.apellido || 'Driver',
-    equipo: teamInfo?.nombre || 'Unknown Team',
-    color: teamInfo?.color_var || '#fff'
-  };
-}).sort((a: any, b: any) => a.position - b.position);
+const driverStandings = standings.drivers
+  .map((s: any) => {
+    const driverInfo = driversRaw.find((d: any) => d.id === s.driver_id);
+    // Buscar equipo: primero por driver_ids en teams, fallback al team_id del piloto
+    const teamInfo =
+      teamsRaw.find((t: any) => t.driver_ids?.includes(s.driver_id)) ||
+      teamsRaw.find((t: any) => t.id === driverInfo?.team_id);
+
+    return {
+      ...s,
+      nombre: driverInfo?.nombre || "Unknown",
+      apellido: driverInfo?.apellido || "Driver",
+      equipo: teamInfo?.nombre || "Unknown Team",
+      color: teamInfo?.color_var || "#fff",
+    };
+  })
+  .sort((a: any, b: any) => a.position - b.position);
 
 // Procesar Standings de Constructores
-const constructorStandings = standings.constructors.map((s: any) => {
-  const teamInfo = teamsRaw.find((t: any) => t.id === s.team_id);
-  return {
-    ...s,
-    nombre: teamInfo?.nombre || 'Unknown Team',
-    color: teamInfo?.color_var || '#fff'
-  };
-}).sort((a: any, b: any) => a.position - b.position);
+const constructorStandings = standings.constructors
+  .map((s: any) => {
+    const teamInfo = teamsRaw.find((t: any) => t.id === s.team_id);
+    return {
+      ...s,
+      nombre: teamInfo?.nombre || "Unknown Team",
+      color: teamInfo?.color_var || "#fff",
+    };
+  })
+  .sort((a: any, b: any) => a.position - b.position);
 
 // Preparar datos para el gráfico
-const history = standings.history || { labels: [], drivers: {}, constructors: {} };
+const history = standings.history || {
+  labels: [],
+  drivers: {},
+  constructors: {},
+};
 
 const driverChartData = driverStandings.map((d: any, index: number) => ({
   label: d.apellido,
   data: history.drivers[d.driver_id] || [],
   color: d.color,
-  hidden: index >= 10 // Ocultar inicialmente los que no son Top 10
+  hidden: index >= 10, // Ocultar inicialmente los que no son Top 10
 }));
 
-const constructorChartData = constructorStandings.map((c: any, index: number) => ({
-  label: c.nombre,
-  data: history.constructors[c.team_id] || [],
-  color: c.color,
-  hidden: index >= 5 // Ocultar inicialmente los que no son Top 5 (opcional)
-}));
+const constructorChartData = constructorStandings.map(
+  (c: any, index: number) => ({
+    label: c.nombre,
+    data: history.constructors[c.team_id] || [],
+    color: c.color,
+    hidden: index >= 5, // Ocultar inicialmente los que no son Top 5 (opcional)
+  }),
+);
 ---
 
 <Layout title="Resultados y Clasificación - F1 2026">
-  <div class="bg-[#15151e] min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-5xl mx-auto">
-      
+  <div
+    class="bg-[#050505] min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden font-sans"
+  >
+    {/* Micro-dot Grid Pattern */}
+    <div
+      class="absolute inset-0 opacity-[0.15] pointer-events-none"
+      style="background-image: radial-gradient(#333 1px, transparent 1px); background-size: 20px 20px;"
+    >
+    </div>
+
+    {/* Ambient Background */}
+    <div
+      class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[800px] bg-white/5 blur-[120px] rounded-full pointer-events-none mix-blend-overlay"
+    >
+    </div>
+
+    <div class="max-w-5xl mx-auto relative z-10">
       <div class="text-center mb-12">
-        <h1 class="text-4xl md:text-6xl font-black text-white uppercase italic tracking-tighter mb-4">
-          Standings <span class="text-[#e10600]">2026</span>
+        <h1
+          class="text-4xl md:text-6xl font-black text-white uppercase italic tracking-tighter mb-4"
+        >
+          Standings <span
+            class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-600"
+            >2026</span
+          >
         </h1>
-        <p class="text-gray-400 font-mono uppercase tracking-widest text-sm">Round {standings.round_completed} Completed</p>
+        <p class="text-gray-400 font-mono uppercase tracking-widest text-sm">
+          Round {standings.round_completed} Completed
+        </p>
       </div>
 
       {/* Navegación de Pestañas */}
       <div class="flex justify-center gap-4 mb-8" id="tabs-nav">
-        <button 
-          class="px-6 py-2 rounded-full font-bold text-sm uppercase tracking-wider transition-all bg-[#e10600] text-white shadow-[0_0_20px_rgba(225,6,0,0.4)]"
-          data-tab="drivers"
-        >
-          Drivers
-        </button>
-        <button 
-          class="px-6 py-2 rounded-full font-bold text-sm uppercase tracking-wider transition-all bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white"
-          data-tab="constructors"
-        >
+        <Button variant="secondary" data-tab="drivers"> Drivers </Button>
+        <Button variant="secondary" data-tab="constructors">
           Constructors
-        </button>
+        </Button>
       </div>
 
       {/* Contenedor de Tablas */}
-      <div class="bg-[#1e1e24] rounded-3xl border border-white/5 p-4 md:p-8 shadow-2xl relative overflow-hidden min-h-[500px]">
-        
+      <div
+        class="bg-[#0a0a0a] backdrop-blur-sm rounded-3xl border border-white/10 p-4 md:p-8 shadow-2xl relative overflow-hidden min-h-[500px]"
+      >
         <div id="tab-drivers" class="tab-content block animate-fade-in">
           <StandingsTable type="drivers" data={driverStandings} />
-          
-          <div class="mt-12 pt-8 border-t border-white/5">
-            <div class="flex flex-col md:flex-row justify-between items-end md:items-center mb-6 gap-4">
-              <h3 class="text-xl font-bold text-white uppercase italic">Championship Evolution</h3>
-              <p class="text-xs text-gray-500">Click to toggle drivers</p>
-            </div>
-
-            {/* Filtros de Pilotos */}
-            <div class="flex flex-wrap gap-2 mb-6" id="driver-filters">
-              {driverChartData.map((d: any, index: number) => (
-                <button 
-                  class={`px-3 py-1 rounded text-xs font-bold uppercase tracking-wider border transition-all select-none ${!d.hidden ? 'bg-white/10 text-white border-white/20' : 'bg-transparent text-gray-600 border-white/5 hover:border-white/10'}`}
-                  style={!d.hidden ? `border-color: ${d.color}; box-shadow: 0 0 10px ${d.color}20;` : ''}
-                  data-index={index}
-                  data-color={d.color}
-                >
-                  {d.label}
-                </button>
-              ))}
-            </div>
-
-            <PointsChart id="chart-drivers-canvas" labels={history.labels} datasets={driverChartData} />
-          </div>
         </div>
 
         <div id="tab-constructors" class="tab-content hidden animate-fade-in">
           <StandingsTable type="constructors" data={constructorStandings} />
-          
-          <div class="mt-12 pt-8 border-t border-white/5">
-            <div class="flex flex-col md:flex-row justify-between items-end md:items-center mb-6 gap-4">
-              <h3 class="text-xl font-bold text-white uppercase italic">Constructors Battle</h3>
-              <p class="text-xs text-gray-500">Click to toggle teams</p>
-            </div>
-
-            {/* Filtros de Constructores */}
-            <div class="flex flex-wrap gap-2 mb-6" id="constructor-filters">
-              {constructorChartData.map((c: any, index: number) => (
-                <button 
-                  class={`px-3 py-1 rounded text-xs font-bold uppercase tracking-wider border transition-all select-none ${!c.hidden ? 'bg-white/10 text-white border-white/20' : 'bg-transparent text-gray-600 border-white/5 hover:border-white/10'}`}
-                  style={!c.hidden ? `border-color: ${c.color}; box-shadow: 0 0 10px ${c.color}20;` : ''}
-                  data-index={index}
-                  data-color={c.color}
-                >
-                  {c.label}
-                </button>
-              ))}
-            </div>
-
-            <PointsChart id="chart-constructors-canvas" labels={history.labels} datasets={constructorChartData} />
-          </div>
         </div>
-
       </div>
 
+      <div id="chart-wrapper-drivers" class="chart-wrapper block">
+        <ChartAccordion
+          title="Evolución"
+          chartId="chart-drivers-canvas"
+          labels={history.labels}
+          datasets={driverChartData}
+        />
+      </div>
+
+      <div id="chart-wrapper-constructors" class="chart-wrapper hidden">
+        <ChartAccordion
+          title="Evolución"
+          chartId="chart-constructors-canvas"
+          labels={history.labels}
+          datasets={constructorChartData}
+        />
+      </div>
     </div>
   </div>
 
   <script>
-    const buttons = document.querySelectorAll('#tabs-nav button');
-    const contents = document.querySelectorAll('.tab-content');
+    const buttons = document.querySelectorAll("#tabs-nav button");
+    const contents = document.querySelectorAll(".tab-content");
+    const charts = document.querySelectorAll(".chart-wrapper");
 
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const target = btn.getAttribute('data-tab');
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const target = btn.getAttribute("data-tab");
 
         // Actualizar estilos de botones
-        buttons.forEach(b => {
-          if(b.getAttribute('data-tab') === target) {
-            b.classList.remove('bg-white/5', 'text-gray-400');
-            b.classList.add('bg-[#e10600]', 'text-white', 'shadow-[0_0_20px_rgba(225,6,0,0.4)]');
+        buttons.forEach((b) => {
+          if (b.getAttribute("data-tab") === target) {
+            b.classList.remove("bg-white/5", "text-gray-400");
+            b.classList.add(
+              "bg-cyan-600",
+              "text-white",
+              "shadow-[0_0_20px_rgba(8,145,178,0.4)]",
+            );
           } else {
-            b.classList.add('bg-white/5', 'text-gray-400');
-            b.classList.remove('bg-[#e10600]', 'text-white', 'shadow-[0_0_20px_rgba(225,6,0,0.4)]');
+            b.classList.add("bg-white/5", "text-gray-400");
+            b.classList.remove(
+              "bg-cyan-600",
+              "text-white",
+              "shadow-[0_0_20px_rgba(8,145,178,0.4)]",
+            );
           }
         });
 
         // Mostrar/Ocultar contenido
-        contents.forEach(c => {
-          if(c.id === `tab-${target}`) {
-            c.classList.remove('hidden');
+        contents.forEach((c) => {
+          if (c.id === `tab-${target}`) {
+            c.classList.remove("hidden");
           } else {
-            c.classList.add('hidden');
+            c.classList.add("hidden");
           }
         });
-      });
-    });
 
-    // Lógica para los filtros del gráfico de pilotos
-    const filterButtons = document.querySelectorAll('#driver-filters button');
-    
-    filterButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const index = parseInt(btn.getAttribute('data-index'));
-        const color = btn.getAttribute('data-color');
-        const chart = window.f1Charts['chart-drivers-canvas'];
-        
-        if (chart) {
-          // Alternar visibilidad en el gráfico
-          const isHidden = !chart.isDatasetVisible(index);
-          chart.setDatasetVisibility(index, isHidden);
-          chart.update();
-
-          // Actualizar estilo del botón
-          if (isHidden) {
-            btn.classList.remove('bg-transparent', 'text-gray-600', 'border-white/5');
-            btn.classList.add('bg-white/10', 'text-white');
-            btn.style.borderColor = color;
-            btn.style.boxShadow = `0 0 10px ${color}20`;
+        // Mostrar/Ocultar gráficos laterales
+        charts.forEach((c) => {
+          if (c.id === `chart-wrapper-${target}`) {
+            c.classList.remove("hidden");
           } else {
-            btn.classList.add('bg-transparent', 'text-gray-600', 'border-white/5');
-            btn.classList.remove('bg-white/10', 'text-white');
-            btn.style.borderColor = '';
-            btn.style.boxShadow = '';
+            c.classList.add("hidden");
           }
-        }
-      });
-    });
-
-    // Lógica para los filtros del gráfico de constructores
-    const teamFilterButtons = document.querySelectorAll('#constructor-filters button');
-    
-    teamFilterButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const index = parseInt(btn.getAttribute('data-index'));
-        const color = btn.getAttribute('data-color');
-        const chart = window.f1Charts['chart-constructors-canvas'];
-        
-        if (chart) {
-          // Alternar visibilidad en el gráfico
-          const isHidden = !chart.isDatasetVisible(index);
-          chart.setDatasetVisibility(index, isHidden);
-          chart.update();
-
-          // Actualizar estilo del botón
-          if (isHidden) {
-            btn.classList.remove('bg-transparent', 'text-gray-600', 'border-white/5');
-            btn.classList.add('bg-white/10', 'text-white');
-            btn.style.borderColor = color;
-            btn.style.boxShadow = `0 0 10px ${color}20`;
-          } else {
-            btn.classList.add('bg-transparent', 'text-gray-600', 'border-white/5');
-            btn.classList.remove('bg-white/10', 'text-white');
-            btn.style.borderColor = '';
-            btn.style.boxShadow = '';
-          }
-        }
+        });
       });
     });
   </script>

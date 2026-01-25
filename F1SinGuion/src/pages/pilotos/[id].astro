@@ -1,27 +1,27 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import fs from 'node:fs/promises';
-import path from 'node:path';
+import Layout from "../../layouts/Layout.astro";
+import fs from "node:fs/promises";
+import path from "node:path";
+import Button from "@components/ui/Button.astro";
 
 export async function getStaticPaths() {
-  const driversPath = path.join(process.cwd(), 'public', 'drivers_2026.json');
-  const teamsPath = path.join(process.cwd(), 'public', 'teams_2026.json');
-  
+  const driversPath = path.join(process.cwd(), "public", "drivers_2026.json");
+  const teamsPath = path.join(process.cwd(), "public", "teams_2026.json");
+
   let drivers = [];
   let teams = [];
 
   try {
     const [driversContent, teamsContent] = await Promise.all([
-      fs.readFile(driversPath, 'utf-8'),
-      fs.readFile(teamsPath, 'utf-8')
+      fs.readFile(driversPath, "utf-8"),
+      fs.readFile(teamsPath, "utf-8"),
     ]);
-    
+
     drivers = JSON.parse(driversContent);
     teams = JSON.parse(teamsContent);
 
     if (!Array.isArray(drivers)) drivers = [];
     if (!Array.isArray(teams)) teams = [];
-
   } catch (error) {
     console.error("Error al cargar datos:", error);
     return [];
@@ -29,131 +29,338 @@ export async function getStaticPaths() {
 
   return drivers.map((driver) => {
     // Buscamos el equipo que tenga al piloto en su lista de driver_ids
-    const team = teams.find((t: any) => t.driver_ids?.includes(driver.id)) || teams.find((t: any) => t.id === driver.team_id);
+    const team =
+      teams.find((t: any) => t.driver_ids?.includes(driver.id)) ||
+      teams.find((t: any) => t.id === driver.team_id);
     return {
-        params: { id: driver.id },
-        props: { driver: { ...driver, team } },
+      params: { id: driver.id },
+      props: { driver: { ...driver, team } },
     };
   });
 }
 
 const { driver } = Astro.props;
-const { nombre, apellido, numero, pais, codigo, team } = driver;
-const { campeonatos, victorias, podios, poles } = driver.estadisticas_historicas || { campeonatos: 0, victorias: 0, podios: 0, poles: 0 };
-const { posicion, puntos, victorias_temp } = driver.rendimiento_2026 || { posicion: '-', puntos: 0, victorias_temp: 0 };
+const { nombre, apellido, numero, pais, codigo, team, imagen } = driver;
+const { campeonatos, victorias, podios, poles } =
+  driver.estadisticas_historicas || {
+    campeonatos: 0,
+    victorias: 0,
+    podios: 0,
+    poles: 0,
+  };
+const { posicion, puntos, victorias_temp } = driver.rendimiento_2026 || {
+  posicion: "-",
+  puntos: 0,
+  victorias_temp: 0,
+};
 const { instagram, twitter } = driver.redes_sociales || {};
 
-const teamColor = team?.color_var || '#e10600';
+const teamColor = team?.color_var || "#e10600";
+const teamLogo =
+  team?.id === "aston-martin" && team?.logo_blanco
+    ? team.logo_blanco
+    : team?.logo;
+
+const nameSize =
+  nombre.length > 10 ? "text-xl md:text-2xl" : "text-2xl md:text-3xl";
+const surnameSize =
+  apellido.length > 8 ? "text-3xl md:text-4xl" : "text-4xl md:text-5xl";
 ---
 
 <Layout title={`${nombre} ${apellido} - F1 2026`}>
-  <div class="bg-[#15151e] min-h-screen text-white pt-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-    {/* Decoración de fondo sutil */}
-    <div 
-      class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[600px] opacity-20 pointer-events-none blur-[100px]"
-      style={`background: radial-gradient(circle, ${teamColor}, transparent 70%);`}
-    ></div>
+  <div
+    class="bg-bg min-h-screen text-white pt-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
+  >
+    {/* Ambient Background */}
+    <div
+      class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-purple-900/20 blur-[120px] rounded-full pointer-events-none"
+    >
+    </div>
+    <div
+      class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-cyan-900/10 blur-[120px] rounded-full pointer-events-none"
+    >
+    </div>
 
     <div class="max-w-5xl mx-auto relative z-10">
-        
-        {/* Botón Volver */}
-        <a href="/pilotos" class="inline-flex items-center text-white/80 hover:text-white transition-colors group font-medium bg-white/5 hover:bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/10 mb-10">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 transform group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
-            Back to Drivers
-        </a>
+      {/* Botón Volver */}
+      <Button href="/pilotos" variant="ghost" class="mb-10 group">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5 mr-2 transform group-hover:-translate-x-1 transition-transform"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+        </svg>
+        Back to Drivers
+      </Button>
 
-
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-            {/* Columna Izquierda: Perfil Hero */}
-            <div class="lg:col-span-1">
-                <div class="bg-[#1e1e24] rounded-3xl p-8 border border-white/5 relative overflow-hidden h-full flex flex-col justify-between group transition-all duration-500" style={`--hover-color: ${teamColor}`}>
-                    {/* Número gigante de fondo */}
-                    <div class="absolute -top-6 -right-6 text-[12rem] font-black text-white/5 select-none leading-none font-mono group-hover:text-[var(--hover-color)]/10 transition-colors duration-500" style={`color: ${teamColor}10`}>
-                        {numero}
-                    </div>
-                    
-                    <div class="relative z-10">
-                        <div class="flex items-center gap-3 mb-6">
-                            <span class="font-bold text-xl tracking-widest uppercase border px-3 py-1 rounded backdrop-blur-sm" style={`color: ${teamColor}; border-color: ${teamColor}4d; background-color: ${teamColor}1a`}>
-                                {codigo}
-                            </span>
-                            <span class="text-gray-400 uppercase tracking-wider text-sm font-semibold">{pais}</span>
-                        </div>
-                        
-                        <h1 class="text-5xl font-black italic uppercase tracking-tighter text-white leading-none mb-2">
-                            {nombre} <br/> <span class="text-6xl" style={`color: ${teamColor}`}>{apellido}</span>
-                        </h1>
-                    </div>
-
-                    <div class="relative z-10 mt-8 flex gap-4">
-                        {instagram && (
-                            <a href={instagram} target="_blank" rel="noopener noreferrer" class="bg-white/5 p-3 rounded-full hover:text-white transition-all text-gray-400 hover:bg-white/10">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-                            </a>
-                        )}
-                        {twitter && (
-                            <a href={twitter} target="_blank" rel="noopener noreferrer" class="bg-white/5 p-3 rounded-full hover:text-white transition-all text-gray-400 hover:bg-white/10">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
-                            </a>
-                        )}
-                    </div>
-                </div>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+        {/* Columna Izquierda: Perfil Hero */}
+        <div class="lg:col-span-1">
+          <div
+            class="bg-surface backdrop-blur-sm rounded-3xl p-8 border border-white/10 relative overflow-hidden h-full flex flex-col justify-between group transition-all duration-500"
+            style={`--hover-color: ${teamColor}`}
+          >
+            {/* Número gigante de fondo */}
+            <div
+              class="absolute -top-10 -right-10 text-[14rem] font-black text-white/5 select-none leading-none font-mono z-0"
+            >
+              {numero}
             </div>
 
-            {/* Columna Derecha: Estadísticas */}
-            <div class="lg:col-span-2 flex flex-col gap-8">
-                
-                {/* Season 2026 */}
-                <div class="bg-gradient-to-br from-[#1e1e24] to-[#15151e] rounded-3xl p-8 border border-white/5 relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 w-32 h-32 blur-[50px] rounded-full pointer-events-none transition-colors duration-500" style={`background-color: ${teamColor}20`}></div>
-                    <h2 class="text-xl font-bold text-white mb-6 uppercase italic tracking-wider flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full animate-pulse" style={`background-color: ${teamColor}`}></span> Season 2026
-                    </h2>
-                    <div class="grid grid-cols-3 gap-6">
-                        <div class="text-center relative z-10">
-                            <div class="text-5xl font-black text-white mb-2">{posicion > 0 ? posicion : '-'}</div>
-                            <div class="text-xs text-gray-500 uppercase tracking-widest font-bold">Rank</div>
-                        </div>
-                        <div class="text-center border-l border-white/5 relative z-10">
-                            <div class="text-5xl font-black mb-2" style={`color: ${teamColor}; text-shadow: 0 0 10px ${teamColor}80`}>{puntos}</div>
-                            <div class="text-xs text-gray-500 uppercase tracking-widest font-bold">Points</div>
-                        </div>
-                        <div class="text-center border-l border-white/5 relative z-10">
-                            <div class="text-5xl font-black text-white mb-2">{victorias_temp}</div>
-                            <div class="text-xs text-gray-500 uppercase tracking-widest font-bold">Wins</div>
-                        </div>
-                    </div>
-                </div>
-                
-                {/* Career Stats */}
-                <div class="bg-[#1e1e24] rounded-3xl p-8 border border-white/5">
-                    <h2 class="text-xl font-bold text-white mb-6 uppercase italic tracking-wider flex items-center gap-2">
-                        <span class="w-2 h-2 bg-gray-600 rounded-full"></span> Career Stats
-                    </h2>
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-6">
-                        <div class="bg-white/5 rounded-xl p-4 text-center hover:bg-white/10 transition-all hover:-translate-y-1 hover:shadow-lg border border-transparent hover:border-white/10">
-                            <div class="text-3xl font-black text-white mb-1">{campeonatos}</div>
-                            <div class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">Titles</div>
-                        </div>
-                        <div class="bg-white/5 rounded-xl p-4 text-center hover:bg-white/10 transition-all hover:-translate-y-1 hover:shadow-lg border border-transparent hover:border-white/10">
-                            <div class="text-3xl font-black text-white mb-1">{victorias}</div>
-                            <div class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">Wins</div>
-                        </div>
-                        <div class="bg-white/5 rounded-xl p-4 text-center hover:bg-white/10 transition-all hover:-translate-y-1 hover:shadow-lg border border-transparent hover:border-white/10">
-                            <div class="text-3xl font-black text-white mb-1">{podios}</div>
-                            <div class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">Podiums</div>
-                        </div>
-                        <div class="bg-white/5 rounded-xl p-4 text-center hover:bg-white/10 transition-all hover:-translate-y-1 hover:shadow-lg border border-transparent hover:border-white/10">
-                            <div class="text-3xl font-black text-white mb-1">{poles}</div>
-                            <div class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">Poles</div>
-                        </div>
-                    </div>
-                </div>
-
+            {/* Foto del Piloto */}
+            <div
+              class="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[85%] z-0 flex items-end justify-center"
+            >
+              {
+                imagen && (
+                  <img
+                    src={imagen}
+                    alt={`${nombre} ${apellido}`}
+                    class="h-full w-auto object-contain object-bottom drop-shadow-2xl"
+                  />
+                )
+              }
             </div>
+
+            {/* Gradient Overlay para legibilidad */}
+            <div
+              class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-[#050505] via-[#050505]/60 to-transparent z-0"
+            >
+            </div>
+
+            {/* Header: Equipo y Redes */}
+            <div class="relative z-10 flex justify-between items-start w-full">
+              <div
+                class="flex items-center gap-3 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10"
+              >
+                {
+                  teamLogo && (
+                    <img
+                      src={teamLogo}
+                      alt={team.nombre}
+                      class="h-6 w-auto object-contain"
+                    />
+                  )
+                }
+                <span
+                  class="text-sm font-bold text-white uppercase tracking-wider"
+                  >{team.nombre}</span
+                >
+              </div>
+
+              <div class="flex gap-2">
+                {
+                  instagram && (
+                    <a
+                      href={instagram}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="bg-black/40 p-2 rounded-lg hover:bg-white/20 transition-colors text-white/80 hover:text-white border border-white/10"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <>
+                          <rect
+                            x="2"
+                            y="2"
+                            width="20"
+                            height="20"
+                            rx="5"
+                            ry="5"
+                          />
+                          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                        </>
+                      </svg>
+                    </a>
+                  )
+                }
+                {
+                  twitter && (
+                    <a
+                      href={twitter}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="bg-black/40 p-2 rounded-lg hover:bg-white/20 transition-colors text-white/80 hover:text-white border border-white/10"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" />
+                      </svg>
+                    </a>
+                  )
+                }
+              </div>
+            </div>
+
+            {/* Footer: Info Piloto */}
+            <div class="relative z-10 mt-auto">
+              <div class="flex items-center gap-3 mb-2">
+                <span
+                  class="text-gray-300 uppercase tracking-wider text-sm font-bold flex items-center gap-2"
+                >
+                  {pais}
+                </span>
+              </div>
+
+              <h1 class="text-white leading-none">
+                <span
+                  class={`${nameSize} block font-medium uppercase tracking-widest text-gray-200 mb-1`}
+                  >{nombre}</span
+                >
+                <span
+                  class={`${surnameSize} block font-black uppercase italic tracking-tighter`}
+                  style={`color: ${teamColor}`}>{apellido}</span
+                >
+              </h1>
+            </div>
+          </div>
         </div>
+
+        {/* Columna Derecha: Estadísticas */}
+        <div class="lg:col-span-2 flex flex-col gap-8">
+          {/* Season 2026 */}
+          <div
+            class="bg-surface backdrop-blur-sm rounded-3xl p-8 border border-white/10 relative overflow-hidden group"
+          >
+            <span
+              class="font-bold text-lg tracking-widest uppercase border px-2 py-0.5 rounded backdrop-blur-sm mb-20"
+              style={`color: ${teamColor}; border-color: ${teamColor}4d; background-color: ${teamColor}1a`}
+            >
+              {codigo}
+            </span>
+            <div
+              class="absolute top-0 right-0 w-32 h-32 blur-[50px] rounded-[10px] pointer-events-none transition-colors duration-500"
+              style={`background-color: ${teamColor}20`}
+            >
+            </div>
+            <h2
+              class="text-xl font-bold text-white mb-6 uppercase italic tracking-wider flex items-center gap-2 pt-5"
+            >
+              <span
+                class="w-2 h-2 rounded-[10px] animate-pulse"
+                style={`background-color: ${teamColor}`}></span> Season 2026
+            </h2>
+            <div class="grid grid-cols-3 gap-6">
+              <div class="text-center relative z-10">
+                <div class="text-5xl font-black text-white mb-2">
+                  {posicion > 0 ? posicion : "-"}
+                </div>
+                <div
+                  class="text-xs text-gray-500 uppercase tracking-widest font-bold"
+                >
+                  Rank
+                </div>
+              </div>
+              <div class="text-center border-l border-white/5 relative z-10">
+                <div
+                  class="text-5xl font-black mb-2"
+                  style={`color: ${teamColor}; text-shadow: 0 0 10px ${teamColor}80`}
+                >
+                  {puntos}
+                </div>
+                <div
+                  class="text-xs text-gray-500 uppercase tracking-widest font-bold"
+                >
+                  Points
+                </div>
+              </div>
+              <div class="text-center border-l border-white/5 relative z-10">
+                <div class="text-5xl font-black text-white mb-2">
+                  {victorias_temp}
+                </div>
+                <div
+                  class="text-xs text-gray-500 uppercase tracking-widest font-bold"
+                >
+                  Wins
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Career Stats */}
+          <div
+            class="bg-surface backdrop-blur-sm rounded-3xl p-8 border border-white/10"
+          >
+            <h2
+              class="text-xl font-bold text-white mb-6 uppercase italic tracking-wider flex items-center gap-2"
+            >
+              <span class="w-2 h-2 bg-gray-600 rounded-[10px]"></span> Career Stats
+            </h2>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-6">
+              <div
+                class="bg-white/5 rounded-xl p-4 text-center hover:bg-white/10 transition-all hover:-translate-y-1 hover:shadow-lg border border-transparent hover:border-white/10"
+              >
+                <div class="text-3xl font-black text-white mb-1">
+                  {campeonatos}
+                </div>
+                <div
+                  class="text-[10px] text-gray-400 uppercase tracking-widest font-bold"
+                >
+                  Titles
+                </div>
+              </div>
+              <div
+                class="bg-white/5 rounded-xl p-4 text-center hover:bg-white/10 transition-all hover:-translate-y-1 hover:shadow-lg border border-transparent hover:border-white/10"
+              >
+                <div class="text-3xl font-black text-white mb-1">
+                  {victorias}
+                </div>
+                <div
+                  class="text-[10px] text-gray-400 uppercase tracking-widest font-bold"
+                >
+                  Wins
+                </div>
+              </div>
+              <div
+                class="bg-white/5 rounded-xl p-4 text-center hover:bg-white/10 transition-all hover:-translate-y-1 hover:shadow-lg border border-transparent hover:border-white/10"
+              >
+                <div class="text-3xl font-black text-white mb-1">{podios}</div>
+                <div
+                  class="text-[10px] text-gray-400 uppercase tracking-widest font-bold"
+                >
+                  Podiums
+                </div>
+              </div>
+              <div
+                class="bg-white/5 rounded-xl p-4 text-center hover:bg-white/10 transition-all hover:-translate-y-1 hover:shadow-lg border border-transparent hover:border-white/10"
+              >
+                <div class="text-3xl font-black text-white mb-1">{poles}</div>
+                <div
+                  class="text-[10px] text-gray-400 uppercase tracking-widest font-bold"
+                >
+                  Poles
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </Layout>

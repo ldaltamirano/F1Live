@@ -14,7 +14,7 @@ const { compounds } = Astro.props;
   <div class="flex justify-center gap-4">
     {compounds.slice(0, 3).map((c, i) => (
       <div class="flex flex-col items-center gap-2">
-        <div class={`w-12 h-12 rounded-full flex items-center justify-center text-sm font-black border-4 shadow-lg ${
+        <div class={`w-12 h-12 rounded-[10px] flex items-center justify-center text-sm font-black border-4 shadow-lg ${
           i === 0 ? 'border-white text-white bg-surface' : 
           i === 1 ? 'border-[#ffd700] text-[#ffd700] bg-surface' : 
           'border-[#e10600] text-[#e10600] bg-surface'

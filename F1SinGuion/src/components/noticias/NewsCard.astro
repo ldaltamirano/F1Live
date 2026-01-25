@@ -67,7 +67,7 @@ const date = new Date(news.fecha).toLocaleDateString('es-ES', {
     <div class="flex items-center justify-between mt-auto pt-4 border-t border-white/5">
       {news.autor && (
         <div class="flex items-center gap-2 text-xs text-text-muted">
-            <div class="w-6 h-6 rounded-full bg-surface-hover flex items-center justify-center text-[10px] font-bold text-text uppercase">
+            <div class="w-6 h-6 rounded-[10px] bg-surface-hover flex items-center justify-center text-[10px] font-bold text-text uppercase">
                 {news.autor.charAt(0)}
             </div>
             <span>{news.autor}</span>

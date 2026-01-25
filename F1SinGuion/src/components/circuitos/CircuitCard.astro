@@ -79,7 +79,7 @@ if (endDate.getTime() > startDate.getTime()) {
     {/* Mapa del Circuito */}
     <div class="relative h-40 w-full flex items-center justify-center mb-6 mt-auto group-hover:scale-105 transition-transform duration-500">
       {/* Efecto de brillo rojo detrás del mapa al hacer hover */}
-      <div class="absolute inset-0 bg-accent opacity-0 group-hover:opacity-5 blur-2xl rounded-full transition-opacity duration-500"></div>
+      <div class="absolute inset-0 bg-accent opacity-0 group-hover:opacity-5 blur-2xl rounded-[10px] transition-opacity duration-500"></div>
       
       {/* Imagen invertida para que se vea blanca sobre fondo oscuro */}
       <img 
@@ -97,7 +97,7 @@ if (endDate.getTime() > startDate.getTime()) {
             <div class="flex gap-1 items-center">
               <span class="text-[10px] text-text-muted mr-1 uppercase font-bold">Tyres</span>
               {gp.neumaticos_sugeridos.slice(0, 3).map((n: string, i: number) => (
-                <span class={`w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold border border-white/10 ${
+                <span class={`w-5 h-5 rounded-[10px] flex items-center justify-center text-[9px] font-bold border border-white/10 ${
                   i === 0 ? 'bg-white text-black' :
                   i === 1 ? 'bg-[#ffd700] text-black' :
                   'bg-[#e10600] text-white'
