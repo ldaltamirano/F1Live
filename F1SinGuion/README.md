@@ -64,7 +64,7 @@ Plan para transformar la página de inicio en un hub de información con noticia
 - [x] **Agregar SEO** Agegar a la home y a las paginas de noticias
 
 
-## 🎨 Roadmap: Componentes UI y Datos Estáticos (Luz Verde)
+<!-- ## 🎨 Roadmap: Componentes UI y Datos Estáticos (Luz Verde)
 
 Fase inmediata para construir la identidad visual y estructura del sitio aprovechando los datos JSON ya existentes (`teams.json`, `calendario.json`, `news.json`).
 
@@ -74,10 +74,10 @@ Fase inmediata para construir la identidad visual y estructura del sitio aprovec
 - [x] **Estilización Global**: Implementar la nueva paleta de colores (Cyan, Blue, Purple, Neon) definida en `global.css` en todos los componentes UI.
 
 ### 🏎️ Componentes de Circuitos (Datos: `calendario.json`)
-- [ ] **`CircuitHeader`**: Cabecera con bandera, nombre del GP y ubicación.
+- [x] **`CircuitHeader`**: Cabecera con bandera, nombre del GP y ubicación.
 - [ ] **`StatGrid`**: Grid visual para datos técnicos (longitud, vueltas, distancia).
 - [ ] **`TrackMap`**: Componente para renderizar la imagen del mapa (svg/img) con estilos.
-- [ ] **`Countdown`**: Cuenta regresiva lógica (JS) para la próxima sesión.
+- [x] **`Countdown`**: Cuenta regresiva lógica (JS) para la próxima sesión.
 
 ### 👤 Componentes de Pilotos (Datos: `teams.json`)
 - [ ] **`DriverCard`**: Tarjeta para el grid de pilotos (foto, número, equipo).
@@ -85,7 +85,7 @@ Fase inmediata para construir la identidad visual y estructura del sitio aprovec
 - [ ] **`FunFactCard`**: Tarjeta para mostrar datos curiosos del JSON.
 
 ### 📰 Refactor Noticias
-- [ ] **`FeaturedNews`**: Extraer la lógica de la noticia principal de la Home a su propio componente.
+- [ ] **`FeaturedNews`**: Extraer la lógica de la noticia principal de la Home a su propio componente. -->
 
 ## 🗄️ Roadmap: Migración a Base de Datos (Turso)
 
@@ -94,8 +94,8 @@ Plan para migrar de archivos JSON estáticos a una base de datos SQLite distribu
 ### 🛠️ Fase 1: Configuración y Esquema
 - [x] **Setup Turso**: Crear base de datos en Turso y obtener `TURSO_DATABASE_URL` y `TURSO_AUTH_TOKEN`.
 - [x] **Instalar Cliente**: Agregar `@libsql/client` al proyecto.
-- [ ] **Setup Drizzle ORM**: Instalar `drizzle-orm` y `drizzle-kit` para manejo de esquemas y migraciones.
-- [ ] **Configurar Drizzle**: Crear `drizzle.config.ts` y conectar con Turso.
+- [x] **Setup Drizzle ORM**: Instalar `drizzle-orm` y `drizzle-kit` para manejo de esquemas y migraciones.
+- [x] **Configurar Drizzle**: Crear `drizzle.config.ts` y conectar con Turso.
 - [ ] **Definir Esquemas**: Crear modelos en TypeScript (`src/db/schema.ts`) para `drivers`, `teams`, `circuits`, etc.
 
 ### 🔄 Fase 2: Migración de Datos (JSON a SQL)
