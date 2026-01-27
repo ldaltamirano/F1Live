@@ -1,7 +1,9 @@
 import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core';
 import { sql } from 'drizzle-orm';
 
-// --- Escuderías ---
+// ==========================================
+// 1. ORGANIZACIÓN Y PARTICIPANTES
+// ==========================================
 export const teams = sqliteTable('teams', {
   id: text('id').primaryKey(), // ej: "ferrari"
   nombre: text('nombre').notNull(),
@@ -24,7 +26,6 @@ export const teams = sqliteTable('teams', {
   reseña: text('resena'),   
 });
 
-// --- Pilotos ---
 export const drivers = sqliteTable('drivers', {
   id: text('id').primaryKey(), // ej: "leclerc"
   teamId: text('team_id').references(() => teams.id), // Relación con teams
@@ -63,7 +64,9 @@ export const drivers = sqliteTable('drivers', {
   fraseReferencia: text('frase_referencia'),
 });
 
-// --- Circuitos ---
+// ==========================================
+// 2. CALENDARIO Y EVENTOS
+// ==========================================
 export const circuits = sqliteTable('circuits', {
   id: integer('id').primaryKey(), // ID numérico del JSON (ej: 1279)
   nombre: text('nombre').notNull(),
@@ -91,7 +94,6 @@ export const circuits = sqliteTable('circuits', {
   homeTeamIds: text('home_team_ids', { mode: 'json' }),
 });
 
-// --- Sesiones (Relacionado con Circuitos) ---
 export const sessions = sqliteTable('sessions', {
   id: integer('id').primaryKey(),
   circuitId: integer('circuit_id').references(() => circuits.id),
@@ -100,7 +102,64 @@ export const sessions = sqliteTable('sessions', {
   inicio: text('inicio'), // ISO String
 });
 
-// --- Noticias ---
+// ==========================================
+// 3. DATOS DE CARRERA (LIVE TIMING)
+// ==========================================
+export const stints = sqliteTable('stints', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  sessionId: integer('session_id').references(() => sessions.id),
+  driverId: text('driver_id').references(() => drivers.id),
+  stintNumber: integer('stint_number'), // 1, 2, 3...
+  compound: text('compound'), // SOFT, MEDIUM, HARD, INTER, WET
+  startLap: integer('start_lap'),
+  endLap: integer('end_lap'),
+  laps: integer('laps'), // Total de vueltas en el stint
+  tyreAge: integer('tyre_age'), // Edad del neumático al inicio (si era usado)
+});
+
+export const lapTimes = sqliteTable('lap_times', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  sessionId: integer('session_id').references(() => sessions.id),
+  driverId: text('driver_id').references(() => drivers.id),
+  stintId: integer('stint_id').references(() => stints.id),
+  lap: integer('lap').notNull(),
+  position: integer('position'),
+  time: text('time'), // Formato texto "1:32.456"
+  milliseconds: integer('milliseconds'), // Para cálculos y ordenamiento
+  sector1: text('sector_1'),
+  sector2: text('sector_2'),
+  sector3: text('sector_3'),
+  gapToLeader: text('gap_to_leader'),
+  interval: text('interval'),
+  compound: text('compound'), // "SOFT", "MEDIUM", "HARD", "INTER", "WET"
+  tyreAge: integer('tyre_age'),
+  isValid: integer('is_valid', { mode: 'boolean' }).default(true),
+});
+
+export const telemetry = sqliteTable('telemetry', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  sessionId: integer('session_id').references(() => sessions.id),
+  driverId: text('driver_id').references(() => drivers.id),
+  lapToimeId: integer('lap_time_id').references(() => lapTimes.id),
+  timestamp: text('timestamp'), // ISO String o tiempo relativo de la sesión
+  speed: integer('speed'),
+  rpm: integer('rpm'),
+  gear: integer('gear'),
+  throttle: integer('throttle'), // 0-100
+  brake: integer('brake'), // 0-100
+  drs: integer('drs', { mode: 'boolean' }), //por las dudas lo dejamos
+  aeroMode: text('aero_mode'), // 'Z' (High Downforce) | 'X' (Low Drag) - Active Aero 2026
+  manualOverride: integer('manual_override', { mode: 'boolean' }), // MOM (Manual Override Mode) - Reemplazo de DRS para adelantamientos
+  soc: integer('soc'), // State of Charge (%) - Crítico con motor 350kW
+  x: integer('x'), // Coordenadas para mapa (si aplica)
+  y: integer('y'),
+  z: integer('z'),
+});
+
+
+// ==========================================
+// 4. GESTIÓN DE CONTENIDOS (CMS)
+// ==========================================
 export const news = sqliteTable('news', {
   id: text('id').primaryKey(),
   titulo: text('titulo').notNull(),
@@ -123,44 +182,16 @@ export const news = sqliteTable('news', {
   galeria: text('galeria', { mode: 'json' }),
 });
 
-
-// --- Telemetría y Tiempos ---
-export const lapTimes = sqliteTable('lap_times', {
+// ==========================================
+// 5. SISTEMA Y SEGURIDAD
+// ==========================================
+export const permissions = sqliteTable('permissions', {
   id: integer('id').primaryKey({ autoIncrement: true }),
-  sessionId: integer('session_id').references(() => sessions.id),
-  driverId: text('driver_id').references(() => drivers.id),
-  lap: integer('lap').notNull(),
-  position: integer('position'),
-  time: text('time'), // Formato texto "1:32.456"
-  milliseconds: integer('milliseconds'), // Para cálculos y ordenamiento
-  sector1: text('sector_1'),
-  sector2: text('sector_2'),
-  sector3: text('sector_3'),
-  gapToLeader: text('gap_to_leader'),
-  interval: text('interval'),
-  compound: text('compound'), // "SOFT", "MEDIUM", "HARD", "INTER", "WET"
-  tyreAge: integer('tyre_age'),
-  isValid: integer('is_valid', { mode: 'boolean' }).default(true),
+  role: text('role'), // 'admin', 'editor'
+  resource: text('resource').notNull(), // 'drivers', 'news', 'all'
+  action: text('action').notNull(), // 'create', 'read', 'update', 'delete'
 });
 
-export const telemetry = sqliteTable('telemetry', {
-  id: integer('id').primaryKey({ autoIncrement: true }),
-  sessionId: integer('session_id').references(() => sessions.id),
-  driverId: text('driver_id').references(() => drivers.id),
-  timestamp: text('timestamp'), // ISO String o tiempo relativo de la sesión
-  speed: integer('speed'),
-  rpm: integer('rpm'),
-  gear: integer('gear'),
-  throttle: integer('throttle'), // 0-100
-  brake: integer('brake'), // 0-100
-  drs: integer('drs', { mode: 'boolean' }),
-  x: integer('x'), // Coordenadas para mapa (si aplica)
-  y: integer('y'),
-  z: integer('z'),
-});
-
-
-// --- Dashboard / Admin ---
 export const admin = sqliteTable('users', {
   id: integer('id').primaryKey({ autoIncrement: true }),
   username: text('username').notNull().unique(),
@@ -177,11 +208,4 @@ export const auditLogs = sqliteTable('audit_logs', {
   recordId: text('record_id').notNull(),
   changes: text('changes', { mode: 'json' }), // JSON con los cambios
   timestamp: text('timestamp').default(sql`(CURRENT_TIMESTAMP)`),
-});
-
-export const permissions = sqliteTable('permissions', {
-  id: integer('id').primaryKey({ autoIncrement: true }),
-  role: text('role'), // 'admin', 'editor'
-  resource: text('resource').notNull(), // 'drivers', 'news', 'all'
-  action: text('action').notNull(), // 'create', 'read', 'update', 'delete'
 });

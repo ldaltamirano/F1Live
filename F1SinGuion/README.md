@@ -99,11 +99,11 @@ Plan para migrar de archivos JSON estáticos a una base de datos SQLite distribu
 - [x] **Definir Esquemas**: Crear modelos en TypeScript (`src/db/schema.ts`) para `drivers`, `teams`, `circuits`, etc.
 
 ### 🔄 Fase 2: Migración de Datos (JSON a SQL)
-- [ ] **Script de Seeding**: Crear script (Node.js) que lea los JSONs actuales (`public/*.json`) e inserte los datos en Turso.
-- [ ] **Verificación**: Comprobar que los datos en Turso coinciden con los JSON.
+- [x] **Script de Seeding**: Crear script (Node.js) que lea los JSONs actuales (`public/*.json`) e inserte los datos en Turso.
+- [x] **Verificación**: Comprobar que los datos en Turso coinciden con los JSON.
 
 ### 🔌 Fase 3: Integración en Astro
-- [ ] **Cliente DB**: Crear `src/lib/db.ts` para gestionar la conexión.
+- [x] **Cliente DB**: Crear `src/lib/db.ts` para gestionar la conexión.
 - [ ] **Refactor de Lectura**: Reemplazar `fs.readFile` en `getStaticPaths` y cargas de datos por consultas SQL (`SELECT * FROM ...`).
 
 ### 🚀 Fase 4: Escritura y Admin
