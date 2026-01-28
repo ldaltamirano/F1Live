@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import { drizzle } from 'drizzle-orm/libsql';
 import { createClient } from '@libsql/client';
-import * as schema from './src/lib/schema';
+import * as schema from './schema';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
@@ -24,7 +24,7 @@ async function seedNews() {
     console.log(`📰 Procesando ${newsItems.length} noticias...`);
 
     const formattedNews = newsItems.map((n: any) => ({
-      id: n.id,
+      index: n.id, // El ID del JSON (string) va al campo index
       titulo: n.titulo,
       bajada: n.bajada || null,
       imagen: n.imagen || null,
@@ -46,7 +46,7 @@ async function seedNews() {
     }));
     
     await db.insert(schema.news).values(formattedNews).onConflictDoUpdate({
-      target: schema.news.id,
+      target: schema.news.index, // Usamos el index (slug) para detectar duplicados
       set: { 
         titulo: schema.news.titulo, // Truco para actualizar si existe (o mapear campos específicos)
         visitas: schema.news.visitas 
@@ -97,7 +97,7 @@ async function seedTeamsAndDrivers() {
     if (teams.length > 0) {
       console.log(`🏎️ Procesando ${teams.length} escuderías...`);
       const formattedTeams = teams.map((t: any) => ({
-        id: t.id,
+        index: t.id,
         nombre: t.nombre,
         nombreCompleto: t.nombre_completo || t.nombreCompleto || null,
         base: t.base || null,
@@ -117,13 +117,16 @@ async function seedTeamsAndDrivers() {
         redesSociales: t.redes_sociales || t.redesSociales || null,
         reseña: t.resena || t.reseña || null,
       }));
-      await db.insert(schema.teams).values(formattedTeams).onConflictDoNothing();
+      await db.insert(schema.teams).values(formattedTeams).onConflictDoUpdate({
+        target: schema.teams.index,
+        set: { nombre: schema.teams.nombre }
+      });
     }
 
     if (drivers.length > 0) {
       console.log(`👤 Procesando ${drivers.length} pilotos...`);
       const formattedDrivers = drivers.map((d: any) => ({
-        id: d.id,
+        index: d.id,
         teamId: d.team_id || d.teamId || null,
         nombre: d.nombre,
         apellido: d.apellido,
@@ -158,7 +161,10 @@ async function seedTeamsAndDrivers() {
         reseña: d.resena || d.reseña || null,
         fraseReferencia: d.frase_referencia || d.fraseReferencia || null,
       }));
-      await db.insert(schema.drivers).values(formattedDrivers).onConflictDoNothing();
+      await db.insert(schema.drivers).values(formattedDrivers).onConflictDoUpdate({
+        target: schema.drivers.index,
+        set: { nombre: schema.drivers.nombre }
+      });
     }
 
     console.log('✅ Equipos y Pilotos procesados.');

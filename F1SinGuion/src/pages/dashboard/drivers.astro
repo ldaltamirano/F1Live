@@ -1,0 +1,60 @@
+---
+import DashboardLayout from '@layouts/DashboardLayout.astro';
+import { getDrivers } from '@lib/services/driversService';
+
+export const prerender = false;
+
+let data = [];
+let errorMsg = null;
+
+try {
+  data = await getDrivers();
+} catch (e) {
+  console.error("Error al conectar con la BD:", e);
+  errorMsg = "No se pudieron cargar los pilotos. Verifica tu conexión a Turso y el esquema.";
+}
+
+---
+
+<DashboardLayout title="Pilotos">
+  <div class="flex items-center justify-between mb-6">
+    <div>
+      <h1 class="text-2xl font-bold text-text">Pilotos</h1>
+      <p class="text-text-muted text-sm">Gestión de la parrilla actual</p>
+    </div>
+    <div class="text-sm text-text-muted">
+      Total: <span class="font-bold text-white">{data.length}</span>
+    </div>
+  </div>
+
+  {errorMsg ? (
+    <div class="p-4 bg-red-500/10 border border-red-500/20 rounded text-red-400">
+      {errorMsg}
+    </div>
+  ) : (
+    <div class="bg-surface border border-white/5 rounded-lg overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm text-text-muted">
+          <thead class="bg-white/5 text-text uppercase font-medium text-xs">
+            <tr>
+              <th class="px-6 py-3">Nombre</th>
+              <th class="px-6 py-3">Número</th>
+              <th class="px-6 py-3">Código</th>
+              <th class="px-6 py-3">País</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-white/5">
+            {data.map((driver) => (
+              <tr class="hover:bg-white/5 transition-colors">
+                <td class="px-6 py-4 font-medium text-text">{driver.nombre} {driver.apellido}</td>
+                <td class="px-6 py-4">{driver.numero}</td>
+                <td class="px-6 py-4">{driver.codigo}</td>
+                <td class="px-6 py-4">{driver.pais}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )}
+</DashboardLayout>

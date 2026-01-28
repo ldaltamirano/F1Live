@@ -2,22 +2,23 @@
 import Layout from '../layouts/Layout.astro';
 import HeroBackground from '@components/ui/HeroBackground.astro';
 import NewsCard from '@components/noticias/NewsCard.astro';
-import fs from 'node:fs/promises';
-import path from 'node:path';
+import { getAllNews } from '@lib/services/newssService';
 
 // Cargar noticias
-const newsPath = path.join(process.cwd(), 'public', 'news.json');
 let news = [];
 
 try {
-  const newsContent = await fs.readFile(newsPath, 'utf-8');
-  news = JSON.parse(newsContent);
+  const rawNews = await getAllNews();
+  // Mapeamos el campo 'index' (slug) a 'id' para que el componente NewsCard genere los enlaces correctamente
+  news = rawNews.map(n => ({
+    ...n,
+    id: n.index
+  }));
 } catch (error) {
   console.error("Error al cargar noticias:", error);
 }
 
-// Ordenar por fecha (más reciente primero)
-news.sort((a: any, b: any) => new Date(b.fecha).getTime() - new Date(a.fecha).getTime());
+// La consulta a la BD ya ordena por fecha descendente
 
 const principalNews = news.find((n: any) => n.tipo === 'principal');
 const otherNews = news.filter((n: any) => n.tipo !== 'principal');

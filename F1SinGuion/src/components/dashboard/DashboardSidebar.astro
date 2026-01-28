@@ -1,0 +1,49 @@
+---
+const menuItems = [
+	{ name: 'Dashboard', href: '/dashboard', icon: '📊' },
+	{ name: 'Noticias', href: '/dashboard/news', icon: '📰' },
+	{ name: 'Pilotos', href: '/dashboard/drivers', icon: '👤' },
+	{ name: 'Equipos', href: '/dashboard/teams', icon: '🏎️' },
+	{ name: 'Circuitos', href: '/dashboard/circuits', icon: '🗺️' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<div class="flex flex-col h-full">
+	<ul class="flex-1 px-3 py-4 space-y-1">
+		{menuItems.map((item) => {
+			// Activo si es la ruta exacta o si empieza por ella (excepto root /dashboard para no marcar todo)
+			const isActive = currentPath === item.href || (item.href !== '/dashboard' && currentPath.startsWith(item.href));
+			return (
+				<li>
+					<a
+						href={item.href}
+						class:list={[
+							"flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium transition-colors",
+							isActive
+								? "bg-primary text-white shadow-sm"
+								: "text-text-muted hover:bg-white/5 hover:text-text"
+						]}
+					>
+						<span class="text-lg">{item.icon}</span>
+						<span>{item.name}</span>
+					</a>
+				</li>
+			);
+		})}
+	</ul>
+
+	<div class="p-4 border-t border-white/5 space-y-2">
+		<form action="/api/auth/logout" method="POST">
+			<button type="submit" class="w-full flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-red-400 hover:bg-red-500/10 transition-colors">
+				<span>🚪</span>
+				<span>Cerrar Sesión</span>
+			</button>
+		</form>
+		<a href="/" class="flex items-center gap-2 text-xs font-medium text-text-muted hover:text-text transition-colors">
+			<span>⬅</span>
+			<span>Volver al sitio web</span>
+		</a>
+	</div>
+</div>

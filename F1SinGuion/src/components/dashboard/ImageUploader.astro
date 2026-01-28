@@ -1,0 +1,107 @@
+---
+interface Props {
+  name: string;
+  label?: string;
+  multiple?: boolean;
+  accept?: string;
+  helpText?: string;
+}
+
+const { name, label, multiple = false, accept = "image/*", helpText = "JPG, PNG, WEBP hasta 5MB" } = Astro.props;
+const id = `upload-${name}`;
+---
+
+<div class="space-y-2">
+  {label && <label class="text-xs font-medium text-text-muted uppercase" for={id}>{label}</label>}
+  
+  <div class="relative group">
+    <div class="border-2 border-dashed border-white/10 rounded-lg p-6 text-center bg-black/20 hover:bg-white/5 hover:border-primary/50 transition-all cursor-pointer">
+      <input 
+        type="file" 
+        name={name} 
+        id={id} 
+        multiple={multiple} 
+        accept={accept}
+        class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+      />
+      <div class="flex flex-col items-center gap-2 pointer-events-none">
+        <div class="p-2 rounded-full bg-white/5 group-hover:bg-primary/20 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-text-muted group-hover:text-primary">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
+          </svg>
+        </div>
+        <div>
+          <p class="text-xs font-medium text-white">
+            <span class="text-primary">Sube un archivo</span> o arrastra y suelta
+          </p>
+          <p class="text-[10px] text-text-muted mt-1">{helpText}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Preview Area -->
+  <div id={`preview-${id}`} class="space-y-2 mt-4 empty:hidden"></div>
+</div>
+
+<script define:vars={{ id, multiple }}>
+  const input = document.getElementById(id);
+  const previewContainer = document.getElementById(`preview-${id}`);
+  const dt = new DataTransfer();
+
+  if (input && previewContainer) {
+    input.addEventListener('change', (e) => {
+      if (!multiple) dt.items.clear();
+      
+      const newFiles = Array.from(e.target.files || []);
+      newFiles.forEach(file => {
+        const exists = Array.from(dt.files).some(f => f.name === file.name && f.size === file.size);
+        if (!exists) dt.items.add(file);
+      });
+
+      input.files = dt.files;
+      renderPreview();
+    });
+
+    function renderPreview() {
+      previewContainer.innerHTML = '';
+      const files = Array.from(dt.files);
+      
+      files.forEach((file, index) => {
+        if (!file.type.startsWith('image/')) return;
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const div = document.createElement('div');
+          div.className = 'flex items-center gap-3 bg-black/40 rounded-md p-2 border border-white/10 group';
+          
+          div.innerHTML = `
+            <div class="w-16 h-16 shrink-0 rounded overflow-hidden bg-black/50 border border-white/5">
+              <img src="${e.target.result}" class="w-full h-full object-cover" />
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-xs text-white font-medium truncate" title="${file.name}">${file.name}</p>
+              <div class="flex items-center gap-2 mt-1">
+                 <code class="text-[10px] text-primary bg-primary/10 px-1.5 py-0.5 rounded border border-primary/20 truncate select-all cursor-text">/uploads/news/${file.name}</code>
+              </div>
+            </div>
+            <button type="button" class="p-1.5 text-text-muted hover:text-red-400 hover:bg-white/5 rounded transition-colors" title="Eliminar">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+              </svg>
+            </button>
+          `;
+          
+          div.querySelector('button').addEventListener('click', () => {
+            dt.items.remove(index);
+            input.files = dt.files;
+            renderPreview();
+          });
+
+          previewContainer.appendChild(div);
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+  }
+</script>

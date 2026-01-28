@@ -1,0 +1,57 @@
+---
+import DashboardLayout from '@layouts/DashboardLayout.astro';
+import { getTeams } from '@lib/services/teamsService';
+
+export const prerender = false;
+
+let data = [];
+let errorMsg = null;
+
+try {
+  data = await getTeams();
+} catch (e) {
+  console.error(e);
+  errorMsg = "Error cargando equipos.";
+}
+---
+
+<DashboardLayout title="Equipos">
+  <div class="flex items-center justify-between mb-6">
+    <div>
+      <h1 class="text-2xl font-bold text-text">Equipos</h1>
+      <p class="text-text-muted text-sm">Escuderías del campeonato</p>
+    </div>
+    <div class="text-sm text-text-muted">
+      Total: <span class="font-bold text-white">{data.length}</span>
+    </div>
+  </div>
+
+  {errorMsg ? (
+    <div class="p-4 bg-red-500/10 border border-red-500/20 rounded text-red-400">{errorMsg}</div>
+  ) : (
+    <div class="bg-surface border border-white/5 rounded-lg overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm text-text-muted">
+          <thead class="bg-white/5 text-text uppercase font-medium text-xs">
+            <tr>
+              <th class="px-6 py-3">Index</th>
+              <th class="px-6 py-3">Nombre</th>
+              <th class="px-6 py-3">Base</th>
+              <th class="px-6 py-3">Jefe de Equipo</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-white/5">
+            {data.map((team) => (
+              <tr class="hover:bg-white/5 transition-colors">
+                <td class="px-6 py-4 font-mono text-xs">{team.index}</td>
+                <td class="px-6 py-4 font-medium text-text">{team.name}</td>
+                <td class="px-6 py-4">{team.base}</td>
+                <td class="px-6 py-4">{team.team_principal}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )}
+</DashboardLayout>

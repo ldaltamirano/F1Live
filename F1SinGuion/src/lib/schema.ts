@@ -5,7 +5,8 @@ import { sql } from 'drizzle-orm';
 // 1. ORGANIZACIÓN Y PARTICIPANTES
 // ==========================================
 export const teams = sqliteTable('teams', {
-  id: text('id').primaryKey(), // ej: "ferrari"
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  index: text('index').unique().notNull(), // ej: "ferrari" (antes id)
   nombre: text('nombre').notNull(),
   nombreCompleto: text('nombre_completo'),
   base: text('base'),
@@ -27,8 +28,9 @@ export const teams = sqliteTable('teams', {
 });
 
 export const drivers = sqliteTable('drivers', {
-  id: text('id').primaryKey(), // ej: "leclerc"
-  teamId: text('team_id').references(() => teams.id), // Relación con teams
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  index: text('index').unique(), // ej: "leclerc"
+  teamId: text('team_id').references(() => teams.index), // Relación con teams (por index)
   nombre: text('nombre').notNull(),
   apellido: text('apellido').notNull(),
   numero: integer('numero'),
@@ -69,6 +71,7 @@ export const drivers = sqliteTable('drivers', {
 // ==========================================
 export const circuits = sqliteTable('circuits', {
   id: integer('id').primaryKey(), // ID numérico del JSON (ej: 1279)
+  index: text('index'), // ID numérico del JSON (ej: 1279)
   nombre: text('nombre').notNull(),
   pais: text('pais'),
   ciudad: text('ciudad'),
@@ -161,7 +164,8 @@ export const telemetry = sqliteTable('telemetry', {
 // 4. GESTIÓN DE CONTENIDOS (CMS)
 // ==========================================
 export const news = sqliteTable('news', {
-  id: text('id').primaryKey(),
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  index: text('index').unique(), // Aquí guardaremos el slug (ej: "audi-debut")
   titulo: text('titulo').notNull(),
   bajada: text('bajada'),
   imagen: text('imagen'),

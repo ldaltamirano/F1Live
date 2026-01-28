@@ -1,0 +1,271 @@
+---
+import DashboardLayout from '@layouts/DashboardLayout.astro';
+import { createNews } from '@lib/services/newssService';
+import RichTextEditor from '@components/dashboard/RichTextEditor.astro';
+import ImageUploader from '@components/dashboard/ImageUploader.astro';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+
+export const prerender = false;
+
+let errorMsg = null;
+
+if (Astro.request.method === "POST") {
+  try {
+    const formData = await Astro.request.formData();
+    const title = formData.get("titulo")?.toString() || "";
+    // Generar ID (slug) basado en el título
+    const slug = title.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-');
+
+    // Guardar contenido en archivo .md en /public/uploads/news/SLUG/md
+    const content = formData.get("contenido")?.toString() || "";
+    const fileName = `${slug}.md`;
+    const publicDir = path.join(process.cwd(), 'public', 'uploads', 'news', slug, 'md');
+    await fs.mkdir(publicDir, { recursive: true });
+    await fs.writeFile(path.join(publicDir, fileName), content, 'utf-8');
+
+    // Helper para guardar imágenes
+    const saveImage = async (file, subfolder = '') => {
+      if (!file || !file.name || file.size === 0) return null;
+      
+      const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'news', slug, 'images');
+      await fs.mkdir(uploadDir, { recursive: true });
+      
+      // Usar nombre original sanitizado para coincidir con la sugerencia del frontend
+      let imgName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
+      
+      // Si existe, agregar timestamp para evitar sobrescribir
+      try {
+        await fs.access(path.join(uploadDir, imgName));
+        const ext = path.extname(imgName);
+        const name = path.basename(imgName, ext);
+        imgName = `${name}-${Date.now()}${ext}`;
+      } catch {}
+
+      const arrayBuffer = await file.arrayBuffer();
+      await fs.writeFile(path.join(uploadDir, imgName), Buffer.from(arrayBuffer));
+      return `/uploads/news/${slug}/images/${imgName}`;
+    };
+
+    // Procesar Imagen Principal
+    const imagenFile = formData.get("imagen");
+    const imagenUrl = await saveImage(imagenFile);
+
+    // Procesar Galería
+    const galeriaFiles = formData.getAll("galeria");
+    const galeriaUrls = await Promise.all(galeriaFiles.map((f, i) => saveImage(f, `galeria-${i}`)));
+    const galeriaClean = galeriaUrls.filter(Boolean);
+
+    await createNews({
+      index: slug, // Guardamos el slug en 'index'
+      titulo: title,
+      bajada: formData.get("bajada")?.toString(),
+      autor: formData.get("autor")?.toString(),
+      fecha: new Date().toISOString(), // Fecha actual
+      estado: formData.get("estado")?.toString() || "borrador",
+      categoria: formData.get("categoria")?.toString(),
+      fuente: formData.get("fuente")?.toString(),
+      enlaceOriginal: formData.get("enlaceOriginal")?.toString(),
+      tipo: formData.get("tipo")?.toString(),
+      tiempoLectura: Number(formData.get("tiempoLectura")) || 0,
+      videoUrl: formData.get("videoUrl")?.toString(),
+      tags: formData.get("tags")?.toString().split(',').map(t => t.trim()).filter(Boolean) || [],
+      contenido: `/uploads/news/${slug}/md/${fileName}`, // Guardamos la URL del archivo usando el slug
+      archivoContenido: fileName, // Guardamos también el nombre del archivo por consistencia con el schema
+      imagen: imagenUrl,
+      galeria: galeriaClean.length > 0 ? galeriaClean : null,
+    });
+
+    return Astro.redirect('/dashboard/news');
+  } catch (e) {
+    console.error(e);
+    errorMsg = "Error al crear la noticia. Es posible que el ID ya exista.";
+  }
+}
+---
+
+<DashboardLayout title="Nueva Noticia">
+  <div class="mx-auto">
+    <div class="flex items-center justify-between mb-6">
+      <h1 class="text-2xl font-bold text-text">Nueva Noticia</h1>
+      <a href="/dashboard/news" class="text-sm text-text-muted hover:text-white transition-colors">
+        ← Volver al listado
+      </a>
+    </div>
+
+    {errorMsg && (
+      <div class="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded text-red-400">
+        {errorMsg}
+      </div>
+    )}
+
+    <!-- Tabs Navigation -->
+    <div class="flex space-x-1 bg-surface/50 p-1 rounded-lg mb-6 w-fit border border-white/5">
+      <button type="button" id="tab-general-btn" class="px-4 py-2 text-sm font-medium rounded-md bg-primary text-white shadow-sm transition-all">General</button>
+      <button type="button" id="tab-images-btn" class="px-4 py-2 text-sm font-medium rounded-md text-text-muted hover:text-white hover:bg-white/5 transition-all">Imágenes</button>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data" class="bg-surface border border-white/5 rounded-lg p-6 space-y-6">
+      <div id="tab-general-content" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="space-y-2">
+          <label class="text-xs font-medium text-text-muted uppercase">Título</label>
+          <input name="titulo" required class="w-full bg-black/20 border border-white/10 rounded px-4 py-2 text-sm text-white focus:border-primary outline-none" placeholder="Título de la noticia" />
+        </div>
+        <div class="space-y-2">
+          <label class="text-xs font-medium text-text-muted uppercase">Autor</label>
+          <input name="autor" required class="w-full bg-black/20 border border-white/10 rounded px-4 py-2 text-sm text-white focus:border-primary outline-none" placeholder="Nombre del autor" />
+        </div>
+        <div class="space-y-2 md:col-span-2">
+          <label class="text-xs font-medium text-text-muted uppercase">Bajada / Resumen</label>
+          <textarea name="bajada" rows="3" class="w-full bg-black/20 border border-white/10 rounded px-4 py-2 text-sm text-white focus:border-primary outline-none" placeholder="Breve descripción..."></textarea>
+        </div>
+        <div class="space-y-2">
+          <label class="text-xs font-medium text-text-muted uppercase">Categoría</label>
+          <input name="categoria" class="w-full bg-black/20 border border-white/10 rounded px-4 py-2 text-sm text-white focus:border-primary outline-none" placeholder="Ej: F1, Técnica..." />
+        </div>
+        <div class="space-y-2">
+          <label class="text-xs font-medium text-text-muted uppercase">Tipo</label>
+          <input name="tipo" class="w-full bg-black/20 border border-white/10 rounded px-4 py-2 text-sm text-white focus:border-primary outline-none" placeholder="Ej: principal, secundaria" />
+        </div>
+        <div class="space-y-2">
+          <label class="text-xs font-medium text-text-muted uppercase">Estado</label>
+          <select name="estado" class="w-full bg-black/20 border border-white/10 rounded px-4 py-2 text-sm text-white focus:border-primary outline-none">
+            <option value="borrador">Borrador</option>
+            <option value="publicada">Publicada</option>
+          </select>
+        </div>
+        <div class="space-y-2">
+          <label class="text-xs font-medium text-text-muted uppercase">Fuente</label>
+          <input name="fuente" class="w-full bg-black/20 border border-white/10 rounded px-4 py-2 text-sm text-white focus:border-primary outline-none" placeholder="Ej: F1.com" />
+        </div>
+        <div class="space-y-2">
+          <label class="text-xs font-medium text-text-muted uppercase">Enlace Original</label>
+          <input name="enlaceOriginal" type="url" class="w-full bg-black/20 border border-white/10 rounded px-4 py-2 text-sm text-white focus:border-primary outline-none" placeholder="https://..." />
+        </div>
+        <div class="space-y-2">
+          <label class="text-xs font-medium text-text-muted uppercase">Video URL</label>
+          <input name="videoUrl" type="url" class="w-full bg-black/20 border border-white/10 rounded px-4 py-2 text-sm text-white focus:border-primary outline-none" placeholder="https://youtube.com/..." />
+        </div>
+        <RichTextEditor name="contenido" placeholder="Escribe el contenido de la noticia aquí..." />
+        <div class="space-y-2 md:col-span-2">
+          <label class="text-xs font-medium text-text-muted uppercase">Tags</label>
+          <div id="tags-container" class="flex flex-wrap gap-2 w-full bg-black/20 border border-white/10 rounded px-4 py-2 min-h-[42px] focus-within:border-primary transition-colors cursor-text">
+            <input id="tag-input" type="text" class="bg-transparent border-none outline-none text-sm text-white flex-1 min-w-[120px]" placeholder="Escribe y presiona Enter..." />
+          </div>
+          <input type="hidden" name="tags" id="tags-hidden" />
+          <p class="text-xs text-text-muted">Presiona Enter o Coma para agregar un tag.</p>
+        </div>
+      </div>
+
+      <div id="tab-images-content" class="hidden space-y-6">
+        <ImageUploader name="imagen" label="Imagen Principal (Portada)" helpText="Se usará en la home y cabecera de la noticia" />
+        <ImageUploader name="galeria" label="Galería de Imágenes" multiple={true} helpText="Selecciona múltiples fotos para el carrusel" />
+      </div>
+
+      <div class="pt-6 flex justify-end gap-3 border-t border-white/5 mt-6">
+        <a href="/dashboard/news" class="px-6 py-2 text-sm font-medium text-text-muted hover:text-white transition-colors">Cancelar</a>
+        <button type="submit" class="bg-primary hover:bg-primary/80 text-white px-6 py-2 rounded text-sm font-medium transition-colors">Guardar Noticia</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const tagInput = document.getElementById('tag-input') as HTMLInputElement;
+    const tagsContainer = document.getElementById('tags-container');
+    const hiddenInput = document.getElementById('tags-hidden') as HTMLInputElement;
+    const form = document.querySelector('form');
+    let tags: string[] = [];
+
+    function updateHiddenInput() {
+      if (hiddenInput) hiddenInput.value = tags.join(',');
+    }
+
+    function renderTags() {
+      if (!tagsContainer) return;
+      // Limpiar tags visuales existentes (manteniendo el input)
+      const existingChips = tagsContainer.querySelectorAll('.tag-chip');
+      existingChips.forEach(chip => chip.remove());
+
+      // Insertar tags antes del input
+      tags.forEach((tag, index) => {
+        const chip = document.createElement('div');
+        chip.className = 'tag-chip bg-primary/20 text-primary border border-primary/30 px-2 py-1 rounded text-xs flex items-center gap-1';
+        chip.innerHTML = `<span>${tag}</span><button type="button" class="hover:text-white focus:outline-none ml-1 font-bold" data-index="${index}">×</button>`;
+        tagsContainer.insertBefore(chip, tagInput);
+        
+        // Event listener para borrar
+        chip.querySelector('button')?.addEventListener('click', (e) => {
+          tags.splice(index, 1);
+          renderTags();
+          updateHiddenInput();
+        });
+      });
+    }
+
+    tagInput?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ',') {
+        e.preventDefault();
+        const val = tagInput.value.trim().replace(',', '');
+        if (val && !tags.includes(val)) {
+          tags.push(val);
+          renderTags();
+          updateHiddenInput();
+          tagInput.value = '';
+        }
+      } else if (e.key === 'Backspace' && !tagInput.value && tags.length > 0) {
+        tags.pop();
+        renderTags();
+        updateHiddenInput();
+      }
+    });
+
+    // Enfocar input al hacer click en el contenedor
+    tagsContainer?.addEventListener('click', (e) => {
+      if (e.target === tagsContainer) {
+        tagInput?.focus();
+      }
+    });
+
+    // Asegurar que si queda texto pendiente en el input al enviar, se agregue como tag
+    form?.addEventListener('submit', () => {
+      if (tagInput?.value.trim()) {
+        const val = tagInput.value.trim().replace(',', '');
+        if (val && !tags.includes(val)) {
+          tags.push(val);
+          updateHiddenInput();
+        }
+      }
+    });
+
+    // Tab Logic
+    const tabGeneralBtn = document.getElementById('tab-general-btn');
+    const tabImagesBtn = document.getElementById('tab-images-btn');
+    const tabGeneralContent = document.getElementById('tab-general-content');
+    const tabImagesContent = document.getElementById('tab-images-content');
+
+    function switchTab(tab) {
+      if (tab === 'general') {
+        tabGeneralContent?.classList.remove('hidden');
+        tabImagesContent?.classList.add('hidden');
+        
+        tabGeneralBtn?.classList.add('bg-primary', 'text-white', 'shadow-sm');
+        tabGeneralBtn?.classList.remove('text-text-muted', 'hover:text-white', 'hover:bg-white/5');
+        
+        tabImagesBtn?.classList.remove('bg-primary', 'text-white', 'shadow-sm');
+        tabImagesBtn?.classList.add('text-text-muted', 'hover:text-white', 'hover:bg-white/5');
+      } else {
+        tabGeneralContent?.classList.add('hidden');
+        tabImagesContent?.classList.remove('hidden');
+
+        tabImagesBtn?.classList.add('bg-primary', 'text-white', 'shadow-sm');
+        tabImagesBtn?.classList.remove('text-text-muted', 'hover:text-white', 'hover:bg-white/5');
+
+        tabGeneralBtn?.classList.remove('bg-primary', 'text-white', 'shadow-sm');
+        tabGeneralBtn?.classList.add('text-text-muted', 'hover:text-white', 'hover:bg-white/5');
+      }
+    }
+
+    tabGeneralBtn?.addEventListener('click', () => switchTab('general'));
+    tabImagesBtn?.addEventListener('click', () => switchTab('images'));
+  </script>
+</DashboardLayout>

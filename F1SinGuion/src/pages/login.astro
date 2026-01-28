@@ -1,0 +1,49 @@
+---
+import "@styles/global.css";
+
+const error = Astro.url.searchParams.get('error');
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<title>Login | F1 Admin</title>
+	</head>
+	<body class="bg-bg text-text h-screen flex items-center justify-center">
+		<div class="w-full max-w-md p-8 bg-surface border border-white/5 rounded-lg shadow-lg">
+			<div class="text-center mb-8">
+				<h1 class="text-2xl font-bold tracking-wide">F1 Admin Access</h1>
+				<p class="text-text-muted text-sm mt-2">Ingresa tus credenciales para continuar</p>
+			</div>
+
+			{error === 'invalid' && (
+				<div class="mb-4 p-3 bg-red-500/10 border border-red-500/20 rounded text-red-400 text-sm text-center">
+					Contraseña incorrecta
+				</div>
+			)}
+
+			<form action="/api/auth/login" method="POST" class="space-y-6" enctype="application/x-www-form-urlencoded">
+				<div>
+					<label for="password" class="block text-sm font-medium text-text-muted mb-2">Contraseña</label>
+					<input
+						type="password"
+						name="password"
+						id="password"
+						required
+						class="w-full bg-bg border border-white/10 rounded px-4 py-2 text-text focus:outline-none focus:border-primary transition-colors"
+						placeholder="••••••••"
+					/>
+				</div>
+
+				<button
+					type="submit"
+					class="w-full bg-primary hover:bg-primary/90 text-white font-medium py-2 px-4 rounded transition-colors"
+				>
+					Ingresar
+				</button>
+			</form>
+		</div>
+	</body>
+</html>

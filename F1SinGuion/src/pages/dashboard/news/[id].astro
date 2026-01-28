@@ -1,0 +1,360 @@
+---
+import DashboardLayout from '@layouts/DashboardLayout.astro';
+import { getNewsById, updateNews } from '@lib/services/newssService';
+import RichTextEditor from '@components/dashboard/RichTextEditor.astro';
+import ImageUploader from '@components/dashboard/ImageUploader.astro';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+
+export const prerender = false;
+
+const { id } = Astro.params;
+
+if (!id) {
+  return Astro.redirect('/dashboard/news');
+}
+
+let newsItem;
+try {
+  newsItem = await getNewsById(id);
+} catch (e) {
+  console.error("Error cargando noticia:", e);
+}
+
+if (!newsItem) {
+  return Astro.redirect('/dashboard/news');
+}
+
+// Leer contenido del archivo MD si existe para pre-llenar el editor
+let contentInitialValue = "";
+if (newsItem.archivoContenido) {
+  try {
+    let mdPath;
+    // 1. Intentar ruta nueva (si el campo contenido tiene la ruta completa)
+    if (newsItem.contenido && newsItem.contenido.startsWith('/uploads')) {
+       mdPath = path.join(process.cwd(), 'public', newsItem.contenido);
+    } else {
+       // 2. Intentar ruta nueva estándar basada en el slug
+       const newPath = path.join(process.cwd(), 'public', 'uploads', 'news', newsItem.index, 'md', newsItem.archivoContenido);
+       try {
+         await fs.access(newPath);
+         mdPath = newPath;
+       } catch {
+         // 3. Fallback: Ruta legacy (noticias importadas)
+         mdPath = path.join(process.cwd(), 'public', 'noticias', newsItem.archivoContenido);
+       }
+    }
+    
+    if (mdPath) {
+      contentInitialValue = await fs.readFile(mdPath, 'utf-8');
+    }
+  } catch (e) {
+    console.error("Error leyendo archivo de contenido:", e);
+  }
+}
+
+let errorMsg = null;
+
+if (Astro.request.method === "POST") {
+  try {
+    const formData = await Astro.request.formData();
+    
+    // 1. Guardar contenido en archivo .md (Sobrescribir)
+    const content = formData.get("contenido")?.toString() || "";
+    const fileName = newsItem.archivoContenido || `${newsItem.index}.md`; 
+    const publicDirMd = path.join(process.cwd(), 'public', 'uploads', 'news', newsItem.index, 'md');
+    await fs.mkdir(publicDirMd, { recursive: true });
+    await fs.writeFile(path.join(publicDirMd, fileName), content, 'utf-8');
+
+    // Helper para guardar imágenes
+    const saveImage = async (file, subfolder = '') => {
+      if (!file || !file.name || file.size === 0) return null;
+      
+      const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'news', newsItem.index, 'images');
+      await fs.mkdir(uploadDir, { recursive: true });
+      
+      let imgName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
+      try {
+        await fs.access(path.join(uploadDir, imgName));
+        const ext = path.extname(imgName);
+        const name = path.basename(imgName, ext);
+        imgName = `${name}-${Date.now()}${ext}`;
+      } catch {}
+
+      const arrayBuffer = await file.arrayBuffer();
+      await fs.writeFile(path.join(uploadDir, imgName), Buffer.from(arrayBuffer));
+      return `/uploads/news/${newsItem.index}/images/${imgName}`;
+    };
+
+    // 2. Procesar Imagen Principal (Solo si se sube una nueva)
+    const imagenFile = formData.get("imagen");
+    let imagenUrl = newsItem.imagen;
+    if (imagenFile && (imagenFile as File).size > 0) {
+        imagenUrl = await saveImage(imagenFile);
+    }
+
+    // 3. Procesar Galería
+    // a) Nuevas imágenes subidas
+    const galeriaFiles = formData.getAll("galeria");
+    const newGaleriaUrls = await Promise.all(galeriaFiles.map((f, i) => saveImage(f, `galeria-${Date.now()}-${i}`)));
+    const validNewUrls = newGaleriaUrls.filter(Boolean);
+
+    // b) Imágenes existentes (filtrar las que se marcaron para borrar)
+    const imagesToDelete = formData.getAll("delete_gallery_images").map(s => s.toString());
+    let currentGaleria = newsItem.galeria || [];
+    // Asegurar que sea array (drizzle mode:json lo maneja, pero por seguridad)
+    if (!Array.isArray(currentGaleria)) currentGaleria = [];
+
+    const keptGaleria = currentGaleria.filter(url => !imagesToDelete.includes(url));
+    
+    // Combinar existentes + nuevas
+    const finalGaleria = [...keptGaleria, ...validNewUrls];
+
+    // 4. Actualizar DB
+    await updateNews(id, {
+      titulo: formData.get("titulo")?.toString(),
+      bajada: formData.get("bajada")?.toString(),
+      autor: formData.get("autor")?.toString(),
+      estado: formData.get("estado")?.toString(),
+      categoria: formData.get("categoria")?.toString(),
+      fuente: formData.get("fuente")?.toString(),
+      enlaceOriginal: formData.get("enlaceOriginal")?.toString(),
+      tipo: formData.get("tipo")?.toString(),
+      tiempoLectura: Number(formData.get("tiempoLectura")) || 0,
+      videoUrl: formData.get("videoUrl")?.toString(),
+      tags: formData.get("tags")?.toString().split(',').map(t => t.trim()).filter(Boolean) || [],
+      contenido: `/uploads/news/${newsItem.index}/md/${fileName}`,
+      archivoContenido: fileName,
+      imagen: imagenUrl,
+      galeria: finalGaleria.length > 0 ? finalGaleria : null,
+    });
+
+    return Astro.redirect('/dashboard/news');
+  } catch (e) {
+    console.error(e);
+    errorMsg = "Error al actualizar la noticia.";
+  }
+}
+
+const initialTags = newsItem.tags || [];
+---
+
+<DashboardLayout title="Editar Noticia">
+  <div class="mx-auto">
+    <div class="flex items-center justify-between mb-6">
+      <h1 class="text-2xl font-bold text-text">Editar Noticia</h1>
+      <a href="/dashboard/news" class="text-sm text-text-muted hover:text-white transition-colors">
+        ← Volver al listado
+      </a>
+    </div>
+
+    {errorMsg && (
+      <div class="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded text-red-400">
+        {errorMsg}
+      </div>
+    )}
+
+    <!-- Tabs Navigation -->
+    <div class="flex space-x-1 bg-surface/50 p-1 rounded-lg mb-6 w-fit border border-white/5">
+      <button type="button" id="tab-general-btn" class="px-4 py-2 text-sm font-medium rounded-md bg-primary text-white shadow-sm transition-all">General</button>
+      <button type="button" id="tab-images-btn" class="px-4 py-2 text-sm font-medium rounded-md text-text-muted hover:text-white hover:bg-white/5 transition-all">Imágenes</button>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data" class="bg-surface border border-white/5 rounded-lg p-6 space-y-6">
+      <div id="tab-general-content" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="space-y-2">
+          <label class="text-xs font-medium text-text-muted uppercase">Título</label>
+          <input name="titulo" value={newsItem.titulo} required class="w-full bg-black/20 border border-white/10 rounded px-4 py-2 text-sm text-white focus:border-primary outline-none" placeholder="Título de la noticia" />
+        </div>
+        <div class="space-y-2">
+          <label class="text-xs font-medium text-text-muted uppercase">Autor</label>
+          <input name="autor" value={newsItem.autor} required class="w-full bg-black/20 border border-white/10 rounded px-4 py-2 text-sm text-white focus:border-primary outline-none" placeholder="Nombre del autor" />
+        </div>
+        <div class="space-y-2 md:col-span-2">
+          <label class="text-xs font-medium text-text-muted uppercase">Bajada / Resumen</label>
+          <textarea name="bajada" rows="3" class="w-full bg-black/20 border border-white/10 rounded px-4 py-2 text-sm text-white focus:border-primary outline-none" placeholder="Breve descripción...">{newsItem.bajada}</textarea>
+        </div>
+        <div class="space-y-2">
+          <label class="text-xs font-medium text-text-muted uppercase">Categoría</label>
+          <input name="categoria" value={newsItem.categoria} class="w-full bg-black/20 border border-white/10 rounded px-4 py-2 text-sm text-white focus:border-primary outline-none" placeholder="Ej: F1, Técnica..." />
+        </div>
+        <div class="space-y-2">
+          <label class="text-xs font-medium text-text-muted uppercase">Tipo</label>
+          <input name="tipo" value={newsItem.tipo} class="w-full bg-black/20 border border-white/10 rounded px-4 py-2 text-sm text-white focus:border-primary outline-none" placeholder="Ej: principal, secundaria" />
+        </div>
+        <div class="space-y-2">
+          <label class="text-xs font-medium text-text-muted uppercase">Estado</label>
+          <select name="estado" class="w-full bg-black/20 border border-white/10 rounded px-4 py-2 text-sm text-white focus:border-primary outline-none">
+            <option value="borrador" selected={newsItem.estado === 'borrador'}>Borrador</option>
+            <option value="publicada" selected={newsItem.estado === 'publicada'}>Publicada</option>
+          </select>
+        </div>
+        <div class="space-y-2">
+          <label class="text-xs font-medium text-text-muted uppercase">Fuente</label>
+          <input name="fuente" value={newsItem.fuente} class="w-full bg-black/20 border border-white/10 rounded px-4 py-2 text-sm text-white focus:border-primary outline-none" placeholder="Ej: F1.com" />
+        </div>
+        <div class="space-y-2">
+          <label class="text-xs font-medium text-text-muted uppercase">Enlace Original</label>
+          <input name="enlaceOriginal" value={newsItem.enlaceOriginal} type="url" class="w-full bg-black/20 border border-white/10 rounded px-4 py-2 text-sm text-white focus:border-primary outline-none" placeholder="https://..." />
+        </div>
+        <div class="space-y-2">
+          <label class="text-xs font-medium text-text-muted uppercase">Video URL</label>
+          <input name="videoUrl" value={newsItem.videoUrl} type="url" class="w-full bg-black/20 border border-white/10 rounded px-4 py-2 text-sm text-white focus:border-primary outline-none" placeholder="https://youtube.com/..." />
+        </div>
+        <div class="space-y-2">
+          <label class="text-xs font-medium text-text-muted uppercase">Tiempo Lectura (min)</label>
+          <input name="tiempoLectura" value={newsItem.tiempoLectura} type="number" class="w-full bg-black/20 border border-white/10 rounded px-4 py-2 text-sm text-white focus:border-primary outline-none" placeholder="0" />
+        </div>
+        
+        <RichTextEditor name="contenido" initialValue={contentInitialValue} placeholder="Escribe el contenido de la noticia aquí..." />
+        
+        <div class="space-y-2 md:col-span-2">
+          <label class="text-xs font-medium text-text-muted uppercase">Tags</label>
+          <div id="tags-container" class="flex flex-wrap gap-2 w-full bg-black/20 border border-white/10 rounded px-4 py-2 min-h-[42px] focus-within:border-primary transition-colors cursor-text">
+            <input id="tag-input" type="text" class="bg-transparent border-none outline-none text-sm text-white flex-1 min-w-[120px]" placeholder="Escribe y presiona Enter..." />
+          </div>
+          <input type="hidden" name="tags" id="tags-hidden" value={initialTags.join(',')} />
+          <p class="text-xs text-text-muted">Presiona Enter o Coma para agregar un tag.</p>
+        </div>
+      </div>
+
+      <div id="tab-images-content" class="hidden space-y-6">
+        <!-- Imagen Principal Actual -->
+        <div class="space-y-2">
+          <label class="text-xs font-medium text-text-muted uppercase">Imagen Principal Actual</label>
+          {newsItem.imagen ? (
+            <div class="w-full max-w-md aspect-video rounded-lg overflow-hidden border border-white/10 bg-black/40">
+              <img src={newsItem.imagen} class="w-full h-full object-cover" alt="Portada actual" />
+            </div>
+          ) : (
+            <p class="text-sm text-text-muted italic">No hay imagen principal seleccionada.</p>
+          )}
+        </div>
+        <ImageUploader name="imagen" label="Cambiar Imagen Principal" helpText="Subir una nueva reemplazará la actual" />
+
+        <hr class="border-white/5" />
+
+        <!-- Galería Actual -->
+        <div class="space-y-2">
+          <label class="text-xs font-medium text-text-muted uppercase">Galería Actual</label>
+          {newsItem.galeria && newsItem.galeria.length > 0 ? (
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              {newsItem.galeria.map((img, idx) => (
+                <div class="relative group aspect-square rounded-lg overflow-hidden border border-white/10 bg-black/40">
+                  <img src={img} class="w-full h-full object-cover" />
+                  <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <label class="cursor-pointer text-xs text-red-400 hover:text-red-300 flex items-center gap-1">
+                      <input type="checkbox" name="delete_gallery_images" value={img} class="accent-red-500" />
+                      <span>Borrar</span>
+                    </label>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p class="text-sm text-text-muted italic">La galería está vacía.</p>
+          )}
+        </div>
+        <ImageUploader name="galeria" label="Agregar a la Galería" multiple={true} helpText="Las nuevas imágenes se sumarán a las existentes" />
+      </div>
+
+      <div class="pt-6 flex justify-end gap-3 border-t border-white/5 mt-6">
+        <a href="/dashboard/news" class="px-6 py-2 text-sm font-medium text-text-muted hover:text-white transition-colors">Cancelar</a>
+        <button type="submit" class="bg-primary hover:bg-primary/80 text-white px-6 py-2 rounded text-sm font-medium transition-colors">Guardar Cambios</button>
+      </div>
+    </form>
+  </div>
+
+  <script define:vars={{ initialTags }}>
+    // --- Tags Logic (Reutilizada) ---
+    const tagInput = document.getElementById('tag-input');
+    const tagsContainer = document.getElementById('tags-container');
+    const hiddenInput = document.getElementById('tags-hidden');
+    const form = document.querySelector('form');
+    let tags = [...initialTags]; // Cargar tags iniciales
+
+    function updateHiddenInput() {
+      if (hiddenInput) hiddenInput.value = tags.join(',');
+    }
+
+    function renderTags() {
+      if (!tagsContainer) return;
+      const existingChips = tagsContainer.querySelectorAll('.tag-chip');
+      existingChips.forEach(chip => chip.remove());
+
+      tags.forEach((tag, index) => {
+        const chip = document.createElement('div');
+        chip.className = 'tag-chip bg-primary/20 text-primary border border-primary/30 px-2 py-1 rounded text-xs flex items-center gap-1';
+        chip.innerHTML = `<span>${tag}</span><button type="button" class="hover:text-white focus:outline-none ml-1 font-bold" data-index="${index}">×</button>`;
+        tagsContainer.insertBefore(chip, tagInput);
+        
+        chip.querySelector('button')?.addEventListener('click', () => {
+          tags.splice(index, 1);
+          renderTags();
+          updateHiddenInput();
+        });
+      });
+    }
+
+    // Inicializar tags visuales
+    renderTags();
+
+    tagInput?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ',') {
+        e.preventDefault();
+        const val = tagInput.value.trim().replace(',', '');
+        if (val && !tags.includes(val)) {
+          tags.push(val);
+          renderTags();
+          updateHiddenInput();
+          tagInput.value = '';
+        }
+      } else if (e.key === 'Backspace' && !tagInput.value && tags.length > 0) {
+        tags.pop();
+        renderTags();
+        updateHiddenInput();
+      }
+    });
+
+    tagsContainer?.addEventListener('click', (e) => {
+      if (e.target === tagsContainer) tagInput?.focus();
+    });
+
+    form?.addEventListener('submit', () => {
+      if (tagInput?.value.trim()) {
+        const val = tagInput.value.trim().replace(',', '');
+        if (val && !tags.includes(val)) {
+          tags.push(val);
+          updateHiddenInput();
+        }
+      }
+    });
+
+    // --- Tab Logic (Reutilizada) ---
+    const tabGeneralBtn = document.getElementById('tab-general-btn');
+    const tabImagesBtn = document.getElementById('tab-images-btn');
+    const tabGeneralContent = document.getElementById('tab-general-content');
+    const tabImagesContent = document.getElementById('tab-images-content');
+
+    function switchTab(tab) {
+      if (tab === 'general') {
+        tabGeneralContent?.classList.remove('hidden');
+        tabImagesContent?.classList.add('hidden');
+        tabGeneralBtn?.classList.add('bg-primary', 'text-white', 'shadow-sm');
+        tabGeneralBtn?.classList.remove('text-text-muted', 'hover:text-white', 'hover:bg-white/5');
+        tabImagesBtn?.classList.remove('bg-primary', 'text-white', 'shadow-sm');
+        tabImagesBtn?.classList.add('text-text-muted', 'hover:text-white', 'hover:bg-white/5');
+      } else {
+        tabGeneralContent?.classList.add('hidden');
+        tabImagesContent?.classList.remove('hidden');
+        tabImagesBtn?.classList.add('bg-primary', 'text-white', 'shadow-sm');
+        tabImagesBtn?.classList.remove('text-text-muted', 'hover:text-white', 'hover:bg-white/5');
+        tabGeneralBtn?.classList.remove('bg-primary', 'text-white', 'shadow-sm');
+        tabGeneralBtn?.classList.add('text-text-muted', 'hover:text-white', 'hover:bg-white/5');
+      }
+    }
+
+    tabGeneralBtn?.addEventListener('click', () => switchTab('general'));
+    tabImagesBtn?.addEventListener('click', () => switchTab('images'));
+  </script>
+</DashboardLayout>

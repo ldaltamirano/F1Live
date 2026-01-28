@@ -129,22 +129,22 @@ Plan para asegurar la estabilidad del código y la integridad de los datos, cruc
 Plan para crear un panel de control interno que facilite la actualización de los archivos JSON sin tocar código.
 
 ### 🔐 Fase 1: Base y Seguridad
-- [ ] **Layout Admin**: Crear un layout específico (`/layouts/AdminLayout.astro`) con sidebar y modo oscuro forzado.
-- [ ] **Componente Sidebar**: Crear `<AdminSidebar />` para la navegación lateral del panel.
-- [ ] **Autenticación Simple**: Implementar un login básico (cookie/session) para proteger la ruta `/admin`.
-- [ ] **Visor de Archivos**: Listar los archivos JSON actuales (`drivers`, `teams`, `standings`) y ver su contenido "raw".
+- [x] **Layout Admin**: Crear un layout específico (`/layouts/AdminLayout.astro`) con sidebar y modo oscuro forzado.
+- [x] **Componente Sidebar**: Crear `<AdminSidebar />` para la navegación lateral del panel.
+- [x] **Autenticación Simple**: Implementar un login básico (cookie/session) para proteger la ruta `/admin`.
+- [x] **Visor de Base de Datos**: Listar las tablas de Turso (`drivers`, `teams`, `standings`) y ver su contenido.
 
 ### ✏️ Fase 2: Editores Visuales
-- [ ] **Componentes de Edición**: Crear `<FileEditor />` genérico y `<StatusToggle />` para interruptores de estado.
-- [ ] **Editor de Drivers**: Formulario para modificar biografías de pilotos.
-- [ ] **Editor de Standings**: Interfaz tipo hoja de cálculo para ajustar la tabla de posiciones rápidamente.
-- [ ] **Status del Calendario**: Toggles para marcar sesiones como "Completadas" o "En Curso".
+- [ ] **Componentes de Edición**: Crear `<DBEditor />` genérico y `<StatusToggle />` para interruptores de estado en base de datos.
+- [ ] **Editor de Drivers**: Formulario para modificar registros de pilotos en Turso (UPDATE).
+- [ ] **Editor de Standings**: Interfaz para ajustar la tabla de posiciones directamente en la base de datos.
+- [ ] **Status del Calendario**: Toggles para actualizar el estado de sesiones en la tabla `sessions`.
 
 ### 🤖 Fase 3: Automatización y API
-- [ ] **Componente Importador**: Crear `<DataImporter />` para manejar la ingesta de datos externos.
-- [ ] **Importador de Resultados**: Script para "Simular Carrera" que actualice puntos automáticamente basado en posiciones ingresadas.
-- [ ] **Sincronización OpenF1**: Botón para traer datos reales de la API y actualizar los JSON locales.
-- [ ] **Backup System**: Botón para descargar una copia de seguridad de todos los JSONs actuales.
+- [ ] **Componente Importador**: Crear `<DataImporter />` para manejar la ingesta de datos externos hacia la DB.
+- [ ] **Importador de Resultados**: Script para "Simular Carrera" que actualice puntos automáticamente en la base de datos.
+- [ ] **Sincronización OpenF1**: Botón para traer datos reales de la API y actualizar las tablas de Turso.
+- [ ] **Backup System**: Botón para exportar un backup SQL/JSON de la base de datos.
 
 ## 🏆 Roadmap: Sección Resultados y Standings
 

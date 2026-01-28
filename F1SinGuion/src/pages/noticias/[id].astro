@@ -5,45 +5,51 @@ import path from 'node:path';
 import MarkdownIt from 'markdown-it';
 import Badge from '@components/ui/Badge.astro';
 import Button from '@components/ui/Button.astro';
+import { getNewsBySlug } from '@lib/services/newssService';
 
-export async function getStaticPaths() {
-  const newsPath = path.join(process.cwd(), 'public', 'news.json');
-  let news = [];
+export const prerender = false;
 
-  try {
-    const newsContent = await fs.readFile(newsPath, 'utf-8');
-    news = JSON.parse(newsContent);
-  } catch (error) {
-    console.error("Error al cargar noticias:", error);
-    return [];
-  }
+const { id } = Astro.params;
 
-  return news.map((item: any) => ({
-    params: { id: item.id },
-    props: { newsItem: item },
-  }));
+if (!id) {
+  return Astro.redirect('/404');
 }
 
-const { newsItem } = Astro.props;
+const newsItem = await getNewsBySlug(id);
 
-const formattedDate = new Date(newsItem.fecha).toLocaleDateString('es-ES', {
+if (!newsItem) {
+  return Astro.redirect('/404');
+}
+
+const formattedDate = newsItem.fecha ? new Date(newsItem.fecha).toLocaleDateString('es-ES', {
   day: 'numeric',
   month: 'long',
   year: 'numeric'
-});
+}) : '';
 
-// Leer el contenido del archivo Markdown referenciado
-const mdPath = path.join(process.cwd(), 'public', 'noticias', newsItem.archivo_contenido);
+// Leer el contenido del archivo Markdown
 let contentRaw = '';
 try {
-  contentRaw = await fs.readFile(mdPath, 'utf-8');
+  let mdPath;
+  // Verificar si es una noticia nueva (ruta en DB) o legacy (nombre de archivo)
+  if (newsItem.contenido && newsItem.contenido.startsWith('/uploads')) {
+      mdPath = path.join(process.cwd(), 'public', newsItem.contenido);
+  } else if (newsItem.archivoContenido) {
+      mdPath = path.join(process.cwd(), 'public', 'noticias', newsItem.archivoContenido);
+  }
+
+  if (mdPath) {
+    contentRaw = await fs.readFile(mdPath, 'utf-8');
+  }
 } catch (error) {
-  console.error(`Error al leer el archivo de noticia ${newsItem.id}:`, error);
+  console.error(`Error al leer el archivo de noticia ${id}:`, error);
   contentRaw = "Contenido no disponible.";
 }
 
 const md = new MarkdownIt({ html: true });
 const content = md.render(contentRaw);
+
+const tags = (newsItem.tags && Array.isArray(newsItem.tags)) ? newsItem.tags : [];
 ---
 
 <Layout 
@@ -65,7 +71,7 @@ const content = md.render(contentRaw);
       {/* Header de la noticia */}
       <header class="mb-8">
         <div class="flex flex-wrap gap-2 mb-4">
-          {newsItem.tags.map((tag: string) => (
+          {tags.map((tag: string) => (
             <Badge variant="gradient">{tag}</Badge>
           ))}
         </div>
@@ -96,18 +102,34 @@ const content = md.render(contentRaw);
       </header>
 
       {/* Imagen Principal */}
-      <div class="relative aspect-video w-full overflow-hidden rounded-2xl mb-10 border border-white/10 shadow-2xl">
-        <img 
-          src={newsItem.imagen} 
-          alt={newsItem.titulo} 
-          class="w-full h-full object-cover"
-        />
-      </div>
+      {newsItem.imagen && (
+        <div class="relative aspect-video w-full overflow-hidden rounded-2xl mb-10 border border-white/10 shadow-2xl">
+          <img 
+            src={newsItem.imagen} 
+            alt={newsItem.titulo} 
+            class="w-full h-full object-cover"
+          />
+        </div>
+      )}
 
       {/* Cuerpo de la noticia */}
       <div class="prose prose-invert prose-lg max-w-none">        
         <div class="text-text-muted leading-relaxed" set:html={content} />
       </div>
+
+      {/* Galería (si existe) */}
+      {newsItem.galeria && Array.isArray(newsItem.galeria) && newsItem.galeria.length > 0 && (
+        <div class="mt-12">
+          <h3 class="text-2xl font-bold mb-6">Galería</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {newsItem.galeria.map((img) => (
+              <div class="rounded-lg overflow-hidden border border-white/10">
+                <img src={img} class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy" />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
     </div>
   </article>

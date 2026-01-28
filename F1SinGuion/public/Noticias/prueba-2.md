@@ -1,0 +1,1 @@
+![prueba](/uploads/news/Home-page-banner-pc.webp)

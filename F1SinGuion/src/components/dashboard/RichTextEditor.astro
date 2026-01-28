@@ -1,0 +1,136 @@
+---
+interface Props {
+  name: string;
+  label?: string;
+  placeholder?: string;
+  initialValue?: string;
+}
+
+const { name, label = "Contenido", placeholder = "Escribe aquí...", initialValue = "" } = Astro.props;
+const editorId = `editor-${name}`;
+const hiddenInputId = `hidden-${name}`;
+---
+
+<!-- Cargar EasyMDE (Markdown Editor) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
+<script is:inline src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
+
+<style>
+  /* Overrides para adaptar EasyMDE al Modo Oscuro */
+  :global(.EasyMDEContainer) {
+    color: white;
+  }
+  :global(.editor-toolbar) {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+  }
+  :global(.editor-toolbar button) {
+    color: #9ca3af !important;
+  }
+  :global(.editor-toolbar button:hover) {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border-color: transparent !important;
+    color: white !important;
+  }
+  :global(.editor-toolbar button.active) {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    border-color: transparent !important;
+  }
+  :global(.editor-toolbar i.separator) {
+    border-color: rgba(255, 255, 255, 0.1) !important;
+  }
+  
+  :global(.CodeMirror) {
+    background-color: rgba(0, 0, 0, 0.2) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    color: #e5e7eb !important;
+  }
+  :global(.CodeMirror-cursor) {
+    border-color: white !important;
+  }
+  :global(.editor-statusbar) {
+    color: #9ca3af !important;
+  }
+  
+  /* Preview Mode */
+  :global(.editor-preview), :global(.editor-preview-side) {
+    background-color: #1a1a1a !important;
+    color: #e5e7eb !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+  }
+  :global(.editor-preview a), :global(.editor-preview-side a) {
+    color: #3b82f6 !important;
+    text-decoration: underline;
+  }
+
+  :global(.editor-preview pre), :global(.editor-preview-side pre) {
+    background-color: #000 !important;
+  }
+
+  /* Color de selección (Accent/Primary - F1 Red) */
+  :global(.CodeMirror-selected) {
+    background-color: rgba(225, 6, 0, 0.3) !important;
+  }
+  :global(.CodeMirror-focused .CodeMirror-selected) {
+    background-color: rgba(225, 6, 0, 0.3) !important;
+  }
+  :global(.editor-preview ::selection), :global(.editor-preview-side ::selection) {
+    background-color: rgba(225, 6, 0, 0.3) !important;
+    color: white;
+  }
+</style>
+
+<div class="rich-text-editor-wrapper space-y-2 md:col-span-2">
+  <label class="text-xs font-medium text-text-muted uppercase" for={editorId}>{label}</label>
+  <textarea id={editorId} name={name} placeholder={placeholder}>{initialValue}</textarea>
+</div>
+
+<script define:vars={{ editorId }}>
+  const initEditor = () => {
+    if (typeof EasyMDE === 'undefined') {
+      setTimeout(initEditor, 50);
+      return;
+    }
+    new EasyMDE({
+      element: document.getElementById(editorId),
+      spellChecker: false,
+      status: ['lines', 'words', 'cursor'],
+      placeholder: document.getElementById(editorId).getAttribute('placeholder'),
+      forceSync: true, // Asegura que el textarea original se actualice en tiempo real
+      toolbar: [
+        "bold", 
+        "italic", 
+        "strikethrough", 
+        "|", 
+        "heading", 
+        "heading-smaller", 
+        "heading-bigger", 
+        "|", 
+        "code", 
+        "quote", 
+        "unordered-list", 
+        "ordered-list", 
+        "clean-block", 
+        "|", 
+        "link", 
+        "image", 
+        "table", 
+        "horizontal-rule", 
+        "|", 
+        "preview", 
+        "|", 
+        "undo", 
+        "redo", 
+        "|", 
+        "guide"
+      ],
+      autoDownloadFontAwesome: true,
+    });
+  };
+
+  if (document.readyState === 'complete') {
+    initEditor();
+  } else {
+    document.addEventListener('DOMContentLoaded', initEditor);
+  }
+</script>

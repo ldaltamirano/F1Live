@@ -1,0 +1,44 @@
+---
+import AdminLayout from '../layouts/DashboardLayout.astro';
+
+export const prerender = false;
+---
+
+<AdminLayout title="Dashboard">
+	<div class="mb-8">
+		<h1 class="text-3xl font-bold text-text">Dashboard</h1>
+		<p class="text-text-muted mt-2">Bienvenido al panel de administración de F1 Live.</p>
+	</div>
+
+	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+		<!-- Card: Noticias -->
+		<div class="bg-surface border border-white/5 rounded-lg p-6 hover:border-primary transition-colors">
+			<div class="flex items-center justify-between mb-4">
+				<h3 class="text-lg font-medium text-text">Noticias</h3>
+				<span class="text-2xl">📰</span>
+			</div>
+			<p class="text-3xl font-bold text-text mb-1">--</p>
+			<p class="text-sm text-text-muted">Artículos publicados</p>
+		</div>
+
+		<!-- Card: Pilotos -->
+		<div class="bg-surface border border-white/5 rounded-lg p-6 hover:border-primary transition-colors">
+			<div class="flex items-center justify-between mb-4">
+				<h3 class="text-lg font-medium text-text">Pilotos</h3>
+				<span class="text-2xl">👤</span>
+			</div>
+			<p class="text-3xl font-bold text-text mb-1">20</p>
+			<p class="text-sm text-text-muted">Pilotos activos</p>
+		</div>
+
+		<!-- Card: Próxima Carrera -->
+		<div class="bg-surface border border-white/5 rounded-lg p-6 hover:border-primary transition-colors">
+			<div class="flex items-center justify-between mb-4">
+				<h3 class="text-lg font-medium text-text">Próximo GP</h3>
+				<span class="text-2xl">🏁</span>
+			</div>
+			<p class="text-xl font-bold text-text mb-1">GP de Australia</p>
+			<p class="text-sm text-text-muted">En 45 días</p>
+		</div>
+	</div>
+</AdminLayout>
