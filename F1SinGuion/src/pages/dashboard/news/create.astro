@@ -5,6 +5,7 @@ import RichTextEditor from '@components/dashboard/RichTextEditor.astro';
 import ImageUploader from '@components/dashboard/ImageUploader.astro';
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { randomUUID } from 'node:crypto';
 
 export const prerender = false;
 
@@ -14,13 +15,13 @@ if (Astro.request.method === "POST") {
   try {
     const formData = await Astro.request.formData();
     const title = formData.get("titulo")?.toString() || "";
-    // Generar ID (slug) basado en el título
-    const slug = title.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-');
+    // Generar ID (slug) único usando GUID
+    const slug = randomUUID();
 
-    // Guardar contenido en archivo .md en /public/uploads/news/SLUG/md
+    // Guardar contenido en archivo .html en /public/uploads/news/html
     const content = formData.get("contenido")?.toString() || "";
-    const fileName = `${slug}.md`;
-    const publicDir = path.join(process.cwd(), 'public', 'uploads', 'news', slug, 'md');
+    const fileName = `${slug}.html`;
+    const publicDir = path.join(process.cwd(), 'public', 'uploads', 'news', 'html');
     await fs.mkdir(publicDir, { recursive: true });
     await fs.writeFile(path.join(publicDir, fileName), content, 'utf-8');
 
@@ -28,7 +29,7 @@ if (Astro.request.method === "POST") {
     const saveImage = async (file, subfolder = '') => {
       if (!file || !file.name || file.size === 0) return null;
       
-      const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'news', slug, 'images');
+      const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'news', 'images');
       await fs.mkdir(uploadDir, { recursive: true });
       
       // Usar nombre original sanitizado para coincidir con la sugerencia del frontend
@@ -44,7 +45,7 @@ if (Astro.request.method === "POST") {
 
       const arrayBuffer = await file.arrayBuffer();
       await fs.writeFile(path.join(uploadDir, imgName), Buffer.from(arrayBuffer));
-      return `/uploads/news/${slug}/images/${imgName}`;
+      return `/uploads/news/images/${imgName}`;
     };
 
     // Procesar Imagen Principal
@@ -70,7 +71,7 @@ if (Astro.request.method === "POST") {
       tiempoLectura: Number(formData.get("tiempoLectura")) || 0,
       videoUrl: formData.get("videoUrl")?.toString(),
       tags: formData.get("tags")?.toString().split(',').map(t => t.trim()).filter(Boolean) || [],
-      contenido: `/uploads/news/${slug}/md/${fileName}`, // Guardamos la URL del archivo usando el slug
+      contenido: `/uploads/news/html/${fileName}`, // Guardamos la URL del archivo
       archivoContenido: fileName, // Guardamos también el nombre del archivo por consistencia con el schema
       imagen: imagenUrl,
       galeria: galeriaClean.length > 0 ? galeriaClean : null,
@@ -146,7 +147,7 @@ if (Astro.request.method === "POST") {
           <label class="text-xs font-medium text-text-muted uppercase">Video URL</label>
           <input name="videoUrl" type="url" class="w-full bg-black/20 border border-white/10 rounded px-4 py-2 text-sm text-white focus:border-primary outline-none" placeholder="https://youtube.com/..." />
         </div>
-        <RichTextEditor name="contenido" placeholder="Escribe el contenido de la noticia aquí..." />
+        <RichTextEditor name="contenido" label="Contenido" placeholder="Escribe el contenido de la noticia aquí..." />
         <div class="space-y-2 md:col-span-2">
           <label class="text-xs font-medium text-text-muted uppercase">Tags</label>
           <div id="tags-container" class="flex flex-wrap gap-2 w-full bg-black/20 border border-white/10 rounded px-4 py-2 min-h-[42px] focus-within:border-primary transition-colors cursor-text">

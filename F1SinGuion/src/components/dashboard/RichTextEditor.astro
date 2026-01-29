@@ -6,131 +6,285 @@ interface Props {
   initialValue?: string;
 }
 
-const { name, label = "Contenido", placeholder = "Escribe aquí...", initialValue = "" } = Astro.props;
+const { name, label, placeholder, initialValue = '' } = Astro.props;
 const editorId = `editor-${name}`;
-const hiddenInputId = `hidden-${name}`;
 ---
 
-<!-- Cargar EasyMDE (Markdown Editor) -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
-<script is:inline src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
+<div class="rich-text-editor-wrapper space-y-2 md:col-span-2">
+  {label && <label class="text-xs font-medium text-text-muted uppercase" for={editorId}>{label}</label>}
+  
+  <div class="editor-container bg-black/20 border border-white/10 rounded-lg overflow-hidden focus-within:border-primary/50 transition-colors">
+    <!-- Toolbar -->
+    <div id={`toolbar-${editorId}`} class="flex flex-wrap gap-1 p-2 border-b border-white/5 bg-white/5">
+      <!-- Los botones se inyectan vía JS -->
+    </div>
 
-<style>
-  /* Overrides para adaptar EasyMDE al Modo Oscuro */
-  :global(.EasyMDEContainer) {
+    <!-- Visual Editor -->
+    <div id={editorId} class="prose prose-invert max-w-none p-4 min-h-[300px] outline-none"></div>
+    
+    <!-- HTML Code Editor (Hidden by default) -->
+    <textarea id={`html-${editorId}`} class="w-full h-[300px] p-4 bg-black/20 text-sm font-mono text-gray-300 outline-none resize-none hidden border-none focus:ring-0"></textarea>
+  </div>
+
+  <!-- Hidden Input for Form Submission -->
+  <input type="hidden" name={name} id={`input-${name}`} value={initialValue} />
+</div>
+
+<style is:global>
+  /* Tiptap Editor Styles */
+  .ProseMirror {
+    outline: none;
+    min-height: 300px;
+  }
+  .ProseMirror p.is-editor-empty:first-child::before {
+    color: #6b7280;
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+  }
+  .ProseMirror ul { list-style-type: disc; padding-left: 1.5em; }
+  .ProseMirror ol { list-style-type: decimal; padding-left: 1.5em; }
+  .ProseMirror blockquote {
+    border-left: 3px solid #3b82f6;
+    padding-left: 1rem;
+    font-style: italic;
+    color: #9ca3af;
+  }
+  .ProseMirror img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .ProseMirror a { color: #3b82f6; text-decoration: underline; cursor: pointer; }
+  .ProseMirror hr { border-color: rgba(255,255,255,0.1); margin: 1rem 0; }
+
+  /* Toolbar Styles */
+  .tiptap-btn {
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+    color: #a1a1aa;
+    background: transparent;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+  }
+  .tiptap-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
     color: white;
   }
-  :global(.editor-toolbar) {
-    background-color: rgba(255, 255, 255, 0.05) !important;
-    border-color: rgba(255, 255, 255, 0.1) !important;
+  .tiptap-btn.is-active {
+    background: rgba(59, 130, 246, 0.2);
+    color: #60a5fa;
   }
-  :global(.editor-toolbar button) {
-    color: #9ca3af !important;
+  .tiptap-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
   }
-  :global(.editor-toolbar button:hover) {
-    background-color: rgba(255, 255, 255, 0.1) !important;
-    border-color: transparent !important;
-    color: white !important;
-  }
-  :global(.editor-toolbar button.active) {
-    background-color: rgba(255, 255, 255, 0.2) !important;
-    border-color: transparent !important;
-  }
-  :global(.editor-toolbar i.separator) {
-    border-color: rgba(255, 255, 255, 0.1) !important;
-  }
-  
-  :global(.CodeMirror) {
-    background-color: rgba(0, 0, 0, 0.2) !important;
-    border-color: rgba(255, 255, 255, 0.1) !important;
-    color: #e5e7eb !important;
-  }
-  :global(.CodeMirror-cursor) {
-    border-color: white !important;
-  }
-  :global(.editor-statusbar) {
-    color: #9ca3af !important;
-  }
-  
-  /* Preview Mode */
-  :global(.editor-preview), :global(.editor-preview-side) {
-    background-color: #1a1a1a !important;
-    color: #e5e7eb !important;
-    border-color: rgba(255, 255, 255, 0.1) !important;
-  }
-  :global(.editor-preview a), :global(.editor-preview-side a) {
-    color: #3b82f6 !important;
-    text-decoration: underline;
-  }
-
-  :global(.editor-preview pre), :global(.editor-preview-side pre) {
-    background-color: #000 !important;
-  }
-
-  /* Color de selección (Accent/Primary - F1 Red) */
-  :global(.CodeMirror-selected) {
-    background-color: rgba(225, 6, 0, 0.3) !important;
-  }
-  :global(.CodeMirror-focused .CodeMirror-selected) {
-    background-color: rgba(225, 6, 0, 0.3) !important;
-  }
-  :global(.editor-preview ::selection), :global(.editor-preview-side ::selection) {
-    background-color: rgba(225, 6, 0, 0.3) !important;
-    color: white;
+  .tiptap-separator {
+    width: 1px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 0 0.5rem;
+    align-self: center;
   }
 </style>
 
-<div class="rich-text-editor-wrapper space-y-2 md:col-span-2">
-  <label class="text-xs font-medium text-text-muted uppercase" for={editorId}>{label}</label>
-  <textarea id={editorId} name={name} placeholder={placeholder}>{initialValue}</textarea>
-</div>
+<script type="module" define:vars={{ editorId, name, initialValue, placeholder }}>
+  import { Editor, Node, mergeAttributes } from 'https://esm.sh/@tiptap/core';
+  import StarterKit from 'https://esm.sh/@tiptap/starter-kit';
+  import Image from 'https://esm.sh/@tiptap/extension-image';
+  import Link from 'https://esm.sh/@tiptap/extension-link';
+  import Underline from 'https://esm.sh/@tiptap/extension-underline';
+  import TextAlign from 'https://esm.sh/@tiptap/extension-text-align';
+  import Placeholder from 'https://esm.sh/@tiptap/extension-placeholder';
 
-<script define:vars={{ editorId }}>
-  const initEditor = () => {
-    if (typeof EasyMDE === 'undefined') {
-      setTimeout(initEditor, 50);
-      return;
-    }
-    new EasyMDE({
-      element: document.getElementById(editorId),
-      spellChecker: false,
-      status: ['lines', 'words', 'cursor'],
-      placeholder: document.getElementById(editorId).getAttribute('placeholder'),
-      forceSync: true, // Asegura que el textarea original se actualice en tiempo real
-      toolbar: [
-        "bold", 
-        "italic", 
-        "strikethrough", 
-        "|", 
-        "heading", 
-        "heading-smaller", 
-        "heading-bigger", 
-        "|", 
-        "code", 
-        "quote", 
-        "unordered-list", 
-        "ordered-list", 
-        "clean-block", 
-        "|", 
-        "link", 
-        "image", 
-        "table", 
-        "horizontal-rule", 
-        "|", 
-        "preview", 
-        "|", 
-        "undo", 
-        "redo", 
-        "|", 
-        "guide"
-      ],
-      autoDownloadFontAwesome: true,
-    });
+  const input = document.getElementById(`input-${name}`);
+  const htmlTextarea = document.getElementById(`html-${editorId}`);
+  const editorElement = document.getElementById(editorId);
+  const toolbar = document.getElementById(`toolbar-${editorId}`);
+
+  let isHtmlMode = false;
+
+  // Extension para soportar etiquetas <style> y evitar que Tiptap las borre
+  const StyleExtension = Node.create({
+    name: 'style',
+    group: 'block',
+    content: 'text*', // Permite contenido de texto dentro
+    marks: '',
+    code: true,
+    defining: true,
+    parseHTML() { return [{ tag: 'style' }] },
+    renderHTML({ HTMLAttributes }) {
+      return ['style', mergeAttributes(HTMLAttributes), 0]
+    },
+  });
+
+  // Iconos SVG
+  const icons = {
+    bold: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h8a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"></path><path d="M6 12h9a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"></path></svg>`,
+    italic: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="4" x2="10" y2="4"></line><line x1="14" y1="20" x2="5" y2="20"></line><line x1="15" y1="4" x2="9" y2="20"></line></svg>`,
+    underline: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v7a6 6 0 0 0 6 6 6 6 0 0 0 6-6V3"></path><line x1="4" y1="21" x2="20" y2="21"></line></svg>`,
+    strike: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.3 4.9c-2.3-.6-4.4-1-6.2-.9-2.7.1-5.3 1.4-5.3 4.2 0 2.1 1.6 3.8 4.5 5.3 1.5.8 3.7 1.6 3.7 3.5 0 1.6-2 2.6-4.3 2.6-1.8 0-4.1-.6-6.4-1.8"></path><line x1="4" y1="12" x2="20" y2="12"></line></svg>`,
+    h1: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h8"/><path d="M4 18V6"/><path d="M12 18V6"/><path d="m17 12 3-2v8"/></svg>`,
+    h2: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h8"/><path d="M4 18V6"/><path d="M12 18V6"/><path d="M21 18h-4c0-4 4-3 4-6 0-1.5-2-2.5-4-1"/></svg>`,
+    ul: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>`,
+    ol: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="10" y1="6" x2="21" y2="6"></line><line x1="10" y1="12" x2="21" y2="12"></line><line x1="10" y1="18" x2="21" y2="18"></line><path d="M4 6h1v4"></path><path d="M4 10h2"></path><path d="M6 18H4c0-1 2-2 2-3s-1-1.5-2-1"></path></svg>`,
+    quote: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"></path><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"></path></svg>`,
+    left: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="17" y1="10" x2="3" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="17" y1="18" x2="3" y2="18"></line></svg>`,
+    center: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="10" x2="6" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="18" y1="18" x2="6" y2="18"></line></svg>`,
+    right: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" y1="10" x2="7" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="21" y1="18" x2="7" y2="18"></line></svg>`,
+    image: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>`,
+    link: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>`,
+    undo: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"></path><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"></path></svg>`,
+    redo: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 7v6h-6"></path><path d="M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3l3 2.7"></path></svg>`,
+    code: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>`
   };
 
-  if (document.readyState === 'complete') {
-    initEditor();
-  } else {
-    document.addEventListener('DOMContentLoaded', initEditor);
+  const editor = new Editor({
+    element: editorElement,
+    extensions: [
+      StarterKit,
+      Underline,
+      StyleExtension,
+      Image,
+      Link.configure({ openOnClick: false }),
+      TextAlign.configure({ types: ['heading', 'paragraph'] }),
+      Placeholder.configure({ placeholder: placeholder || 'Escribe aquí...' }),
+    ],
+    content: initialValue,
+    editorProps: {
+      attributes: {
+        class: 'prose prose-invert max-w-none focus:outline-none',
+      },
+    },
+    onUpdate: ({ editor }) => {
+      const html = editor.getHTML();
+      input.value = html;
+      htmlTextarea.value = html;
+      updateToolbarState();
+    },
+    onSelectionUpdate: () => updateToolbarState()
+  });
+
+  const buttons = [
+    { icon: icons.bold, title: 'Negrita', action: () => editor.chain().focus().toggleBold().run(), isActive: () => editor.isActive('bold') },
+    { icon: icons.italic, title: 'Cursiva', action: () => editor.chain().focus().toggleItalic().run(), isActive: () => editor.isActive('italic') },
+    { icon: icons.underline, title: 'Subrayado', action: () => editor.chain().focus().toggleUnderline().run(), isActive: () => editor.isActive('underline') },
+    { icon: icons.strike, title: 'Tachado', action: () => editor.chain().focus().toggleStrike().run(), isActive: () => editor.isActive('strike') },
+    { type: 'separator' },
+    { icon: icons.h1, title: 'Título 1', action: () => editor.chain().focus().toggleHeading({ level: 1 }).run(), isActive: () => editor.isActive('heading', { level: 1 }) },
+    { icon: icons.h2, title: 'Título 2', action: () => editor.chain().focus().toggleHeading({ level: 2 }).run(), isActive: () => editor.isActive('heading', { level: 2 }) },
+    { type: 'separator' },
+    { icon: icons.ul, title: 'Lista Puntos', action: () => editor.chain().focus().toggleBulletList().run(), isActive: () => editor.isActive('bulletList') },
+    { icon: icons.ol, title: 'Lista Números', action: () => editor.chain().focus().toggleOrderedList().run(), isActive: () => editor.isActive('orderedList') },
+    { icon: icons.quote, title: 'Cita', action: () => editor.chain().focus().toggleBlockquote().run(), isActive: () => editor.isActive('blockquote') },
+    { type: 'separator' },
+    { icon: icons.left, title: 'Izquierda', action: () => editor.chain().focus().setTextAlign('left').run(), isActive: () => editor.isActive({ textAlign: 'left' }) },
+    { icon: icons.center, title: 'Centro', action: () => editor.chain().focus().setTextAlign('center').run(), isActive: () => editor.isActive({ textAlign: 'center' }) },
+    { icon: icons.right, title: 'Derecha', action: () => editor.chain().focus().setTextAlign('right').run(), isActive: () => editor.isActive({ textAlign: 'right' }) },
+    { type: 'separator' },
+    { icon: icons.image, title: 'Imagen', action: addImage },
+    { icon: icons.link, title: 'Enlace', action: addLink, isActive: () => editor.isActive('link') },
+    { type: 'separator' },
+    { icon: icons.undo, title: 'Deshacer', action: () => editor.chain().focus().undo().run() },
+    { icon: icons.redo, title: 'Rehacer', action: () => editor.chain().focus().redo().run() },
+    { type: 'separator' },
+    { icon: icons.code, title: 'Ver HTML', action: toggleHtmlMode, id: 'html-btn' },
+  ];
+
+  function renderToolbar() {
+    toolbar.innerHTML = '';
+    buttons.forEach(btn => {
+      if (btn.type === 'separator') {
+        const sep = document.createElement('div');
+        sep.className = 'tiptap-separator';
+        toolbar.appendChild(sep);
+        return;
+      }
+
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'tiptap-btn';
+      button.innerHTML = btn.icon;
+      button.title = btn.title;
+      if (btn.id) button.id = btn.id;
+      
+      button.onclick = (e) => {
+        e.preventDefault();
+        btn.action();
+        updateToolbarState();
+      };
+      
+      toolbar.appendChild(button);
+    });
   }
+
+  function updateToolbarState() {
+    if (isHtmlMode) return;
+    
+    const domBtns = Array.from(toolbar.querySelectorAll('button'));
+    let btnCounter = 0;
+    buttons.forEach(btn => {
+      if (btn.type === 'separator') return;
+      const domBtn = domBtns[btnCounter];
+      if (domBtn && btn.isActive) {
+        if (btn.isActive()) domBtn.classList.add('is-active');
+        else domBtn.classList.remove('is-active');
+      }
+      btnCounter++;
+    });
+  }
+
+  function addImage() {
+    const url = window.prompt('URL de la imagen:');
+    if (url) editor.chain().focus().setImage({ src: url }).run();
+  }
+
+  function addLink() {
+    const previousUrl = editor.getAttributes('link').href;
+    const url = window.prompt('URL del enlace:', previousUrl);
+    if (url === null) return;
+    if (url === '') {
+      editor.chain().focus().extendMarkRange('link').unsetLink().run();
+      return;
+    }
+    editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
+  }
+
+  function toggleHtmlMode() {
+    isHtmlMode = !isHtmlMode;
+    const htmlBtn = document.getElementById('html-btn');
+    
+    if (isHtmlMode) {
+      const html = editor.getHTML();
+      htmlTextarea.value = html;
+      htmlTextarea.classList.remove('hidden');
+      editorElement.classList.add('hidden');
+      htmlBtn.classList.add('is-active');
+      Array.from(toolbar.querySelectorAll('button')).forEach(b => {
+        if (b.id !== 'html-btn') b.disabled = true;
+      });
+    } else {
+      const html = htmlTextarea.value;
+      editor.commands.setContent(html);
+      input.value = html;
+      htmlTextarea.classList.add('hidden');
+      editorElement.classList.remove('hidden');
+      htmlBtn.classList.remove('is-active');
+      Array.from(toolbar.querySelectorAll('button')).forEach(b => b.disabled = false);
+    }
+  }
+
+  htmlTextarea.addEventListener('input', () => {
+    if (isHtmlMode) input.value = htmlTextarea.value;
+  });
+
+  renderToolbar();
+  input.value = initialValue;
+  if (initialValue) htmlTextarea.value = initialValue;
 </script>

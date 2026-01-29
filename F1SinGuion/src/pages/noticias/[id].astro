@@ -28,26 +28,31 @@ const formattedDate = newsItem.fecha ? new Date(newsItem.fecha).toLocaleDateStri
 }) : '';
 
 // Leer el contenido del archivo Markdown
-let contentRaw = '';
+let content = '';
 try {
-  let mdPath;
+  let filePath;
   // Verificar si es una noticia nueva (ruta en DB) o legacy (nombre de archivo)
   if (newsItem.contenido && newsItem.contenido.startsWith('/uploads')) {
-      mdPath = path.join(process.cwd(), 'public', newsItem.contenido);
-  } else if (newsItem.archivoContenido) {
-      mdPath = path.join(process.cwd(), 'public', 'noticias', newsItem.archivoContenido);
+      // Eliminar el slash inicial para que path.join lo trate como ruta relativa dentro de public
+      const relativePath = newsItem.contenido.startsWith('/') ? newsItem.contenido.slice(1) : newsItem.contenido;
+      filePath = path.join(process.cwd(), 'public', relativePath);
   }
 
-  if (mdPath) {
-    contentRaw = await fs.readFile(mdPath, 'utf-8');
+  if (filePath) {
+    const rawContent = await fs.readFile(filePath, 'utf-8');
+    const ext = path.extname(filePath).toLowerCase();
+
+    if (ext === '.html') {
+      content = rawContent;
+    } else {
+      const md = new MarkdownIt({ html: true });
+      content = md.render(rawContent);
+    }
   }
 } catch (error) {
   console.error(`Error al leer el archivo de noticia ${id}:`, error);
-  contentRaw = "Contenido no disponible.";
+  content = "<p>Contenido no disponible.</p>";
 }
-
-const md = new MarkdownIt({ html: true });
-const content = md.render(contentRaw);
 
 const tags = (newsItem.tags && Array.isArray(newsItem.tags)) ? newsItem.tags : [];
 ---
@@ -113,8 +118,8 @@ const tags = (newsItem.tags && Array.isArray(newsItem.tags)) ? newsItem.tags : [
       )}
 
       {/* Cuerpo de la noticia */}
-      <div class="prose prose-invert prose-lg max-w-none">        
-        <div class="text-text-muted leading-relaxed" set:html={content} />
+      <div id="contenido" class="prose prose-invert prose-lg max-w-none">
+        <div set:html={content} />
       </div>
 
       {/* Galería (si existe) */}
