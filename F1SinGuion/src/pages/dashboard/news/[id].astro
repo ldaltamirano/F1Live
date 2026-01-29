@@ -59,12 +59,12 @@ if (Astro.request.method === "POST") {
   try {
     const formData = await Astro.request.formData();
     
-    // 1. Guardar contenido en archivo .md (Sobrescribir)
+    // 1. Guardar contenido en archivo (Sobrescribir)
     const content = formData.get("contenido")?.toString() || "";
-    const fileName = newsItem.archivoContenido || `${newsItem.index}.md`; 
-    const publicDirMd = path.join(process.cwd(), 'public', 'uploads', 'news', newsItem.index, 'md');
-    await fs.mkdir(publicDirMd, { recursive: true });
-    await fs.writeFile(path.join(publicDirMd, fileName), content, 'utf-8');
+    const fileName = newsItem.archivoContenido || `${newsItem.index}.html`; 
+    const publicDirHtml = path.join(process.cwd(), 'public', 'uploads', 'news', 'html');
+    await fs.mkdir(publicDirHtml, { recursive: true });
+    await fs.writeFile(path.join(publicDirHtml, fileName), content, 'utf-8');
 
     // Helper para guardar imágenes
     const saveImage = async (file, subfolder = '') => {
@@ -123,7 +123,7 @@ if (Astro.request.method === "POST") {
       tiempoLectura: Number(formData.get("tiempoLectura")) || 0,
       videoUrl: formData.get("videoUrl")?.toString(),
       tags: formData.get("tags")?.toString().split(',').map(t => t.trim()).filter(Boolean) || [],
-      contenido: `/uploads/news/${newsItem.index}/md/${fileName}`,
+      contenido: `/uploads/news/html/${fileName}`,
       archivoContenido: fileName,
       imagen: imagenUrl,
       galeria: finalGaleria.length > 0 ? finalGaleria : null,
