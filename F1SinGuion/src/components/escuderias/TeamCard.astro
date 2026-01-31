@@ -1,49 +1,29 @@
 ---
-import fs from 'node:fs/promises';
-import path from 'node:path';
 import Badge from '@components/ui/Badge.astro';
 
 interface Props {
   team: {
-    id: string;
+    id: number;
     nombre: string;
-    nombre_completo: string;
-    base: string;
-    jefe: string;
-    color_var: string;
-    pilotos?: string[];
-    driver_ids?: string[];
-    logo: string;
-    imagen_coche: string;
+    nombreCompleto: string | null;
+    base: string | null;
+    jefe: string | null;
+    colorVar: string | null;
+    logo: string | null;
+    imagenCoche: string | null;
+    drivers: {
+        nombre: string;
+        apellido: string;
+    }[];
   };
 }
 
 const { team } = Astro.props;
-
-// Cargar datos de pilotos para vincular por ID
-const driversPath = path.join(process.cwd(), 'public', 'drivers_2026.json');
-let driversList: string[] = [];
-
-try {
-  const driversContent = await fs.readFile(driversPath, 'utf-8');
-  const allDrivers = JSON.parse(driversContent);
-  
-  // Usamos driver_ids (del JSON nuevo) o pilotos (si contiene IDs)
-  const ids = team.driver_ids || team.pilotos || [];
-  
-  driversList = ids.map((id) => {
-    const driver = allDrivers.find((d: any) => d.id === id);
-    return driver ? `${driver.nombre} ${driver.apellido}` : id;
-  });
-} catch (error) {
-  console.error("Error al cargar pilotos en TeamCard:", error);
-  driversList = team.pilotos || [];
-}
 ---
 
 <div 
   class="group relative bg-surface backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 hover:border-[var(--team-color)] hover:shadow-[0_0_30px_-10px_var(--team-color)] hover:-translate-y-2 transition-all duration-500 shadow-lg"
-  style={`--team-color: ${team.color_var}; border-top: 4px solid var(--team-color)`}
+  style={`--team-color: ${team.colorVar}; border-top: 4px solid var(--team-color)`}
 >
   {/* Efecto de brillo con el color del equipo */}
   <div 
@@ -59,18 +39,18 @@ try {
     </div>
 
     <h2 class="text-3xl font-black text-white italic uppercase tracking-tighter mb-1">{team.nombre}</h2>
-    <p class="text-xs text-gray-400 mb-6 font-medium line-clamp-1">{team.nombre_completo}</p>
+    <p class="text-xs text-gray-400 mb-6 font-medium line-clamp-1">{team.nombreCompleto}</p>
 
     <div class="flex gap-2 mb-8">
       {
-        driversList.map((piloto) => (
-          <Badge variant="ghost">{piloto}</Badge>
+        team.drivers && team.drivers.map((driver) => (
+          <Badge variant="ghost">{driver.nombre}  {driver.apellido}</Badge>
         ))
       }
     </div>
 
     <div class="relative h-36 w-full mt-auto group-hover:scale-105 transition-transform duration-500">
-      <img src={team.imagen_coche} alt={`Coche ${team.nombre}`} class="w-full h-full object-contain drop-shadow-2xl" />
+      <img src={team.imagenCoche} alt={`Coche ${team.nombre}`} class="w-full h-full object-contain drop-shadow-2xl" />
     </div>
   </div>
 </div>
