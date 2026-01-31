@@ -1,0 +1,51 @@
+---
+interface Props {
+  slug: string;
+  class?: string;
+}
+
+const { slug, class: className } = Astro.props;
+
+// Normalizamos el slug para evitar errores (ej: "Red Bull Racing" -> "red-bull")
+const normalizedSlug = slug?.toLowerCase().trim().replace(/\s+/g, '-').replace('kick-', '').replace('stake-', '') || 'default';
+
+// Mapeo de slugs a rutas de archivo en public/Escuderias/
+const logoMap: Record<string, string> = {
+  'red-bull': 'red-bull/logo.png',
+  'mercedes': 'mercedes/logo.png',
+  'ferrari': 'ferrari/logo.png',
+  'mclaren': 'mclaren/logo.png',
+  'aston-martin': 'aston-martin/logo.png',
+  'alpine': 'alpine/logo.png',
+  'williams': 'williams/logo.png',
+  'rb': 'racing-bulls/logo.png',
+  'audi': 'audi/logo.png',
+  'sauber': 'audi/logo.png',
+  'haas': 'haas/logo.png',
+  'cadillac': 'cadillac/logo.png',
+  'andretti': 'cadillac/logo.png'
+};
+
+// Lógica de fallback para encontrar el logo correcto
+let filePath = 'default/logo.png';
+
+if (logoMap[normalizedSlug]) {
+  filePath = logoMap[normalizedSlug];
+} else {
+  // Búsqueda parcial si no hay coincidencia exacta
+  const key = Object.keys(logoMap).find(k => normalizedSlug.includes(k));
+  if (key) {
+    filePath = logoMap[key];
+  }
+}
+
+const src = `/Escuderias/${filePath}`;
+---
+
+<img 
+  src={src} 
+  alt={`Logo ${slug}`} 
+  class={className}
+  loading="lazy"
+  onerror="this.onerror=null; this.src='/Escuderias/default/logo.png'"
+/>

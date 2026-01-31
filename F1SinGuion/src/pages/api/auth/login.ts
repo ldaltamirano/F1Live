@@ -8,7 +8,7 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
 
   if (!contentType.includes("multipart/form-data") && !contentType.includes("application/x-www-form-urlencoded")) {
     // Si el navegador no envía el header correcto, redirigimos en lugar de fallar
-    return redirect("/login?error=invalid_request");
+    return redirect("/dashboard/login?error=invalid_request");
   }
 
   const data = await request.formData();  
@@ -26,5 +26,5 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
     return redirect("/dashboard");
   }
 
-  return redirect("/login?error=invalid");
+  return redirect("/dashboard/login?error=invalid");
 };

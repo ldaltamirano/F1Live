@@ -1,6 +1,7 @@
 ---
 import Layout from '@layouts/Layout.astro';
 import Button from '@components/ui/Button.astro';
+import TeamLogo from '@components/escuderias/TeamLogo.astro';
 import { getTeamBySlug } from "@lib/services/teamsService";
 
 // Habilitamos SSR
@@ -41,8 +42,8 @@ if (!team) {
             {/* Columna Info */}
             <div class="space-y-8">
                 <div class="flex items-center gap-6">
-                    <div class="bg-white/85 p-4 rounded-2xl backdrop-blur-md border border-white/10 shadow-2xl">
-                        <img src={team.logo} alt={`Logo ${team.nombre}`} class="h-20 w-auto object-contain" />
+                    <div class="bg-white/85 w-28 h-28 flex items-center justify-center rounded-2xl backdrop-blur-md border border-white/10 shadow-2xl shrink-0">
+                        <TeamLogo slug={team.nombre} class="h-20 w-auto max-w-full object-contain text-gray-900" />
                     </div>
                     <div>
                         <h1 class="text-6xl md:text-7xl font-black italic uppercase tracking-tighter leading-none mb-2">

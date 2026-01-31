@@ -1,0 +1,151 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Aviso Legal - F1 Sin Guion">
+  <div class="bg-bg min-h-screen py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden text-gray-300">
+    
+    {/* Efectos de fondo ambientales */}
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-purple-900/20 blur-[120px] rounded-full pointer-events-none"></div>
+    <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-cyan-900/10 blur-[120px] rounded-full pointer-events-none"></div>
+
+    <div class="max-w-4xl mx-auto relative z-10">
+      
+      {/* Encabezado */}
+      <div class="text-center mb-16">
+        <h1 class="text-4xl md:text-6xl font-black text-white mb-4 uppercase italic tracking-tighter">
+          Aviso <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-600">Legal</span>
+        </h1>
+        <p class="text-lg text-gray-400 max-w-2xl mx-auto">
+          Marco de Protección Integral y Condiciones de Uso.
+        </p>
+      </div>
+
+      <div class="space-y-8">
+        
+        {/* Sección 1: Estatuto de Independencia */}
+        <section class="bg-surface backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-red-500/30 transition-colors duration-300 shadow-lg shadow-black/20">
+            <div class="flex items-start gap-4">
+                <span class="text-4xl font-black text-white/10 select-none">01</span>
+                <div>
+                    <h2 class="text-2xl font-bold text-white mb-4 flex flex-wrap items-center gap-3">
+                        Estatuto de Independencia Editorial
+                        <span class="text-[10px] font-bold text-red-400 uppercase tracking-widest border border-red-500/30 bg-red-500/10 px-2 py-1 rounded">No Afiliación</span>
+                    </h2>
+                    <p class="mb-4">
+                        <strong class="text-white">f1singuion</strong> es una plataforma de comunicación independiente creada por y para aficionados al automovilismo. Se declara de forma explícita que:
+                    </p>
+                    <p class="mb-4 bg-red-500/5 p-4 rounded-lg border-l-2 border-red-500">
+                        El Sitio <strong class="text-red-400">NO ES</strong> una publicación oficial ni está vinculado, patrocinado, autorizado o afiliado de ninguna manera con el grupo de empresas de la Formula One (incluyendo Formula One Management, Formula One Administration, Formula One Licensing B.V.), la FIA (Fédération Internationale de l'Automobile), ni con ninguna de las escuderías o pilotos participantes en el Campeonato Mundial de Fórmula 1.
+                    </p>
+                    <p class="text-sm text-gray-400 italic">
+                        Las marcas comerciales F1, FORMULA 1, FORMULA ONE, FIA FORMULA ONE WORLD CHAMPIONSHIP, GRAND PRIX y sus logotipos son propiedad exclusiva de sus respectivos titulares. Su uso en este Sitio es estrictamente Nominativo e Informativo, sin pretender la apropiación de dicha propiedad industrial.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        {/* Sección 2: Derechos de Imagen */}
+        <section class="bg-surface backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-cyan-500/30 transition-colors duration-300">
+            <div class="flex items-start gap-4">
+                <span class="text-4xl font-black text-white/10 select-none">02</span>
+                <div class="w-full">
+                    <h2 class="text-2xl font-bold text-white mb-6">Derechos de Imagen de Pilotos y Personalidades</h2>
+                    <p class="mb-4 text-sm">El uso de nombres, imágenes y datos biográficos de los pilotos se realiza bajo el amparo del Derecho de Información y libertad de expresión:</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-white/5 p-5 rounded-xl">
+                            <h3 class="text-lg font-bold text-cyan-400 mb-2">Finalidad Editorial</h3>
+                            <p class="text-sm">Las imágenes se utilizan exclusivamente para ilustrar noticias, análisis técnicos y artículos de opinión.</p>
+                        </div>
+                        
+                        <div class="bg-white/5 p-5 rounded-xl">
+                            <h3 class="text-lg font-bold text-cyan-400 mb-2">Prohibición de Uso Comercial</h3>
+                            <p class="text-sm">f1singuion no utiliza la imagen de ningún piloto para promocionar productos propios o de terceros, respetando así los derechos de imagen de los deportistas como figuras públicas.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {/* Sección 3: Política de Fuentes */}
+        <section class="bg-surface backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-blue-500/30 transition-colors duration-300">
+            <div class="flex items-start gap-4">
+                <span class="text-4xl font-black text-white/10 select-none">03</span>
+                <div class="w-full">
+                    <h2 class="text-2xl font-bold text-white mb-6">Política de Fuentes y Propiedad Intelectual</h2>
+                    <p class="mb-4 text-sm">El Sitio fundamenta su valor en el respeto al trabajo periodístico ajeno:</p>
+
+                    <div class="space-y-4">
+                        <div class="bg-white/5 p-5 rounded-xl border-l-2 border-blue-500">
+                            <h3 class="text-lg font-bold text-white mb-1">Atribución de Fuentes</h3>
+                            <p class="text-sm text-gray-400">La información proveniente de terceros (agencias de noticias, otros medios o comunicados oficiales) es debidamente citada, otorgando el crédito correspondiente a la fuente original de acuerdo con los usos y costumbres del periodismo digital.</p>
+                        </div>
+                        <div class="bg-white/5 p-5 rounded-xl border-l-2 border-blue-500">
+                            <h3 class="text-lg font-bold text-white mb-1">Material Gráfico</h3>
+                            <p class="text-sm text-gray-400">Las fotografías y logotipos de terceros se utilizan bajo licencias permitidas, derechos de cita o mediante el sistema de "contenido incrustado" (embed) de redes sociales, reconociendo siempre que la propiedad intelectual pertenece a sus creadores originales.</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-6 border-t border-white/5">
+                        <h3 class="text-lg font-bold text-white mb-2">Protocolo de Retirada</h3>
+                        <p class="text-sm">Si usted es titular de derechos sobre cualquier contenido aquí expuesto y desea su eliminación, puede contactar a: <a href="mailto:contacto@f1singuion.com" class="text-cyan-400 hover:underline font-bold">contacto@f1singuion.com</a> para proceder a su retirada inmediata.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {/* Grid para Secciones 4 y 5 */}
+        <div class="grid md:grid-cols-2 gap-8">
+            <section class="bg-surface backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-yellow-500/30 transition-colors duration-300">
+                <div class="flex items-start gap-3">
+                    <span class="text-4xl font-black text-white/10 select-none leading-none">04</span>
+                    <div>
+                        <h2 class="text-xl font-bold text-white mb-4">Exención de Responsabilidad</h2>
+                        <ul class="space-y-4 text-sm">
+                            <li class="flex gap-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                                <span><strong class="text-white block mb-1">Exactitud</strong> Aunque buscamos la máxima precisión, el Sitio no garantiza la exactitud absoluta de telemetrías, tiempos o rumores de mercado. El uso de la información es bajo riesgo del usuario.</span>
+                            </li>
+                            <li class="flex gap-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
+                                <span><strong class="text-white block mb-1">Análisis y Apuestas</strong> Los contenidos analíticos representan únicamente la opinión editorial. No constituyen asesoría legal, financiera ni recomendaciones para realizar apuestas deportivas.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="bg-surface backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-purple-500/30 transition-colors duration-300">
+                <div class="flex items-start gap-3">
+                    <span class="text-4xl font-black text-white/10 select-none leading-none">05</span>
+                    <div>
+                        <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                            Transparencia Digital y IA
+                            <span class="text-[10px] font-bold text-purple-400 uppercase tracking-widest border border-purple-500/30 bg-purple-500/10 px-2 py-1 rounded">2026</span>
+                        </h2>
+                        <p class="text-sm leading-relaxed mb-4">
+                            En cumplimiento con las normativas vigentes, se informa que el Sitio puede emplear herramientas de Inteligencia Artificial para el procesamiento de datos y asistencia en la redacción.
+                        </p>
+                        <div class="bg-purple-500/10 border border-purple-500/20 p-3 rounded text-xs text-purple-200">
+                            Todo contenido generado con asistencia tecnológica es supervisado, editado y validado por humanos para garantizar la calidad informativa.
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        {/* Sección 6: Jurisdicción */}
+        <section class="bg-surface backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-green-500/30 transition-colors duration-300 text-center">
+            <h2 class="text-xl font-bold text-white mb-4 flex items-center justify-center gap-2">
+                <span class="text-green-400">06.</span> Jurisdicción y Ley Aplicable
+            </h2>
+            <p class="text-sm leading-relaxed max-w-2xl mx-auto">
+                Para cualquier controversia legal derivada del uso de este Sitio, las partes se someten a la jurisdicción de los tribunales de <span class="text-white font-bold">[TU CIUDAD/PAÍS]</span>, renunciando a cualquier otro fuero, bajo las leyes vigentes en dicho territorio.
+            </p>
+        </section>
+
+      </div>
+    </div>
+  </div>
+</Layout>

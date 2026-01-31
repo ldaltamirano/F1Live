@@ -224,3 +224,27 @@ Plan para la experiencia de seguimiento en vivo de las sesiones durante el fin d
 - [ ] **Tracker en Mapa**: Posición aproximada de los pilotos en el mapa del circuito (interpolación).
 - [ ] **Comparativa de Telemetría**: Gráficos de velocidad/aceleración entre dos pilotos seleccionados.
 - [ ] **Tyre History**: Visualización de la estrategia de neumáticos en uso y vueltas acumuladas.
+
+## ⚖️ Roadmap: Legal y Privacidad
+
+Implementación técnica para el cumplimiento de normativas de cookies y privacidad.
+
+### 🍪 Gestión de Cookies y Consentimiento
+- [ ] **Cookies Técnicas**: Garantizar funcionamiento de preferencias (tema, sesión) sin tracking.
+- [ ] **Cookies de Análisis**: Configurar scripts de métricas (GA4) para ejecutarse *solo* tras consentimiento explícito.
+- [ ] **Cookies de Redes Sociales**: Implementar bloqueo preventivo de embeds (Twitter/Instagram) hasta aceptar cookies de terceros.
+- [ ] **Panel de Preferencias**: Crear interfaz para habilitar/deshabilitar categorías de cookies individualmente.
+
+## 📣 Roadmap: Comunidad y Engagement
+
+Estrategias de fidelización con tono "racing" y gestión de audiencia.
+
+### 📧 Newsletter (El "gancho")
+- [x] **Widget de Suscripción**: Implementar sección "¡Súmate a la parrilla! 🏎️💨" con subtítulo de adrenalina y CTA "Encender motores".
+- [x] **Nota de Privacidad**: Incluir disclaimer legal en letra pequeña bajo el botón.
+- [x] **Página de Gracias**: Crear vista de confirmación: "¡Ya estás en la pole position!".
+
+### 📬 Experiencia de Contacto
+- [x] **Copywriting Temático**: Actualizar textos del formulario con jerga de F1 ("Paddock", "Semáforo", etc.).
+- [ ] **Feedback de Envío**: Implementar mensaje de éxito: "¡Mensaje recibido! Nuestro equipo de ingenieros ya lo está analizando."
+- [ ] **Estrategia Social**: Actualizar bios en redes con el link a la newsletter y el slogan "El análisis que la FOM no te deja ver".

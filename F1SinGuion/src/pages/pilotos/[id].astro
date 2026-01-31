@@ -1,65 +1,23 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import fs from "node:fs/promises";
-import path from "node:path";
 import Button from "@components/ui/Button.astro";
+import TeamLogo from "@components/escuderias/TeamLogo.astro";
+import { getDriverBySlug } from "@lib/services/driversService";
 
-export async function getStaticPaths() {
-  const driversPath = path.join(process.cwd(), "public", "drivers_2026.json");
-  const teamsPath = path.join(process.cwd(), "public", "teams_2026.json");
 
-  let drivers = [];
-  let teams = [];
+const { id } = Astro.params;
+const driver = await getDriverBySlug(id);
 
-  try {
-    const [driversContent, teamsContent] = await Promise.all([
-      fs.readFile(driversPath, "utf-8"),
-      fs.readFile(teamsPath, "utf-8"),
-    ]);
+if (!driver) return Astro.redirect("/pilotos");
 
-    drivers = JSON.parse(driversContent);
-    teams = JSON.parse(teamsContent);
-
-    if (!Array.isArray(drivers)) drivers = [];
-    if (!Array.isArray(teams)) teams = [];
-  } catch (error) {
-    console.error("Error al cargar datos:", error);
-    return [];
-  }
-
-  return drivers.map((driver) => {
-    // Buscamos el equipo que tenga al piloto en su lista de driver_ids
-    const team =
-      teams.find((t: any) => t.driver_ids?.includes(driver.id)) ||
-      teams.find((t: any) => t.id === driver.team_id);
-    return {
-      params: { id: driver.id },
-      props: { driver: { ...driver, team } },
-    };
-  });
-}
-
-const { driver } = Astro.props;
 const { nombre, apellido, numero, pais, codigo, team, imagen } = driver;
-const { campeonatos, victorias, podios, poles } =
-  driver.estadisticas_historicas || {
-    campeonatos: 0,
-    victorias: 0,
-    podios: 0,
-    poles: 0,
-  };
-const { posicion, puntos, victorias_temp } = driver.rendimiento_2026 || {
-  posicion: "-",
-  puntos: 0,
-  victorias_temp: 0,
-};
-const { instagram, twitter } = driver.redes_sociales || {};
 
-const teamColor = team?.color_var || "#e10600";
-const teamLogo =
-  team?.id === "aston-martin" && team?.logo_blanco
-    ? team.logo_blanco
-    : team?.logo;
+// Mapeo de propiedades planas del esquema de base de datos
+const { campeonatos, victorias, podios, poles } = driver;
+const { posicion, puntos, victoriasTemp } = driver;
+const { instagram, twitter } = driver;
+
+const teamColor = team?.colorVar || "#e10600";
 
 const nameSize =
   nombre.length > 10 ? "text-xl md:text-2xl" : "text-2xl md:text-3xl";
@@ -138,19 +96,13 @@ const surnameSize =
             {/* Header: Equipo y Redes */}
             <div class="relative z-10 flex justify-between items-start w-full">
               <div
-                class="flex items-center gap-3 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10"
+                class="flex items-center gap-3 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10 shadow-sm"
               >
                 {
-                  teamLogo && (
-                    <img
-                      src={teamLogo}
-                      alt={team.nombre}
-                      class="h-6 w-auto object-contain"
-                    />
-                  )
+                  team && <TeamLogo slug={team.nombre} class="h-6 w-auto object-contain" />
                 }
                 <span
-                  class="text-sm font-bold text-white uppercase tracking-wider"
+                  class="text-sm font-bold text-gray-900 uppercase tracking-wider"
                   >{team.nombre}</span
                 >
               </div>
@@ -292,7 +244,7 @@ const surnameSize =
               </div>
               <div class="text-center border-l border-white/5 relative z-10">
                 <div class="text-5xl font-black text-white mb-2">
-                  {victorias_temp}
+                  {victoriasTemp}
                 </div>
                 <div
                   class="text-xs text-gray-500 uppercase tracking-widest font-bold"

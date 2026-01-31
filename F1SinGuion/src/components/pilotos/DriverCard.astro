@@ -5,11 +5,11 @@ interface Props {
 
 const { driver } = Astro.props;
 const { nombre, apellido, numero, pais, codigo, team, imagen } = driver;
-const teamColor = team?.color_var || '#ffffff';
+const teamColor = team?.colorVar || '#ffffff';
 ---
 
 <a 
-  href={`/pilotos/${driver.id}`} 
+  href={`/pilotos/${driver.index}`} 
   class="group relative bg-surface rounded-xl overflow-hidden border-l-4 border-white/5 hover:border-[var(--team-color)] transition-all duration-300 hover:shadow-[0_0_20px_-5px_var(--team-color)] hover:-translate-y-1 flex h-40 w-full"
   style={`--team-color: ${teamColor}; border-left-color: var(--team-color);`}
 >

@@ -1,32 +1,29 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import fs from 'node:fs/promises';
-import path from 'node:path';
 import DriverCard from "@components/pilotos/DriverCard.astro";
-
-// Carga de datos de pilotos
-const driversPath = path.join(process.cwd(), 'public', 'drivers_2026.json');
-const teamsPath = path.join(process.cwd(), 'public', 'teams_2026.json'); 
+import TeamLogo from "@components/escuderias/TeamLogo.astro";
+import { getAllDrivers } from "@lib/services/driversService";
 
 let driversByTeam: { team: any, drivers: any[] }[] = [];
 
 try {
-  const [driversContent, teamsContent] = await Promise.all([
-    fs.readFile(driversPath, 'utf-8'),
-    fs.readFile(teamsPath, 'utf-8')
-  ]);
+  // Carga de datos desde la base de datos
+  const driversData = await getAllDrivers();
 
-  const driversData = JSON.parse(driversContent);
-  const teamsData = JSON.parse(teamsContent);
+  // Agrupar pilotos por equipo usando un Map para evitar duplicados
+  const teamsMap = new Map();
 
-  // Agrupar pilotos por equipo
-  driversByTeam = teamsData.map((team: any) => {
-    const teamDrivers = driversData
-      .filter((d: any) => team.driver_ids?.includes(d.id) || d.team_id === team.id)
-      .map((d: any) => ({ ...d, team })); // Inyectar info del equipo
-    
-    return { team, drivers: teamDrivers };
-  }).filter((group: any) => group.drivers.length > 0);
+  driversData.forEach((driver: any) => {
+    if (driver.team) {
+      const teamKey = driver.team.index;
+      if (!teamsMap.has(teamKey)) {
+        teamsMap.set(teamKey, { team: driver.team, drivers: [] });
+      }
+      teamsMap.get(teamKey).drivers.push(driver);
+    }
+  });
+
+  driversByTeam = Array.from(teamsMap.values());
 
 } catch (error) {
   console.error("Error al cargar los pilotos:", error);
@@ -53,14 +50,14 @@ try {
           <section class="relative">
              {/* Team Header */}
              <div class="flex items-end gap-6 mb-8 border-b border-white/5 pb-4">
-                <div class="w-32 h- bg-white/90 rounded-xl p-3 backdrop-blur-sm border border-white/10 flex items-center justify-center">
-                    <img src={team.logo} alt={team.nombre} class="max-w-full max-h-full object-contain" />
+                <div class="w-32 h-32 bg-white/90 rounded-xl p-3 backdrop-blur-sm border border-white/10 flex items-center justify-center shrink-0">
+                    <TeamLogo slug={team.nombre} class="max-w-full max-h-full object-contain" />
                 </div>
                 <div>
                     <h2 class="text-3xl md:text-4xl font-black text-white italic uppercase tracking-tighter leading-none mb-1">
                         {team.nombre}
                     </h2>
-                    <div class="h-1 w-full max-w-[200px] rounded-full" style={`background-color: ${team.color_var}`}></div>
+                    <div class="h-1 w-full max-w-[200px] rounded-full" style={`background-color: ${team.colorVar}`}></div>
                 </div>
              </div>
 

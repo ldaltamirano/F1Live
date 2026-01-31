@@ -6,6 +6,19 @@ export const getAllDrivers = async () => {
   return await db.query.drivers.findMany({
     with: {
       team: true,
+      stints: true,
+      lapTimes: true,
+    },
+  });
+};
+
+export const getDriverById = async (id: number) => {
+  return await db.query.drivers.findFirst({
+    where: eq(drivers.id, id),
+    with: {
+      team: true,
+      stints: true,
+      lapTimes: true,
     },
   });
 };
@@ -15,6 +28,8 @@ export const getDriverBySlug = async (slug: string) => {
     where: eq(drivers.index, slug),
     with: {
       team: true,
+      stints: true,
+      lapTimes: true,
     },
   });
 };

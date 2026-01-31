@@ -1,0 +1,156 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Política de Privacidad - F1 Sin Guion">
+  <div class="bg-bg min-h-screen py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden text-gray-300">
+    
+    {/* Efectos de fondo ambientales */}
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-blue-900/20 blur-[120px] rounded-full pointer-events-none"></div>
+    <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-purple-900/10 blur-[120px] rounded-full pointer-events-none"></div>
+
+    <div class="max-w-4xl mx-auto relative z-10">
+      
+      {/* Encabezado */}
+      <div class="text-center mb-16">
+        <h1 class="text-4xl md:text-6xl font-black text-white mb-4 uppercase italic tracking-tighter">
+          Política de <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-600">Privacidad</span>
+        </h1>
+        <p class="text-lg text-gray-400 max-w-2xl mx-auto">
+          Última actualización: {new Date().toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}
+        </p>
+      </div>
+
+      <div class="space-y-8">
+        
+        {/* Intro */}
+        <div class="bg-surface backdrop-blur-sm rounded-2xl p-8 border border-white/10">
+            <p class="text-lg leading-relaxed">
+                En <strong class="text-white">f1singuion</strong> (en adelante, "el Sitio"), respetamos su privacidad y estamos comprometidos a proteger los datos personales que pueda compartir con nosotros. Esta política describe cómo recopilamos, utilizamos y protegemos su información.
+            </p>
+        </div>
+
+        {/* Sección 1: Información que recopilamos */}
+        <section class="bg-surface backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-blue-500/30 transition-colors duration-300">
+            <div class="flex items-start gap-4">
+                <span class="text-4xl font-black text-white/10 select-none">01</span>
+                <div class="w-full">
+                    <h2 class="text-2xl font-bold text-white mb-6">Información que Recopilamos</h2>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-white/5 p-5 rounded-xl">
+                            <h3 class="text-lg font-bold text-blue-400 mb-2">Información proporcionada</h3>
+                            <p class="text-sm">Si se suscribe a nuestro boletín, comenta en nuestras entradas o nos contacta por correo electrónico, recopilamos datos como su nombre, alias y dirección de correo electrónico.</p>
+                        </div>
+                        <div class="bg-white/5 p-5 rounded-xl">
+                            <h3 class="text-lg font-bold text-blue-400 mb-2">Información técnica</h3>
+                            <p class="text-sm">Al navegar por el Sitio, se recopila información estándar a través de cookies y herramientas de análisis (como la dirección IP, tipo de navegador, páginas visitadas y tiempo de permanencia).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {/* Sección 2: Uso de la información */}
+        <section class="bg-surface backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-cyan-500/30 transition-colors duration-300">
+            <div class="flex items-start gap-4">
+                <span class="text-4xl font-black text-white/10 select-none">02</span>
+                <div>
+                    <h2 class="text-2xl font-bold text-white mb-4">Uso de la Información</h2>
+                    <p class="mb-4">Utilizamos la información recopilada para:</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-cyan-500 mt-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            <span>Gestionar y responder a sus consultas.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-cyan-500 mt-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            <span>Enviar actualizaciones de contenido (solo si usted se ha suscrito voluntariamente).</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-cyan-500 mt-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            <span>Analizar el rendimiento del Sitio para mejorar la experiencia del usuario.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-cyan-500 mt-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            <span>Garantizar la seguridad del Sitio y prevenir actividades fraudulentas.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        {/* Grid para Secciones 3 y 4 */}
+        <div class="grid md:grid-cols-2 gap-8">
+            <section class="bg-surface backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-yellow-500/30 transition-colors duration-300">
+                <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                    <span class="text-yellow-400">03.</span> Cookies
+                </h2>
+                <p class="text-sm leading-relaxed mb-4">
+                    Este Sitio utiliza cookies para personalizar su experiencia. Usted puede configurar su navegador para rechazar todas o algunas cookies, o para que le avise cuando los sitios web instalen cookies.
+                </p>
+                <div class="bg-yellow-500/10 border border-yellow-500/20 p-3 rounded text-xs text-yellow-200">
+                    Tenga en cuenta que, si desactiva las cookies, algunas partes de este Sitio pueden no funcionar correctamente.
+                </div>
+            </section>
+
+            <section class="bg-surface backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-purple-500/30 transition-colors duration-300">
+                <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                    <span class="text-purple-400">04.</span> Terceros y Enlaces
+                </h2>
+                <p class="text-sm leading-relaxed">
+                    Podemos utilizar servicios de terceros (como Google Analytics o proveedores de hosting) que recopilan datos bajo sus propias políticas de privacidad. Asimismo, f1singuion contiene enlaces a sitios externos. No somos responsables de las prácticas de privacidad de dichos sitios ajenos.
+                </p>
+            </section>
+        </div>
+
+        {/* Sección 5: Base Legal (RGPD) */}
+        <section class="bg-surface backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-green-500/30 transition-colors duration-300">
+            <div class="flex items-start gap-4">
+                <span class="text-4xl font-black text-white/10 select-none">05</span>
+                <div>
+                    <h2 class="text-2xl font-bold text-white mb-4">Base Legal para el Tratamiento (RGPD)</h2>
+                    <p class="mb-4 text-sm">Si usted accede desde el Espacio Económico Europeo, tratamos sus datos bajo las siguientes bases legales:</p>
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <div class="border border-white/10 rounded-lg p-4">
+                            <strong class="text-green-400 block mb-1">Consentimiento</strong>
+                            <span class="text-sm text-gray-400">Para el envío de comunicaciones comerciales.</span>
+                        </div>
+                        <div class="border border-white/10 rounded-lg p-4">
+                            <strong class="text-green-400 block mb-1">Interés legítimo</strong>
+                            <span class="text-sm text-gray-400">Para el análisis técnico y seguridad del Sitio.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {/* Sección 6 y 7 */}
+        <div class="grid md:grid-cols-2 gap-8">
+             <section class="bg-surface backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-red-500/30 transition-colors duration-300">
+                <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                    <span class="text-red-400">06.</span> Sus Derechos
+                </h2>
+                <ul class="space-y-2 text-sm mb-4">
+                    <li>• Acceder, rectificar o solicitar la eliminación de sus datos.</li>
+                    <li>• Retirar su consentimiento en cualquier momento.</li>
+                    <li>• Oponerse al tratamiento de sus datos por motivos legítimos.</li>
+                </ul>
+                <p class="text-sm text-gray-400">
+                    Para ejercer estos derechos, puede escribirnos a: <a href="mailto:contacto@f1singuion.com" class="text-white hover:underline font-bold">contacto@f1singuion.com</a>.
+                </p>
+            </section>
+
+            <section class="bg-surface backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-blue-500/30 transition-colors duration-300 flex flex-col justify-center">
+                <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                    <span class="text-blue-400">07.</span> Seguridad de los Datos
+                </h2>
+                <p class="text-sm leading-relaxed">
+                    Implementamos medidas de seguridad técnicas y organizativas para proteger sus datos personales contra acceso no autorizado, alteración o divulgación.
+                </p>
+            </section>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</Layout>

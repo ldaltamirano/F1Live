@@ -1,0 +1,37 @@
+---
+import Button from "./ui/Button.astro";
+---
+
+<div class="bg-surface rounded-2xl p-6 md:p-8 relative overflow-hidden group">
+  {/* Efectos de fondo */}
+
+  <div class="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-6 text-center lg:text-left">
+    <div class="max-w-xl">
+      <h2 class="text-2xl md:text-3xl font-black text-white mb-2 uppercase italic tracking-tighter">
+        ¡Súmate a la <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-600">parrilla!</span> 🏎️💨
+      </h2>
+      <p class="text-gray-400 text-sm md:text-base leading-relaxed">
+        No dejes que te saquen una vuelta de ventaja. Recibe en tu mail el análisis técnico, los rumores del paddock y el resumen post-carrera que nadie más se atreve a contar.
+      </p>
+    </div>
+
+    <div class="w-full max-w-md">
+      <form action="/gracias" method="get" class="flex flex-col gap-3">
+        <div class="flex flex-col sm:flex-row gap-3">
+          <input 
+            type="email" 
+            placeholder="tu@email.com" 
+            required
+            class="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500 transition-all"
+          />
+          <Button type="submit" variant="primary" size="sm" class="justify-center whitespace-nowrap shadow-lg shadow-cyan-900/20 !my-0">
+            Encender motores
+          </Button>
+        </div>
+        <p class="text-[10px] text-gray-500 text-center sm:text-left">
+          🔒 Respetamos tu privacidad. Puedes darte de baja con un clic.
+        </p>
+      </form>
+    </div>
+  </div>
+</div>

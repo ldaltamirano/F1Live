@@ -1,0 +1,77 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Política de Cookies - F1 Sin Guion">
+  <div class="bg-bg min-h-screen py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden text-gray-300">
+    
+    {/* Efectos de fondo ambientales */}
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-yellow-900/20 blur-[120px] rounded-full pointer-events-none"></div>
+    <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-orange-900/10 blur-[120px] rounded-full pointer-events-none"></div>
+
+    <div class="max-w-4xl mx-auto relative z-10">
+      
+      {/* Encabezado */}
+      <div class="text-center mb-16">
+        <h1 class="text-4xl md:text-6xl font-black text-white mb-4 uppercase italic tracking-tighter">
+          Política de <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-600">Cookies</span>
+        </h1>
+        <p class="text-lg text-gray-400 max-w-2xl mx-auto">
+          Transparencia sobre cómo utilizamos sus datos de navegación.
+        </p>
+      </div>
+
+      <div class="space-y-8">
+        
+        {/* Intro */}
+        <div class="bg-surface backdrop-blur-sm rounded-2xl p-8 border border-white/10">
+            <p class="text-lg leading-relaxed">
+                En <strong class="text-white">f1singuion</strong> utilizamos cookies propias y de terceros para mejorar su experiencia de navegación y analizar el tráfico del sitio.
+            </p>
+        </div>
+
+        {/* Sección 1: Tipos de Cookies */}
+        <section class="bg-surface backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-yellow-500/30 transition-colors duration-300">
+            <div class="flex items-start gap-4">
+                <span class="text-4xl font-black text-white/10 select-none">01</span>
+                <div class="w-full">
+                    <h2 class="text-2xl font-bold text-white mb-6">¿Qué tipos de cookies utilizamos?</h2>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-white/5 p-5 rounded-xl border-l-2 border-yellow-500">
+                            <h3 class="text-lg font-bold text-white mb-1">Cookies Técnicas (Necesarias)</h3>
+                            <p class="text-sm text-gray-400">Son esenciales para que el sitio funcione correctamente (ej. recordar que ya aceptaste este aviso). No se pueden desactivar.</p>
+                        </div>
+                        <div class="bg-white/5 p-5 rounded-xl border-l-2 border-yellow-500">
+                            <h3 class="text-lg font-bold text-white mb-1">Cookies de Análisis (Estadísticas)</h3>
+                            <p class="text-sm text-gray-400">Nos permiten saber cuántas personas nos visitan y qué artículos son los más leídos (ej. Google Analytics). Solo se activan si usted da su consentimiento.</p>
+                        </div>
+                        <div class="bg-white/5 p-5 rounded-xl border-l-2 border-yellow-500">
+                            <h3 class="text-lg font-bold text-white mb-1">Cookies de Redes Sociales</h3>
+                            <p class="text-sm text-gray-400">Se activan al interactuar con contenidos incrustados (como posts de Instagram de pilotos o videos de YouTube).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {/* Sección 2: Gestión */}
+        <section class="bg-surface backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-orange-500/30 transition-colors duration-300">
+            <div class="flex items-start gap-4">
+                <span class="text-4xl font-black text-white/10 select-none">02</span>
+                <div>
+                    <h2 class="text-2xl font-bold text-white mb-4">Cómo gestionar sus preferencias</h2>
+                    <p class="text-sm leading-relaxed mb-4">
+                        Usted puede cambiar su configuración en cualquier momento a través del panel de configuración de cookies en nuestro banner principal o mediante los ajustes de su navegador.
+                    </p>
+                    <div class="bg-orange-500/10 border border-orange-500/20 p-4 rounded text-sm text-orange-200">
+                        Para más información sobre cómo eliminarlas, consulte la ayuda de su navegador (Chrome, Safari, Firefox, Edge).
+                    </div>
+                </div>
+            </div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+</Layout>
