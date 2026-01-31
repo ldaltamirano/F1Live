@@ -1,73 +1,39 @@
 ---
 import '@styles/global.css';
 import Layout from '@layouts/Layout.astro';
-import fs from 'node:fs/promises';
-import path from 'node:path';
 // Usamos alias para importar los componentes de forma segura
 import CircuitHero from '@components/circuitos/CircuitHero.astro';
 import CircuitMap from '@components/circuitos/CircuitMap.astro';
 import SessionTimes from '@components/circuitos/SessionTimes.astro';
 import TyreCompounds from '@components/circuitos/TyreCompounds.astro';
 import Button from '@components/ui/Button.astro';
+import {  getcircuitsBySlug } from "@lib/services/circuitsService";
 
-interface Session {
-  id: number;
-  nombre: string;
-  tipo: string;
-  inicio: string;
+// Habilitamos SSR (Server Side Rendering) para esta página
+export const prerender = false;
+
+const { id } = Astro.params;
+
+if (!id) {
+  return Astro.redirect('/404');
 }
 
-interface Circuit {
-  id: number;
-  nombre: string;
-  pais: string;
-  bandera: string;
-  background: string;
-  imagen_circuito: string;
-  info_tecnica: string;
-  resena_historica: string;
-  neumaticos_sugeridos: string[];
-  fecha: string;
-  sesiones: Session[];
+// Buscamos el circuito por slug (index)
+let gp = await getcircuitsBySlug(id);
+
+if (!gp) {
+  return Astro.redirect('/404');
 }
 
-export async function getStaticPaths() {
-  const filePath = path.join(process.cwd(), 'public', 'calendario_f1_2026.json');
-  let circuitos: Circuit[] = [];
-  try {
-    const fileContent = await fs.readFile(filePath, 'utf-8');
-    const data = JSON.parse(fileContent);
-    // Validamos que sea un array antes de asignarlo
-    if (Array.isArray(data)) {
-      circuitos = data;
-    }
-  } catch (error) {
-    console.error("Error al cargar el calendario:", error);
-    return [];
-  }
-
-  let roundCounter = 0;
-  
-  return circuitos.filter(gp => gp.id).map((gp) => {
-    let roundDisplay = "Pre-Season";
-    if (!gp.nombre.includes('Testing')) {
-        roundCounter++;
-        roundDisplay = `Round ${roundCounter}`;
-    }
-
-    return {
-        params: { id: gp.id.toString() },
-        props: { gp, roundDisplay },
-    };
-  });
+// Determinamos el label de la ronda usando el campo 'round' de la DB
+let roundDisplay = "Pre-Season";
+if (gp.round && gp.round > 0) {
+    roundDisplay = `Round ${gp.round}`;
 }
 
-interface Props {
-  gp: Circuit;
-  roundDisplay: string;
-}
-
-const { gp, roundDisplay } = Astro.props;
+const hasInfo = !!gp.infoTecnica;
+const hasHistory = !!gp.resenaHistorica;
+const hasTyres = gp.neumaticosSugeridos && gp.neumaticosSugeridos.length > 0;
 ---
 
 <Layout title={`${gp.nombre} - F1 2026`}>
@@ -92,34 +58,62 @@ const { gp, roundDisplay } = Astro.props;
           {/* Mapa con efecto de brillo */}
           <CircuitMap gp={gp} />
 
-          {/* Detalles Técnicos e Históricos */}
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="bg-surface p-8 rounded-2xl border-l-4 border-secondary">
-              <h3 class="text-lg font-bold uppercase mb-4 text-text flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                Technical Info
-              </h3>
-              <p class="text-text-muted leading-relaxed text-sm">{gp.info_tecnica}</p>
+          {/* Estadísticas del Circuito */}
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-surface p-4 rounded-xl border border-white/5 flex flex-col items-center justify-center text-center hover:border-white/10 transition-colors">
+                <span class="text-text-muted text-[10px] uppercase font-bold tracking-wider mb-1">First GP</span>
+                <span class="text-xl font-black text-accent">{gp.primerGranPremio || '-'}</span>
             </div>
-            <div class="bg-surface p-8 rounded-2xl border-l-4 border-secondary">
-              <h3 class="text-lg font-bold uppercase mb-4 text-text flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                History
-              </h3>
-              <p class="text-text-muted leading-relaxed text-sm">{gp.resena_historica}</p>
+            <div class="bg-surface p-4 rounded-xl border border-white/5 flex flex-col items-center justify-center text-center hover:border-white/10 transition-colors">
+                <span class="text-text-muted text-[10px] uppercase font-bold tracking-wider mb-1">Laps</span>
+                <span class="text-xl font-black text-text">{gp.vueltas || '-'}</span>
+            </div>
+            <div class="bg-surface p-4 rounded-xl border border-white/5 flex flex-col items-center justify-center text-center hover:border-white/10 transition-colors">
+                <span class="text-text-muted text-[10px] uppercase font-bold tracking-wider mb-1">Length</span>
+                <span class="text-xl font-black text-text">{gp.longitud || '-'} <span class="text-xs font-normal text-text-muted">km</span></span>
             </div>
           </div>
+
+          {/* Detalles Técnicos e Históricos */}
+          {(hasInfo || hasHistory) && (
+            <div class={`grid grid-cols-1 ${hasInfo && hasHistory ? 'md:grid-cols-2' : ''} gap-6`}>
+              {hasInfo && (
+                <div class="bg-surface p-8 rounded-2xl border-l-4 border-secondary">
+                  <h3 class="text-lg font-bold uppercase mb-4 text-text flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    Technical Info
+                  </h3>
+                  <p class="text-text-muted leading-relaxed text-sm">{gp.infoTecnica}</p>
+                  {gp.recordVuelta && (
+                    <div class="mt-4 pt-4 border-t border-white/5 flex items-center justify-between">
+                        <span class="text-xs font-bold text-text-muted uppercase">Lap Record</span>
+                        <span class="text-sm font-mono font-bold text-accent">{gp.recordVuelta}</span>
+                    </div>
+                  )}
+                </div>
+              )}
+              {hasHistory && (
+                <div class="bg-surface p-8 rounded-2xl border-l-4 border-secondary">
+                  <h3 class="text-lg font-bold uppercase mb-4 text-text flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    History
+                  </h3>
+                  <p class="text-text-muted leading-relaxed text-sm">{gp.resenaHistorica}</p>
+                </div>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Sidebar: Horarios y Neumáticos */}
         <div class="space-y-8">
           
           {/* Horarios */}
-          <SessionTimes sesiones={gp.sesiones} />
+          <SessionTimes sesiones={gp.sessions} status={gp.estado} />
 
           {/* Neumáticos (Diseño realista: goma negra con borde de color) */}
-          {gp.neumaticos_sugeridos && (
-            <TyreCompounds compounds={gp.neumaticos_sugeridos} />
+          {hasTyres && (
+            <TyreCompounds compounds={gp.neumaticosSugeridos} />
           )}
 
         </div>

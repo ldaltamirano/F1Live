@@ -11,14 +11,17 @@ const { compounds } = Astro.props;
     <span class="text-accent">Tyre</span> Allocation
   </h3>
   
-  <div class="flex justify-center gap-4">
+  <div class="flex justify-center gap-6">
     {compounds.slice(0, 3).map((c, i) => (
-      <div class="flex flex-col items-center gap-2">
-        <div class={`w-12 h-12 rounded-[10px] flex items-center justify-center text-sm font-black border-4 shadow-lg ${
-          i === 0 ? 'border-white text-white bg-surface' : 
-          i === 1 ? 'border-[#ffd700] text-[#ffd700] bg-surface' : 
-          'border-[#e10600] text-[#e10600] bg-surface'
+      <div class="group flex flex-col items-center gap-3">
+        <div class={`relative w-14 h-14 rounded-full flex items-center justify-center text-lg font-black border-[6px] shadow-xl transition-transform duration-300 group-hover:scale-110 ${
+          i === 0 ? 'border-white text-white bg-[#1a1a1a]' : 
+          i === 1 ? 'border-[#ffd700] text-[#ffd700] bg-[#1a1a1a]' : 
+          'border-[#e10600] text-[#e10600] bg-[#1a1a1a]'
         }`}>
+          {/* Tyre Shine Effect */}
+          <div class="absolute inset-0 rounded-full border border-white/10"></div>
+          <div class="absolute top-1 right-2 w-3 h-1.5 bg-white/20 rounded-full -rotate-45 blur-[1px]"></div>
           {c}
         </div>
         <span class="text-[10px] text-text-muted uppercase font-bold">{i === 0 ? 'Hard' : i === 1 ? 'Medium' : 'Soft'}</span>

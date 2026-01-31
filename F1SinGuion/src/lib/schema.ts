@@ -1,5 +1,6 @@
 import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core';
-import { sql } from 'drizzle-orm';
+import { sql, relations } from 'drizzle-orm';
+import { int } from 'drizzle-orm/mysql-core';
 
 // ==========================================
 // 1. ORGANIZACIÓN Y PARTICIPANTES
@@ -66,12 +67,27 @@ export const drivers = sqliteTable('drivers', {
   fraseReferencia: text('frase_referencia'),
 });
 
+export const teamsRelations = relations(teams, ({ many }) => ({
+	drivers: many(drivers),
+}));
+
+export const driversRelations = relations(drivers, ({ one, many }) => ({
+	team: one(teams, {
+		fields: [drivers.teamId],
+		references: [teams.index],
+	}),
+  stints: many(stints),
+  lapTimes: many(lapTimes),
+}));
+
 // ==========================================
 // 2. CALENDARIO Y EVENTOS
 // ==========================================
 export const circuits = sqliteTable('circuits', {
   id: integer('id').primaryKey(), // ID numérico del JSON (ej: 1279)
   index: text('index'), // ID numérico del JSON (ej: 1279)
+  round: integer('round'),
+  estado: integer('estado').default(0), // 0: Pendiente,1: Proximo, 2: En curso, 3: Finalizado
   nombre: text('nombre').notNull(),
   pais: text('pais'),
   ciudad: text('ciudad'),
@@ -81,11 +97,11 @@ export const circuits = sqliteTable('circuits', {
   infoTecnica: text('info_tecnica'),
   resenaHistorica: text('resena_historica'),
   fecha: text('fecha'), // ISO String
+  temporada: integer('temporada'),
   
   // Datos técnicos
   longitud: text('longitud'),
   vueltas: integer('vueltas'),
-  distanciaTotal: text('distancia_total'),
   recordVuelta: text('record_vuelta'),
   primerGranPremio: integer('primer_gran_premio'),
   numeroCurvas: integer('numero_curvas'),
@@ -104,6 +120,20 @@ export const sessions = sqliteTable('sessions', {
   tipo: text('tipo'), // ej: "Practice", "Race"
   inicio: text('inicio'), // ISO String
 });
+
+export const circuitsRelations = relations(circuits, ({ many }) => ({
+  sessions: many(sessions),
+}));
+
+export const sessionsRelations = relations(sessions, ({ one, many }) => ({
+  circuit: one(circuits, {
+    fields: [sessions.circuitId],
+    references: [circuits.id],
+  }),
+  stints: many(stints),
+  lapTimes: many(lapTimes),
+  telemetry: many(telemetry),
+}));
 
 // ==========================================
 // 3. DATOS DE CARRERA (LIVE TIMING)
@@ -159,6 +189,48 @@ export const telemetry = sqliteTable('telemetry', {
   z: integer('z'),
 });
 
+export const stintsRelations = relations(stints, ({ one, many }) => ({
+  session: one(sessions, {
+    fields: [stints.sessionId],
+    references: [sessions.id],
+  }),
+  driver: one(drivers, {
+    fields: [stints.driverId],
+    references: [drivers.id],
+  }),
+  lapTimes: many(lapTimes),
+}));
+
+export const lapTimesRelations = relations(lapTimes, ({ one, many }) => ({
+  session: one(sessions, {
+    fields: [lapTimes.sessionId],
+    references: [sessions.id],
+  }),
+  driver: one(drivers, {
+    fields: [lapTimes.driverId],
+    references: [drivers.id],
+  }),
+  stint: one(stints, {
+    fields: [lapTimes.stintId],
+    references: [stints.id],
+  }),
+  telemetry: many(telemetry),
+}));
+
+export const telemetryRelations = relations(telemetry, ({ one }) => ({
+  session: one(sessions, {
+    fields: [telemetry.sessionId],
+    references: [sessions.id],
+  }),
+  driver: one(drivers, {
+    fields: [telemetry.driverId],
+    references: [drivers.id],
+  }),
+  lapTime: one(lapTimes, {
+    fields: [telemetry.lapToimeId],
+    references: [lapTimes.id],
+  }),
+}));
 
 // ==========================================
 // 4. GESTIÓN DE CONTENIDOS (CMS)
@@ -213,3 +285,22 @@ export const auditLogs = sqliteTable('audit_logs', {
   changes: text('changes', { mode: 'json' }), // JSON con los cambios
   timestamp: text('timestamp').default(sql`(CURRENT_TIMESTAMP)`),
 });
+
+export const permissionsRelations = relations(permissions, ({ many }) => ({
+  users: many(admin),
+}));
+
+export const adminRelations = relations(admin, ({ one, many }) => ({
+  permission: one(permissions, {
+    fields: [admin.permissionId],
+    references: [permissions.id],
+  }),
+  auditLogs: many(auditLogs),
+}));
+
+export const auditLogsRelations = relations(auditLogs, ({ one }) => ({
+  user: one(admin, {
+    fields: [auditLogs.userId],
+    references: [admin.id],
+  }),
+}));

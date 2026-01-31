@@ -8,42 +8,147 @@ interface Session {
 
 interface Props {
   sesiones: Session[];
+  status?: number;
 }
 
-const { sesiones } = Astro.props;
+const { sesiones, status } = Astro.props;
 
 const formatDate = (dateString: string) => {
   const date = new Date(dateString);
   return {
-    day: date.toLocaleDateString('es-ES', { weekday: 'short', day: 'numeric' }),
+    weekday: date.toLocaleDateString('es-ES', { weekday: 'short' }).replace('.', '').toUpperCase(),
+    dayNumber: date.toLocaleDateString('es-ES', { day: 'numeric' }),
     time: date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })
   };
 };
+
+const getSessionStyle = (type: string) => {
+    if (type === 'Race') return 'border-l-4 border-secondary bg-gradient-to-r from-secondary/10 to-transparent';
+    if (type && type.includes('Qualifying')) return 'border-l-4 border-accent/50 bg-white/5';
+    return 'border-l-4 border-white/10 hover:border-white/30 bg-white/5';
+};
 ---
 
-<div class="bg-surface rounded-2xl p-6 border border-white/10">
-  <h3 class="text-xl font-bold text-text mb-6 flex items-center gap-2 uppercase italic">
-    <span class="text-accent">Session</span> Times
-  </h3>
+<div class="bg-surface rounded-2xl p-6 border border-white/10 flex flex-col relative overflow-hidden">
+  <div class="flex items-center justify-between mb-6">
+    <div>
+      <h3 class="text-xl font-bold text-text flex items-center gap-2 uppercase italic">
+        <span class="text-accent">Session</span> Times
+      </h3>
+      {(status === 1) && (
+        <div id="countdown" class="text-xs font-mono text-secondary mt-1 h-4 opacity-0 transition-opacity duration-500">Loading...</div>
+      )}
+    </div>
+    <div class="flex items-center gap-2 text-xs text-text-muted">
+        <span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+        LOCAL TIME
+    </div>
+  </div>
   
-  <div class="space-y-4">
+  <div class="space-y-3 relative z-10">
     {sesiones && sesiones.map((session) => {
-      const { day, time } = formatDate(session.inicio);
+      const { weekday, dayNumber, time } = formatDate(session.inicio);
       const isRace = session.tipo === 'Race';
       
       return (
-        <div class={`flex justify-between items-center p-3 rounded-lg ${isRace ? 'bg-white/10 border-l-4 border-secondary' : 'bg-white/5 hover:bg-white/10'} transition-colors`}>
-          <span class={`font-bold ${isRace ? 'text-text' : 'text-text-muted'}`}>{session.nombre}</span>
-          <div class="text-right">
-            <div class="text-xs text-text-muted uppercase font-bold">{day}</div>
-            <div class="text-sm font-mono text-text">{time}</div>
-          </div>
+        <div class={`session-card group relative flex items-center gap-4 p-3 rounded-r-lg transition-all duration-300 hover:bg-white/10 ${getSessionStyle(session.tipo)}`} data-time={session.inicio}>
+            
+            {/* Date Box */}
+            <div class="flex flex-col items-center justify-center w-12 h-12 bg-bg/50 rounded-lg border border-white/5 group-hover:border-white/20 transition-colors">
+                <span class="text-[10px] font-bold text-text-muted leading-none">{weekday}</span>
+                <span class={`text-lg font-black leading-none ${isRace ? 'text-secondary' : 'text-text'}`}>{dayNumber}</span>
+            </div>
+
+            {/* Session Info */}
+            <div class="flex-1 min-w-0">
+                <h4 class={`font-bold truncate ${isRace ? 'text-lg text-white' : 'text-text-muted group-hover:text-text transition-colors'}`}>
+                    {session.nombre}
+                </h4>
+                {isRace && <span class="inline-block px-2 py-0.5 rounded bg-secondary/20 text-secondary text-[10px] font-bold uppercase tracking-wider border border-secondary/20">Main Event</span>}
+            </div>
+
+            {/* Time */}
+            <div class="text-right pl-2">
+                <div class="text-sm font-mono font-bold text-text bg-bg/30 px-2 py-1 rounded border border-white/5 group-hover:border-white/20 transition-colors">
+                    {time}
+                </div>
+            </div>
+
+            {/* Active Indicator (Hidden by default) */}
+            {status === 1 && (
+              <div class="active-indicator hidden absolute -left-[4px] top-0 bottom-0 w-1 bg-accent shadow-[0_0_15px_rgba(var(--accent),0.6)]"></div>
+            )}
         </div>
       );
     })}
     
     {(!sesiones || sesiones.length === 0) && (
-      <p class="text-text-muted text-sm italic text-center py-4">Horarios aún no confirmados.</p>
+      <div class="flex flex-col items-center justify-center py-12 text-text-muted opacity-50">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <p class="text-sm italic">Horarios por confirmar</p>
+      </div>
     )}
   </div>
 </div>
+
+<script>
+  let intervalId;
+
+  function initCountdown() {
+    const cards = document.querySelectorAll('.session-card');
+    const countdownEl = document.getElementById('countdown');
+    
+    // Limpiamos el intervalo anterior para evitar duplicados o fugas de memoria
+    if (intervalId) clearInterval(intervalId);
+
+    const updateSessions = () => {
+      const now = new Date();
+      let nextFound = false;
+
+      cards.forEach((card) => {
+        const timeStr = card.getAttribute('data-time');
+        if (!timeStr) return;
+        const time = new Date(timeStr);
+        const indicator = card.querySelector('.active-indicator');
+
+        if (!nextFound && time > now) {
+          nextFound = true;
+          // Highlight next session
+          card.classList.add('bg-white/5');
+          if (indicator) indicator.classList.remove('hidden');
+          
+          // Update countdown
+          if (countdownEl) {
+            const diff = time.getTime() - now.getTime();
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            countdownEl.textContent = `NEXT: ${days > 0 ? days + 'd ' : ''}${hours}h ${minutes}m ${seconds}s`;
+            countdownEl.classList.remove('opacity-0');
+          }
+        } else {
+          // Past or future sessions (not next)
+          card.classList.remove('bg-white/5');
+          if (indicator) indicator.classList.add('hidden');
+          if (time < now) {
+              card.classList.add('opacity-60', 'grayscale-[0.5]');
+          }
+        }
+      });
+    };
+
+    // Ejecutar inmediatamente y luego cada segundo
+    updateSessions();
+    intervalId = setInterval(updateSessions, 1000);
+  }
+
+  // Ejecutar en carga inicial
+  initCountdown();
+
+  // Re-ejecutar cuando Astro cambia de página (View Transitions)
+  document.addEventListener('astro:after-swap', initCountdown);
+</script>

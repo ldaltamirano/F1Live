@@ -1,6 +1,8 @@
 ---
+import type { Circuit } from "@lib/services/circuitsService";
+
 interface Props {
-  gp: any;
+  gp: Circuit;
   roundLabel: string;
 }
 
@@ -13,12 +15,12 @@ if (!gp) return;
 const startDate = new Date(gp.fecha);
 let endDate = new Date(gp.fecha);
 
-if (gp.sesiones && gp.sesiones.length > 0) {
-    const raceSession = gp.sesiones.find((s: any) => s.tipo === 'Race');
+if (gp.sessions && gp.sessions.length > 0) {
+    const raceSession = gp.sessions.find((s) => s.tipo === 'Race');
     if (raceSession) {
         endDate = new Date(raceSession.inicio);
     } else {
-        endDate = new Date(gp.sesiones[gp.sesiones.length - 1].inicio);
+        endDate = new Date(gp.sessions[gp.sessions.length - 1].inicio);
     }
 }
 
@@ -40,7 +42,7 @@ if (endDate.getTime() > startDate.getTime()) {
 }
 ---
 
-<a href={`/circuitos/${gp.id}`} class="card-item group relative bg-surface rounded-2xl overflow-hidden border border-white/10 hover:border-accent transition-all duration-300 hover:shadow-[0_0_30px_rgba(6,182,212,0.15)] hover:-translate-y-2 flex flex-col" data-name={gp.nombre} data-country={gp.pais}>
+<a href={`/circuitos/${gp.index}`} class="card-item group relative bg-surface rounded-2xl overflow-hidden border border-white/10 hover:border-accent transition-all duration-300 hover:shadow-[0_0_30px_rgba(6,182,212,0.15)] hover:-translate-y-2 flex flex-col" data-name={gp.nombre} data-country={gp.pais}>
   
   {/* Barra superior decorativa roja que aparece al hacer hover */}
   <div class="h-1 w-full bg-gradient-to-r from-accent to-secondary transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
@@ -72,7 +74,7 @@ if (endDate.getTime() > startDate.getTime()) {
         {gp.nombre}
       </h2>
       <p class="text-xs text-text-muted mt-2 line-clamp-1 font-medium">
-        {gp.info_tecnica ? gp.info_tecnica.split('.')[0] : ''}
+        {gp.infoTecnica && gp.infoTecnica.length > 0? gp.infoTecnica.split('.')[0] : ''}
       </p>
     </div>
 
@@ -84,7 +86,7 @@ if (endDate.getTime() > startDate.getTime()) {
       {/* Imagen invertida para que se vea blanca sobre fondo oscuro */}
       <img 
         transition:name={`map-${gp.id}`}
-        src={gp.imagen_circuito} 
+        src={gp.imagenCircuito} 
         alt={`Circuito de ${gp.nombre}`} 
         class="h-full w-full object-contain filter invert opacity-60 group-hover:opacity-100 transition-all duration-500 drop-shadow-[0_0_8px_rgba(255,255,255,0.1)]" 
       />
@@ -93,10 +95,10 @@ if (endDate.getTime() > startDate.getTime()) {
     {/* Footer: Neumáticos y Año */}
     <div class="border-t border-white/10 pt-4 flex justify-between items-center">
        {
-        gp.neumaticos_sugeridos && gp.neumaticos_sugeridos.length > 0 ? (
+        gp.neumaticosSugeridos && gp.neumaticosSugeridos.length > 0 ? (
             <div class="flex gap-1 items-center">
               <span class="text-[10px] text-text-muted mr-1 uppercase font-bold">Tyres</span>
-              {gp.neumaticos_sugeridos.slice(0, 3).map((n: string, i: number) => (
+              {gp.neumaticosSugeridos.slice(0, 3).map((n: string, i: number) => (
                 <span class={`w-5 h-5 rounded-[10px] flex items-center justify-center text-[9px] font-bold border border-white/10 ${
                   i === 0 ? 'bg-white text-black' :
                   i === 1 ? 'bg-[#ffd700] text-black' :

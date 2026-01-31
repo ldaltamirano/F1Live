@@ -1,23 +1,11 @@
 ---
 import "@styles/global.css";
 import Layout from "@layouts/Layout.astro";
-import fs from 'node:fs/promises';
-import path from 'node:path';
 import CircuitCard from "@components/circuitos/CircuitCard.astro";
+import { getAllCircuits } from "@lib/services/circuitsService";
 
 // Carga de datos
-const filePath = path.join(process.cwd(), 'public', 'calendario_f1_2026.json');
-let circuitos: any[] = [];
-
-try {
-  const fileContent = await fs.readFile(filePath, 'utf-8');
-  const data = JSON.parse(fileContent);
-  if (Array.isArray(data)) {
-    circuitos = data;
-  }
-} catch (error) {
-  console.error("Error al cargar el calendario:", error);
-}
+const circuitos = await getAllCircuits();
 
 let rondaCounter = 0;
 ---
